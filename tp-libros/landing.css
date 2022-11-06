@@ -1,0 +1,282 @@
+@import url('https://fonts.googleapis.com/css?family=Comfortaa|Open+Sans:300,400,600,700');
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: 'Open Sans', sans-serif;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+/* ========== header and navbar styling =========*/
+
+header {
+	width: 100%;
+	padding: 10px 40px;
+	border-bottom: 1px solid #E5E5E5;
+	background-color: #dde1d4;
+	position: fixed;
+	top: 0;
+	transition: all 0.25s ease;
+	z-index: 3;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	flex-wrap: wrap;
+    box-shadow: 0px 10px 20px 0px #00000030;
+
+}
+
+header img {
+	height: 100px;
+    width: 115px;
+    margin: -30px;
+}
+
+@media (max-width: 330px) {
+	header img {
+		display: none;
+	}
+}
+
+header h1 {
+	font-size: 1.1rem;
+	font-weight: 600;
+	color: #828282;
+	margin: auto;
+}
+
+@media (max-width: 600px) {
+	h1 {
+		display: none;
+	}
+}
+
+nav {
+	padding: 15px 15px 0 15px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+}
+
+nav ul {
+	display: flex;
+	margin: 0px 70px 0px 0px;
+	width: 100%;
+	flex-wrap: nowrap;
+	justify-content: flex-end;
+}
+
+@media (max-width: 600px) {
+	nav ul {
+		margin: unset;
+		display: unset;
+		position: relative;
+		right: 30px;
+	}
+}
+
+nav li {
+	list-style-type: none;
+}
+
+nav li a {
+	margin: 0 15px;
+	padding: 10px 5px 15px 5px;
+	color: #828282;
+	text-transform: uppercase;
+	letter-spacing: 0.05rem;
+	font-size: 0.8rem;
+}
+
+nav li a:hover {
+	color: #eeb38c;
+	border-bottom: 2px solid #eeb38c;
+}
+
+
+/* CSS */
+nav button {
+  background-color: #ebc9b3;
+  border: 1px solid #ebc9b3;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  outline: none;
+  outline: 0;
+  padding: 10px 25px;
+  text-align: center;
+  transform: translateY(0);
+  transition: transform 150ms, box-shadow 150ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  min-width: 110px;
+  position: relative;
+  z-index: 1;
+}
+
+nav button:hover {
+  box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
+  transform: translateY(-2px);
+}
+
+@media (min-width: 768px) {
+  nav button {
+    padding: 10px 30px;
+  }
+}
+
+nav button:hover {
+	cursor: pointer;
+}
+
+@keyframes buttonEffect {
+	0% {
+		width: 0px;
+	}
+
+	100% {
+		width: 100%;
+	}
+}
+
+@keyframes buttonEffectRemoval {
+	0% {
+		width: 100%;
+	}
+
+	100% {
+		width: 0px;
+	}
+}
+
+@media (max-width: 1000px) {
+	nav li a {
+		padding-bottom: 0px;
+	}
+}
+
+
+/* ############ book list ################ */
+
+#position-2{
+	height: 35rem;
+    width: 60rem;
+    background-color: #d19e78;
+    margin: auto;
+	display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+	align-items: center;
+
+}
+
+#book-filter{
+	width: 10rem;
+    height: 30rem;
+	background-color: #f3ebe2;
+	display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+#book-list{
+	width: 45rem;
+	height: 30rem;
+	background-color: #f3ebe2;
+}
+
+#book-filter label{
+	font-size: 0.8rem;
+}
+
+#book-filter > .filter > select, #book-filter > .filter > input{
+	width: 8rem;
+	height: 1.25rem;
+	background-color: #f3ebe2;
+	border-bottom: 2px solid #828282;
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+}
+
+#book-filter .filter{	
+    margin: 5px 0px;
+	padding-left: 5px;
+}
+#book-filter > .filter > select:focus, #book-filter > .filter > input:hover,  #book-filter > .filter > input:focus{
+	height: 1.19rem;
+	color: black;
+	border-bottom: 2px solid #d19e78;
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+	outline: -webkit-focus-ring-color auto 0px;
+}
+
+.book{
+	width: 100%;
+    height: 25%;
+    border-bottom: 1px solid lightgrey;
+	display: flex;
+    flex-direction: row;
+}
+
+.book:hover{
+	background-color: #f0f0ea;
+}
+
+.book .book-img{
+	width: 15%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.book .book-text{
+	width: 55%;
+	display: flex;
+	flex-direction: column;
+
+}
+
+.book > .book-text > .book-tittle{
+	width: 100%;
+	height: 70%;
+}
+
+.book > .book-text > .book-author{
+	width: 100%;
+	height: 20%;
+	color: #828282;
+
+}
+
+.book > .book-isbn{
+	width: 15%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #828282;
+}
+.book > .book-gender{
+	width: 15%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #828282;
+}

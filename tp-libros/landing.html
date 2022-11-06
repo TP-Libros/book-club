@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="image/png" href="./images/2(1).png">
+	<link rel="stylesheet" href="landing.css">
+	<script src="landing.js"></script>
+	<title>Book Club</title>
+</head>
+
+<body>
+
+
+	<header id="header">
+		<a href="./landing.html"><img src="./images/1(1).png" alt="Book Club Logo" id="header-img"></a>
+		<h1>Prestamo de libros</h1>
+		<nav id="nav-bar">
+			<ul>
+				<li><a class="nav-link" href="./nosotros">Nosotros</a></li>
+				<li><a class="nav-link" href="./prestamos">¿Cómo hacer un prestamo?</a></li>
+			</ul>
+			<button onclick="window.location.href='/login';" type="button">Log in</button>
+		</nav>
+	</header>
+
+	<main>
+		<div id="position-2">
+			<div id="book-filter">
+				<div class="filter">
+					<label for="order-select">Order By:</label>
+					<select name="order-by" id="order-select">
+						<option value="">--Please choose an option--</option>
+						<option value="A-Z">A-Z</option>
+						<option value="Z-A">Z-A</option>
+						<option value="isbn-asc">ISBN Asc</option>
+						<option value="isbn-desc">ISBN Desc</option>
+					</select>
+				</div>
+				<div class="filter">
+					<label for="category-select">Filter Category:</label>
+					<select name="by-category" id="category-select">
+						<option value="">--Please choose an option--</option>
+					</select>
+				</div>
+				<div class="filter">
+					<label for="isbn-search">By ISBN:</label>
+					<input type="number" id="isbn-search" name="isbn-search">
+				</div>
+				<div class="filter">
+					<label for="tittle-search">By Tittle:</label>
+					<input type="text" id="tittle-search" name="tittle-search">
+				</div>
+				<div class="filter">
+					<label for="author-search">By Author:</label>
+					<input type="text" id="author-search" name="author-search">
+				</div>
+			</div>
+
+			<div id="book-list">
+				<div class="book" class="book">
+					<div class="book-img"></div>
+					<div class="book-text">
+						<div class="book-tittle"></div>
+						<div class="book-author"></div>
+					</div>
+					<div class="book-isbn"></div>
+					<div class="book-gender"></div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+
+</body>
+
+</html>
