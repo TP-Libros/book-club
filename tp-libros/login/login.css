@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css?family=Comfortaa|Open+Sans:300,400,600,700');
+
+
+body{
+	margin: 0;
+	padding: 0;
+	font-size: 16px;
+	line-height: 1.5;
+    font-family: 'Open Sans', sans-serif;
+
+}
+*,*:before,*:after{
+	box-sizing: border-box;
+}
+img{
+	max-width: 100%;
+	height: auto;
+}
+.container{
+    width:100%;
+    min-height: 100vh;
+    height: auto;
+    padding:6% 10% 5% 10%;
+    background-image: url(img/b.jpg);
+    background:linear-gradient(rgba(0, 0, 0, 0.70), rgba(0, 0, 0, 0.70)),url(./images/fondoBC.jpg);
+    background-size: cover;
+    background-position: 50% 50%;
+    display: flex;
+    flex-direction: row;
+}
+.text-tittle{
+     /* background:red;  */
+    flex-basis: 65%;
+    margin-right: 5%;
+}
+.text-tittle h1{
+    font-size: 4rem;
+    color:white;
+    margin:3% 0% 3% 0%;
+}
+.text-tittle h2{
+	font-size:1.2rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.5);
+}
+.form-container{
+    background:rgb(34,43,49,0.7);
+    color:white;
+    flex-basis: 35%;
+    border-top: 10px solid #d19e78;
+    padding:2% 3%;
+}
+.form-container *{
+    margin: 0;
+}
+.form-container h3{
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+.form-container form label{
+    color: rgba(255, 255, 255, 0.8);
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 0.3rem;
+}
+.form-container form .input-user{
+    box-shadow: none;
+    background: transparent;
+    height: 2.8rem;
+    display: block;
+    width: 100%;
+    margin-bottom: 1rem;
+	background-color: #82828257;
+	border-bottom: 2px solid #828282;
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+}
+
+.form-container form .input-user:hover, .form-container form .input-user:focus{
+	color: #d19e78;
+	border-bottom: 2px solid #d19e78;
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+	outline: -webkit-focus-ring-color auto 0px;
+}
+
+
+form .login-button {
+    background-color: #d19e78;
+    border: 1px solid #d19e78;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
+    box-sizing: border-box;
+    color: #ffffff;
+    cursor: pointer;
+    font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    outline: none;
+    outline: 0;
+    padding: 10px 25px;
+    text-align: center;
+    transform: translateY(0);
+    transition: transform 150ms, box-shadow 150ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+
+  }
+  
+  form .login-button:hover {
+    box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
+    transform: translateY(-2px);
+  }
