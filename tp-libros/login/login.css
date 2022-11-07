@@ -47,6 +47,7 @@ img{
     background:rgb(34,43,49,0.7);
     color:white;
     flex-basis: 35%;
+    height: 20.2rem;
     border-top: 10px solid #d19e78;
     padding:2% 3%;
 }
