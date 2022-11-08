@@ -1,4 +1,7 @@
 # compiled output
+book-club-api/dist/
+book-club-api/node_modules/
+
 /dist
 /node_modules
 
