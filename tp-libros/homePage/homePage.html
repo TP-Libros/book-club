@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'/>
+    <link rel="icon" href="images/favicon.png">
+    <link rel="stylesheet" href="homePage.css"/>
+    <link rel="stylesheet" href="/landing/landing.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/landing/landing.js"></script>
+
+    <title>Book Club</title>
+ 
+</head>
+
+<body>    
+	<header id="header">
+		<a href="/landing/landing.html"><img src="images/logo.png" alt="Book Club Logo" id="header-img"></a>
+		<h1>Prestamo de libros</h1>
+		<nav id="nav-bar">
+			<ul>
+				<li><a class="nav-link" href="./nosotros">Nosotros</a></li>
+				<li><a class="nav-link" href="./prestamos">¿Cómo hacer un prestamo?</a></li>
+			</ul>
+      <button onclick="window.location.href='/login/login';" type="button">Log in</button>
+		</nav>
+	</header>
+
+  <div class="containerMsg">
+      <p>Si queres unirte a la comunidad única del Book Club, solo tenes que hacer un click debajo... </p>
+      <br><button id="signIn">Registrate!</button>
+  </div>
+
+        <div id="book-list">Lista de libros disponibles
+          <div class="book" class="book">
+            <div class="book-img"></div>
+            <div class="book-text">
+              <div class="book-tittle"></div>
+              <div class="book-author"></div>
+            </div>
+            <div class="book-isbn"></div>
+            <div class="book-gender"></div>
+          </div>
+          <br><button id="seeMore">Ver Más</button>
+        </div>
+ <!-- xxxxxx  -->
+
+<script src= 'homePage.js'></script>
+ 
+</body>
