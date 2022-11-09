@@ -21,8 +21,7 @@ img{
     min-height: 100vh;
     height: auto;
     padding:6% 10% 5% 10%;
-    background-image: url(img/b.jpg);
-    background:linear-gradient(rgba(0, 0, 0, 0.70), rgba(0, 0, 0, 0.70)),url(./images/fondoBC.jpg);
+    background:linear-gradient(rgba(0, 0, 0, 0.70), rgba(0, 0, 0, 0.70)),url(/StylesUniversal/images/fondoBC.jpg);
     background-size: cover;
     background-position: 50% 50%;
     display: flex;
