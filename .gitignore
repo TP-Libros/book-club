@@ -5,6 +5,9 @@ book-club-api/node_modules/
 /dist
 /node_modules
 
+# env
+book-club-api/.env
+
 # Logs
 logs
 *.log
