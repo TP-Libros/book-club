@@ -1,0 +1,111 @@
+
+#position-2{
+	height: 35rem;
+    width: 60rem;
+    background-color: #d19e78;
+    margin: auto;
+	display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+	align-items: center;
+
+}
+
+#book-filter{
+	width: 10rem;
+    height: 30rem;
+	background-color: #f3ebe2;
+	display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+#book-list{
+	width: 45rem;
+	height: 30rem;
+	background-color: #f3ebe2;
+}
+
+#book-filter label{
+	font-size: 0.8rem;
+}
+
+#book-filter > .filter > select, #book-filter > .filter > input{
+	width: 8rem;
+	height: 1.25rem;
+	background-color: #f3ebe2;
+	border-bottom: 2px solid #828282;
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+}
+
+#book-filter .filter{	
+    margin: 5px 0px;
+	padding-left: 5px;
+}
+#book-filter > .filter > select:focus, #book-filter > .filter > input:hover,  #book-filter > .filter > input:focus{
+	height: 1.19rem;
+	color: black;
+	border-bottom: 2px solid #d19e78;
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+	outline: -webkit-focus-ring-color auto 0px;
+}
+
+.book{
+	width: 100%;
+    height: 25%;
+    border-bottom: 1px solid lightgrey;
+	display: flex;
+    flex-direction: row;
+}
+
+.book:hover{
+	background-color: #f0f0ea;
+}
+
+.book .book-img{
+	width: 15%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.book .book-text{
+	width: 55%;
+	display: flex;
+	flex-direction: column;
+
+}
+
+.book > .book-text > .book-tittle{
+	width: 100%;
+	height: 70%;
+}
+
+.book > .book-text > .book-author{
+	width: 100%;
+	height: 20%;
+	color: #828282;
+
+}
+
+.book > .book-isbn{
+	width: 15%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #828282;
+}
+.book > .book-gender{
+	width: 15%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #828282;
+}
