@@ -1,1 +1,1 @@
-export class CreateGenderDto {}
+// export class CreateGenderDto {}
