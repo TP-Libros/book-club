@@ -1,0 +1,41 @@
+nav button {
+    min-width: 140px;
+}
+
+#position1 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#carga-libro-container {
+    width: 60rem;
+    height: 32.5rem;
+    background-color: #d19e78;
+    margin-top: 40px;
+}
+
+.drop-spot-container{
+    margin: 20px;
+    background-color: #f3ebe2;
+    width: 325px;
+    height: 425px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.drop-spot {
+    border: 2px #c1c1c1 dashed;
+    width: 300px;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#image-sink {
+    max-width: 100%;
+    max-height: 100%;
+}

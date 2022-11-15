@@ -19,10 +19,8 @@ header {
 	padding: 10px 40px;
 	border-bottom: 1px solid #E5E5E5;
 	background-color: #dde1d4;
-	position: fixed;
 	top: 0;
 	transition: all 0.25s ease;
-	z-index: 3;
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-end;
@@ -169,5 +167,8 @@ nav button:hover {
 
 body{
     background-image: url(./images/fondoBC.jpg);
+	background-position: center;
+	background-size: cover;
+	background-attachment: fixed;
    
 }
