@@ -23,9 +23,9 @@ export class GenderService {
   }
 
   async update(id: number, updateGender: Gender) {
-    const Gender = await this.genderService.findOneBy({ gen_id: id });
-    this.genderService.merge(Gender, updateGender);
-    return this.genderService.save(Gender);
+    const gender = await this.genderService.findOneBy({ gen_id: id });
+    this.genderService.merge(gender, updateGender);
+    return this.genderService.save(gender);
   }
 
   async remove(id: number) {

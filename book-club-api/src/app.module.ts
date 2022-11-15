@@ -4,6 +4,7 @@ import { EditorialModule } from './editorial/editorial.module';
 import { GenderModule } from './gender/gender.module';
 import { AuthorModule } from './author/author.module';
 import { AssociatedModule } from './associated/associated.module';
+import { BorrowingModule } from './borrowing/borrowing.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { AssociatedModule } from './associated/associated.module';
     GenderModule,
     AuthorModule,
     AssociatedModule,
+    BorrowingModule,
   ],
   controllers: [],
   providers: [],

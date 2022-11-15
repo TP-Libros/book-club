@@ -12,7 +12,7 @@ export class BooksService {
   }
 
   findById(id: number) {
-    return this.booksService.findOneBy({ boo_id: id });
+    return this.booksService.findOneBy({ boo_ISBN: id });
   }
 
   create(body: any) {
@@ -21,9 +21,9 @@ export class BooksService {
   }
 
   async update(id: number, body: any) {
-    const task = await this.booksService.findOneBy({ boo_id: id });
-    this.booksService.merge(task, body);
-    return this.booksService.save(task);
+    const book = await this.booksService.findOneBy({ boo_ISBN: id });
+    this.booksService.merge(book, body);
+    return this.booksService.save(book);
   }
 
   async remove(id: number) {

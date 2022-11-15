@@ -23,9 +23,9 @@ export class AuthorService {
   }
 
   async update(id: number, updateAuthor: Author) {
-    const Author = await this.AuthorService.findOneBy({ aut_id: id });
-    this.AuthorService.merge(Author, updateAuthor);
-    return this.AuthorService.save(Author);
+    const author = await this.AuthorService.findOneBy({ aut_id: id });
+    this.AuthorService.merge(author, updateAuthor);
+    return this.AuthorService.save(author);
   }
 
   async remove(id: number) {
