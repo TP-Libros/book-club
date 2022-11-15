@@ -1,4 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Author } from 'src/author/author.entity';
+import { Editorial } from 'src/editorial/editorial.entity';
+import { Gender } from 'src/gender/gender.entity';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 
 @Entity()
 export class Book {
@@ -14,24 +17,26 @@ export class Book {
   @Column()
   boo_title: string;
 
-  // @Column()
-  // aut_id: Autor;
+  @ManyToOne(() => Author, (author) => author.aut_id, { onDelete: 'SET NULL' })
+  aut_id: Author;
 
-  // @Column()
-  //  edi_id: Editorial;
+  @ManyToOne(() => Editorial, (editorial) => editorial.edi_id, {
+    onDelete: 'SET NULL',
+  })
+  edi_id: Editorial;
 
-  // @Column()
-  // gen_id: Genero;
+  @ManyToOne(() => Gender, (gender) => gender.gen_id, { onDelete: 'SET NULL' })
+  gen_id: Gender;
 
   @Column()
   boo_yearEdition: number;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   boo_synopsis: string;
 
   @Column()
   boo_imagePath: string;
 
-  @Column()
-  ass_id: number;
+  // @Column()
+  // ass_id: number;
 }
