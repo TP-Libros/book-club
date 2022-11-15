@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { EditorialModule } from './editorial/editorial.module';
 import { GenderModule } from './gender/gender.module';
 import { AuthorModule } from './author/author.module';
+import { AssociatedModule } from './associated/associated.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { AuthorModule } from './author/author.module';
     EditorialModule,
     GenderModule,
     AuthorModule,
+    AssociatedModule,
   ],
   controllers: [],
   providers: [],
