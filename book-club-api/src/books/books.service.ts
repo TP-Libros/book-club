@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Book } from './../entities/book.entity';
+import { Book } from './book.entity';
 
 @Injectable()
 export class BooksService {
@@ -12,7 +12,7 @@ export class BooksService {
   }
 
   findById(id: number) {
-    return this.booksRepo.findOneBy({ id: id });
+    return this.booksRepo.findOneBy({ boo_id: id });
   }
 
   create(body: any) {
@@ -21,7 +21,7 @@ export class BooksService {
   }
 
   async update(id: number, body: any) {
-    const task = await this.booksRepo.findOneBy({ id: id });
+    const task = await this.booksRepo.findOneBy({ boo_id: id });
     this.booksRepo.merge(task, body);
     return this.booksRepo.save(task);
   }

@@ -7,7 +7,7 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { BooksService } from './../services/books.service';
+import { BooksService } from './books.service';
 @Controller('books')
 export class BooksController {
   constructor(private readonly booksService: BooksService) {}
