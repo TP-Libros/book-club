@@ -23,9 +23,9 @@ export class AssociatedService {
   }
 
   async update(id: number, updateAssociated: Associated) {
-    const Associated = await this.associatedService.findOneBy({ ass_id: id });
-    this.associatedService.merge(Associated, updateAssociated);
-    return this.associatedService.save(Associated);
+    const associated = await this.associatedService.findOneBy({ ass_id: id });
+    this.associatedService.merge(associated, updateAssociated);
+    return this.associatedService.save(associated);
   }
 
   async remove(id: number) {

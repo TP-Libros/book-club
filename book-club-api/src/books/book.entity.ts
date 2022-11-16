@@ -5,9 +5,9 @@ import { Gender } from 'src/gender/gender.entity';
 import {
   Entity,
   Column,
-  PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 
 @Entity()
@@ -15,7 +15,7 @@ export class Book {
   @PrimaryGeneratedColumn()
   boo_id: number;
 
-  @Column()
+  @Column({ name: 'boo_ISBN' })
   boo_ISBN: number;
 
   @Column({ default: false })
