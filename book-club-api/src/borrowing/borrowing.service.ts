@@ -13,11 +13,15 @@ export class BorrowingService {
   findAll(): Promise<Borrowing[]> {
     return this.borrowingService.find();
   }
-  //TODO: find by composed primary key
+
   findAllByAssId(id: number): Promise<Borrowing[]> {
     return this.borrowingService.findBy({
       ass_id: id,
     });
+  }
+
+  findById(id: number) {
+    return this.borrowingService.findOneBy({ bor_id: id });
   }
 
   create(body: any) {
@@ -25,12 +29,9 @@ export class BorrowingService {
     return this.borrowingService.save(newBorrowing);
   }
 
-  //TODO: find by composed primary key
   async update(id: number, body: Borrowing) {
     const borrowing = await this.borrowingService.findOneBy({
-      ass_id: id,
-      bor_from_date: body.bor_from_date,
-      bor_to_date: body.bor_to_date,
+      bor_id: id,
     });
     this.borrowingService.merge(borrowing, body);
     return this.borrowingService.save(borrowing);

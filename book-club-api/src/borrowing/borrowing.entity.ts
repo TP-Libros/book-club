@@ -1,17 +1,26 @@
 import { Associated } from 'src/associated/associated.entity';
 import { Book } from 'src/books/book.entity';
-import { Entity, Column, ManyToOne, JoinColumn, PrimaryColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Borrowing {
+  @PrimaryGeneratedColumn()
+  bor_id: number;
+
   @ManyToOne(() => Book, (book) => book.boo_ISBN)
-  @Column({ name: 'boo_ISBN' })
+  @JoinColumn({ name: 'boo_ISBN' })
   boo_ISBN: number;
 
-  @PrimaryColumn({ name: 'bor_from_date', type: 'timestamptz' })
+  @Column({ name: 'bor_from_date', type: 'timestamptz' })
   bor_from_date: Date;
 
-  @PrimaryColumn({ name: 'bor_to_date', type: 'timestamptz' })
+  @Column({ name: 'bor_to_date', type: 'timestamptz' })
   bor_to_date: Date;
 
   @Column({ name: 'bor_devolution_date', type: 'timestamptz', nullable: true })

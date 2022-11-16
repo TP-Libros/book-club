@@ -25,7 +25,12 @@ export class BorrowingController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findById(@Param('id') id: string) {
+    return this.borrowingService.findById(+id);
+  }
+
+  @Get(':id')
+  findAllByAssId(@Param('id') id: string) {
     return this.borrowingService.findAllByAssId(+id);
   }
 
