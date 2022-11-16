@@ -2,13 +2,20 @@ import { Associated } from 'src/associated/associated.entity';
 import { Author } from 'src/author/author.entity';
 import { Editorial } from 'src/editorial/editorial.entity';
 import { Gender } from 'src/gender/gender.entity';
-import { Entity, Column, ManyToOne, JoinColumn, PrimaryColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Book {
-  // @PrimaryGeneratedColumn()
-  // boo_id: number;
-  @PrimaryColumn({ name: 'boo_ISBN', type: 'timestamptz' })
+  @PrimaryGeneratedColumn()
+  boo_id: number;
+
+  @Column({ name: 'boo_ISBN' })
   boo_ISBN: number;
 
   @Column({ default: false })
