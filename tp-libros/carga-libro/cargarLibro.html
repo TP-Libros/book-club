@@ -27,45 +27,51 @@
     <main>
         <div id="position1">
             <div id="carga-libro-container">
-                <div class="drop-spot-container">
-                    <div class="drop-spot" id="drop-spot" ondrop="handleFileDrop(event)"
-                        ondragover="handleDragOver(event)">
-                        <p>Put files here</p>
-                        <img id="image-sink">
+                <div class="image-box">
+                    <div class="drop-spot-container">
+                        <div class="drop-spot" id="drop-spot" ondrop="handleFileDrop(event)"
+                            ondragover="handleDragOver(event)">
+                            <p>Put files here</p>
+                            <img id="image-sink">
+                        </div>
                     </div>
                 </div>
-                <div class="datos-libro">
-                    <form id="form" action="" method="post">
-                        <div class="input">
-                            <label for="">ISBN</label>
-                            <input type="number" name="isbn" class="input-user"/>
-                        </div>
-                        <div class="input">
-                            <label for="">Tittle</label>
-                            <input type="text" id="" name="tittle" class="input-user"/>
-                        </div>
-                        <div class="input">
-                            <label for="">Author</label>
-                            <input type="text" id="" name="author" class="input-user"/>
-                        </div>
-                        <div class="input">
-                            <label for="">Gender</label>
-                            <input type="text" id="" name="gender" class="input-user"/>
-                        </div>
-                        <div class="input">
-                            <label for="">Edition</label>
-                            <input type="text" id="" name="edition" class="input-user"/>
-                        </div>
-                        <div class="input">
-                            <label for="">Synopsis</label>
-                            <input type="text" id="" name="synopsis" class="input-user"/>
-                        </div>
-                        <div class="input">
-                            <label for="">Editorial</label>
-                            <input type="text" id="" name="editorial" class="input-user"/>
-                        </div>
-                        <input id="btn" type="submit" name="submit" value="Submit" class="submit-button">
-                    </form>	
+                <div class="datos-box">
+                    <div class="datos-libro">
+                        <form id="form" action="" method="post">
+                            <div class="input">
+                                <label for="">ISBN</label>
+                                <input type="number" name="isbn" class="input-user" />
+                            </div>
+                            <div class="input">
+                                <label for="">Tittle</label>
+                                <input type="text" id="" name="tittle" class="input-user" />
+                            </div>
+                            <div class="input">
+                                <label for="">Author</label>
+                                <input type="text" id="" name="author" class="input-user" />
+                            </div>
+                            <div class="input">
+                                <label for="">Gender</label>
+                                <input type="text" id="" name="gender" class="input-user" />
+                            </div>
+                            <div class="input">
+                                <label for="">Edition</label>
+                                <input type="text" id="" name="edition" class="input-user" />
+                            </div>
+                            <div class="input">
+                                <label for="">Synopsis</label>
+                                <input type="text" id="" name="synopsis" class="input-user" />
+                            </div>
+                            <div class="input">
+                                <label for="">Editorial</label>
+                                <input type="text" id="" name="editorial" class="input-user" />
+                            </div>
+                            <div class="button-container">
+                                <input id="btn" type="submit" name="submit" value="Submit" class="submit-button">
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

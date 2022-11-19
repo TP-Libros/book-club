@@ -14,14 +14,29 @@ nav button {
 #carga-libro-container {
     display: flex;
     align-items: center;
+    flex-direction: row;
+    justify-content: center;
     width: 60rem;
     height: 32.5rem;
     background-color: #d19e78;
     margin-top: 40px;
 }
 
-.drop-spot-container{
-    margin: 20px;
+.image-box {
+    width: 34%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.datos-box {
+    width: 66%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.drop-spot-container {
     background-color: #f3ebe2;
     width: 275px;
     height: 375px;
@@ -39,54 +54,66 @@ nav button {
     justify-content: center;
 }
 
-.drop-spot p{
-    position:absolute; z-index:1;
+.drop-spot p {
+    position: absolute;
+    z-index: 1;
 }
 
 #image-sink {
     max-width: 300px;
     max-height: 400px;
-    position:absolute; z-index:2;
+    position: absolute;
+    z-index: 2;
 }
 
-.datos-libro{
+.datos-libro {
     background-color: #f3ebe2;
 
 }
 
-#form{
+#form {
     display: grid;
+    padding: 10px;
 
 }
 
-#form label{
-	font-size: 0.8rem;
+#form label {
+    font-size: 0.8rem;
 }
 
-.input > select, .input > input{
-	width: 30rem;
-	height: 1.25rem;
-	background-color: #f3ebe2;
-	border-bottom: 2px solid #828282;
-	border-top: 0px;
-	border-left: 0px;
-	border-right: 0px;
+.input>select,
+.input>input {
+    width: 30rem;
+    height: 1.25rem;
+    background-color: #f3ebe2;
+    border-bottom: 2px solid #828282;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
 }
 
-.input > select:focus, .input > input:hover,  .input > input:focus{
-	height: 1.19rem;
-	color: black;
-	border-bottom: 2px solid #d19e78;
-	border-top: 0px;
-	border-left: 0px;
-	border-right: 0px;
-	outline: -webkit-focus-ring-color auto 0px;
+.input>select:focus,
+.input>input:hover,
+.input>input:focus {
+    height: 1.25rem;
+    color: black;
+    border-bottom: 2px solid #d19e78;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    outline: -webkit-focus-ring-color auto 0px;
 }
 
-.input{
-    margin: 10px 0px 10px 20px;
-    width: 580px;
+.input {
+    margin: 10px 30px 10px 20px;
     display: grid;
+}
+
+form .button-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+
 }
 
 form .submit-button {
@@ -109,13 +136,12 @@ form .submit-button {
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
-    position: relative;
-    z-index: 1;
-    width: 100%;
+    margin: 10px 27.5px 10px 10px;
+    width: 40%;
 
-  }
-  
-  form .submit-button:hover {
+}
+
+form .submit-button:hover {
     box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
     transform: translateY(-2px);
-  }
+}

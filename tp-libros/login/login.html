@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="/StylesUniversal/images/favicon.png">
     <link rel="stylesheet" href="login.css">
-	<script src="login.js"></script>
+    <script src="login.js"></script>
     <title>Log In | Book Club</title>
 </head>
+
 <body>
     <div class="container">
         <div class="text-tittle">
@@ -16,15 +18,20 @@
         </div>
         <div class="form-container">
             <h3>Log In</h3>
-            <form id="form" action="" method="post">
-                <label for="">Username</label>
-                <input type="text" name="username" class="input-user"/>
-                <label for="">Password</label>
-                <input type="password" id="" name="password" class="input-user"/>
-                <input id="btn" type="submit" name="submit" value="Log In" class="login-button">
-            </form>	
+            <form id="form" name="form" method="POST">
+                <label for="">
+                    <p>Username</p>
+                    <input type="text" id="username" name="username" class="input-user" />
+                </label>
+                <label for="">
+                    <p>Password</p>
+                    <input type="password" id="password" name="password" class="input-user" />
+                </label>
+                <button type="submit" class="login-button" onclick="login()">Log in</button>
+            </form>
         </div>
     </div>
-    
+
 </body>
+
 </html>

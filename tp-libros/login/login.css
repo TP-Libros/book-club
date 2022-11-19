@@ -60,7 +60,7 @@ img{
 .form-container form label{
     color: rgba(255, 255, 255, 0.8);
     display: inline-block;
-    max-width: 100%;
+    width: 100%;
     margin-bottom: 0.3rem;
 }
 .form-container form .input-user{
