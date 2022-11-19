@@ -9,9 +9,15 @@ import {
 } from '@nestjs/common';
 import { EditorialService } from './editorial.service';
 import { Editorial } from './editorial.entity';
+import {
+  ApiInternalServerErrorResponse,
+  ApiNotFoundResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 /*import { CreateEditorialDto } from './dto/create-editorial.dto';
 import { UpdateEditorialDto } from './dto/update-editorial.dto';*/
 
+@ApiTags('editorial')
 @Controller('editorial')
 export class EditorialController {
   constructor(private readonly editorialService: EditorialService) {}
@@ -26,6 +32,10 @@ export class EditorialController {
     return this.editorialService.findAll();
   }
 
+  @ApiNotFoundResponse({ description: 'No editorial found for ID' })
+  @ApiInternalServerErrorResponse({
+    description: 'Internal server error',
+  })
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.editorialService.findOneBy(+id);

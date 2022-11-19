@@ -9,33 +9,43 @@ import {
 } from '@nestjs/common';
 import { AuthorService } from './author.service';
 import { Author } from './author.entity';
+import {
+  ApiInternalServerErrorResponse,
+  ApiNotFoundResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
-@Controller('Author')
+@ApiTags('author')
+@Controller('author')
 export class AuthorController {
-  constructor(private readonly AuthorService: AuthorService) {}
+  constructor(private readonly authorService: AuthorService) {}
 
   @Post()
   create(@Body() createAuthor: Author) {
-    return this.AuthorService.create(createAuthor);
+    return this.authorService.create(createAuthor);
   }
 
   @Get()
   findAll() {
-    return this.AuthorService.findAll();
+    return this.authorService.findAll();
   }
 
+  @ApiNotFoundResponse({ description: 'No author found for ID' })
+  @ApiInternalServerErrorResponse({
+    description: 'Internal server error',
+  })
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.AuthorService.findOneBy(+id);
+    return this.authorService.findOneBy(+id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateAuthor: Author) {
-    return this.AuthorService.update(+id, updateAuthor);
+    return this.authorService.update(+id, updateAuthor);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.AuthorService.remove(+id);
+    return this.authorService.remove(+id);
   }
 }

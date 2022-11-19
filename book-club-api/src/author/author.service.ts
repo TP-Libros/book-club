@@ -7,29 +7,29 @@ import { Author } from './author.entity';
 export class AuthorService {
   constructor(
     @InjectRepository(Author)
-    private AuthorService: Repository<Author>,
+    private authorService: Repository<Author>,
   ) {}
   create(body: any) {
-    const newAuthor = this.AuthorService.create(body);
-    return this.AuthorService.save(newAuthor);
+    const newAuthor = this.authorService.create(body);
+    return this.authorService.save(newAuthor);
   }
 
   findAll(): Promise<Author[]> {
-    return this.AuthorService.find();
+    return this.authorService.find();
   }
 
   findOneBy(id: number) {
-    return this.AuthorService.findOneBy({ aut_id: id });
+    return this.authorService.findOneBy({ aut_id: id });
   }
 
   async update(id: number, updateAuthor: Author) {
-    const author = await this.AuthorService.findOneBy({ aut_id: id });
-    this.AuthorService.merge(author, updateAuthor);
-    return this.AuthorService.save(author);
+    const author = await this.authorService.findOneBy({ aut_id: id });
+    this.authorService.merge(author, updateAuthor);
+    return this.authorService.save(author);
   }
 
   async remove(id: number) {
-    await this.AuthorService.delete(id);
+    await this.authorService.delete(id);
     return true;
   }
 }

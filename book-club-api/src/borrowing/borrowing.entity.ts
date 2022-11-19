@@ -1,5 +1,6 @@
+import {} from '@nestjs/swagger';
 import { Associated } from 'src/associated/associated.entity';
-import { Book } from 'src/books/book.entity';
+import { Book } from 'src/book/book.entity';
 import {
   Entity,
   Column,

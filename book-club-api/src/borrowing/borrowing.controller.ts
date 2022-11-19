@@ -7,9 +7,15 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+import {
+  ApiInternalServerErrorResponse,
+  ApiNotFoundResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Borrowing } from './borrowing.entity';
 import { BorrowingService } from './borrowing.service';
 
+@ApiTags('borrowing')
 @Controller('borrowing')
 export class BorrowingController {
   constructor(private readonly borrowingService: BorrowingService) {}
@@ -24,6 +30,10 @@ export class BorrowingController {
     return this.borrowingService.findAll();
   }
 
+  @ApiNotFoundResponse({ description: 'No borrowing found for ID' })
+  @ApiInternalServerErrorResponse({
+    description: 'Internal server error',
+  })
   @Get(':id')
   findById(@Param('id') id: string) {
     return this.borrowingService.findById(+id);

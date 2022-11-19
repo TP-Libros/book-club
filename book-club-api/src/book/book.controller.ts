@@ -12,39 +12,39 @@ import {
   ApiNotFoundResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { AssociatedService } from './associated.service';
+import { BookService } from './book.service';
 
-@ApiTags('associated')
-@Controller('associated')
-export class AssociatedController {
-  constructor(private readonly associatedService: AssociatedService) {}
+@ApiTags('book')
+@Controller('book')
+export class BookController {
+  constructor(private readonly bookService: BookService) {}
 
   @Get()
   findAll() {
-    return this.associatedService.findAll();
+    return this.bookService.findAll();
   }
 
-  @ApiNotFoundResponse({ description: 'No associated found for ID' })
+  @ApiNotFoundResponse({ description: 'No book found for ID' })
   @ApiInternalServerErrorResponse({
     description: 'Internal server error',
   })
   @Get(':id')
   findOne(@Param('id') id: number) {
-    return this.associatedService.findOneBy(id);
+    return this.bookService.findById(id);
   }
 
   @Post()
   create(@Body() body: any) {
-    return this.associatedService.create(body);
+    return this.bookService.create(body);
   }
 
   @Put(':id')
   update(@Param('id') id: number, @Body() body: any) {
-    return this.associatedService.update(id, body);
+    return this.bookService.update(id, body);
   }
 
   @Delete(':id')
   delete(@Param('id') id: number) {
-    return this.associatedService.remove(id);
+    return this.bookService.remove(id);
   }
 }
