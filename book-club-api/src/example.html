@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+  <title>Ejemplo para traer datos de la API</title>
+
+  <style>
+    body {
+      background-color: cornflowerblue;
+    }
+
+    table thead {
+      background: #302b63;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container mt-4 shadow-lg p-3 mb-5 bg-body rounded">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>gen_id</th>
+          <th>gen_name</th>
+        </tr>
+      </thead>
+      <tbody id="data">
+      </tbody>
+    </table>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+    crossorigin="anonymous"></script>
+
+  <script>
+    /*
+    Instrucciones:
+    dentro de la carpeta book-club-api (Todo en la Terminal/Consola), 
+    hacer:
+      npm run start:dev
+    para hacer andar el servidor y que funcione la API
+    
+    (deben estar en la rama develop para ver la carpeta de la API (book-club-api)
+    hacer: git checkout develop 
+    para moverse a la rama develop dentro de git)
+
+    si aparece un mensaje:
+      Error  "@nestjs/swagger/plugin" plugin could not be found!
+    hacen:
+      npm install --save @nestjs/swagger swagger-ui-express
+    y vuelven a correr el comando
+      npm run start:dev
+
+    ..una vez que el servidor este andando (que diga:
+    "LOG [NestApplication] Nest application successfully started")
+    pueden ir al navegador y probar este html
+
+
+    Para ver todas las rutas de la API, escriban
+      localhost:3000/docs
+    en el navegador, desde ahi podran usar la API tambien como se haria
+    con Postman o con Thunder Client
+    */
+    let url = 'http://localhost:3000/gender';
+    fetch(url)
+      .then(response => response.json())
+      .then(data => mostrarData(data))
+      .catch(error => console.log(error))
+
+    const mostrarData = (data) => {
+      console.log(data)
+      let body = ""
+      for (var i = 0; i < data.length; i++) {
+        body += `<tr>
+                  <td>${data[i].gen_id}</td>
+                  <td>${data[i].gen_name}</td>
+                </tr>`
+      }
+      document.getElementById('data').innerHTML = body
+      //console.log(body)
+    }
+  </script>
+</body>
+
+</html>
