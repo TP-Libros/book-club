@@ -1,3 +1,5 @@
+/* autentication guardar topken en el header usuarios logueados tenga token 
+pagina no publica y devuelve en un status 401 */
 nav button {
     min-width: 140px;
 }
@@ -10,6 +12,8 @@ nav button {
 }
 
 #carga-libro-container {
+    display: flex;
+    align-items: center;
     width: 60rem;
     height: 32.5rem;
     background-color: #d19e78;
@@ -19,8 +23,8 @@ nav button {
 .drop-spot-container{
     margin: 20px;
     background-color: #f3ebe2;
-    width: 325px;
-    height: 425px;
+    width: 275px;
+    height: 375px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -28,14 +32,90 @@ nav button {
 
 .drop-spot {
     border: 2px #c1c1c1 dashed;
-    width: 300px;
-    height: 400px;
+    width: 250px;
+    height: 350px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-#image-sink {
-    max-width: 100%;
-    max-height: 100%;
+.drop-spot p{
+    position:absolute; z-index:1;
 }
+
+#image-sink {
+    max-width: 300px;
+    max-height: 400px;
+    position:absolute; z-index:2;
+}
+
+.datos-libro{
+    background-color: #f3ebe2;
+
+}
+
+#form{
+    display: grid;
+
+}
+
+#form label{
+	font-size: 0.8rem;
+}
+
+.input > select, .input > input{
+	width: 30rem;
+	height: 1.25rem;
+	background-color: #f3ebe2;
+	border-bottom: 2px solid #828282;
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+}
+
+.input > select:focus, .input > input:hover,  .input > input:focus{
+	height: 1.19rem;
+	color: black;
+	border-bottom: 2px solid #d19e78;
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+	outline: -webkit-focus-ring-color auto 0px;
+}
+
+.input{
+    margin: 10px 0px 10px 20px;
+    width: 580px;
+    display: grid;
+}
+
+form .submit-button {
+    background-color: #d19e78;
+    border: 1px solid #d19e78;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
+    box-sizing: border-box;
+    color: #ffffff;
+    cursor: pointer;
+    font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    outline: none;
+    outline: 0;
+    padding: 10px 25px;
+    text-align: center;
+    transform: translateY(0);
+    transition: transform 150ms, box-shadow 150ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+
+  }
+  
+  form .submit-button:hover {
+    box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
+    transform: translateY(-2px);
+  }
