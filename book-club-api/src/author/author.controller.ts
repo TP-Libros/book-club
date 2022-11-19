@@ -9,7 +9,13 @@ import {
 } from '@nestjs/common';
 import { AuthorService } from './author.service';
 import { Author } from './author.entity';
+import {
+  ApiInternalServerErrorResponse,
+  ApiNotFoundResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
+@ApiTags('author')
 @Controller('author')
 export class AuthorController {
   constructor(private readonly authorService: AuthorService) {}
@@ -24,6 +30,10 @@ export class AuthorController {
     return this.authorService.findAll();
   }
 
+  @ApiNotFoundResponse({ description: 'No author found for ID' })
+  @ApiInternalServerErrorResponse({
+    description: 'Internal server error',
+  })
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.authorService.findOneBy(+id);

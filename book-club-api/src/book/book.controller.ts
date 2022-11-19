@@ -7,8 +7,15 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+import {
+  ApiInternalServerErrorResponse,
+  ApiNotFoundResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { BookService } from './book.service';
-@Controller('books')
+
+@ApiTags('book')
+@Controller('book')
 export class BookController {
   constructor(private readonly bookService: BookService) {}
 
@@ -17,6 +24,10 @@ export class BookController {
     return this.bookService.findAll();
   }
 
+  @ApiNotFoundResponse({ description: 'No book found for ID' })
+  @ApiInternalServerErrorResponse({
+    description: 'Internal server error',
+  })
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.bookService.findById(id);
