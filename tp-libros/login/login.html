@@ -16,9 +16,10 @@
         <div class="text-tittle">
             <h1>Book Club</h1>
         </div>
-        <div class="form-container">
+        <div class="form-container" >
             <h3>Log In</h3>
-            <form id="form" name="form" method="POST">
+            <form id="form" name="form">
+            <!-- <form id="form" name="form" action="http://127.0.0.1:3000/book-club-api/src/associated" method="POST"> -->
                 <label for="">
                     <p>Username</p>
                     <input type="text" id="username" name="username" class="input-user" />
@@ -27,7 +28,8 @@
                     <p>Password</p>
                     <input type="password" id="password" name="password" class="input-user" />
                 </label>
-                <button type="submit" class="login-button" onclick="login()">Log in</button>
+                <!-- <button type="submit" class="login-button" id="button-submit">Log in</button> -->
+                <button type="submit" class="login-button" onclick="login">Log in</button>
             </form>
         </div>
     </div>

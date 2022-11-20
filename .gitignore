@@ -39,3 +39,7 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+nest-cli.json
+package-lock.json
+package.json
+README.md
