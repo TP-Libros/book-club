@@ -1,6 +1,6 @@
 function login() {
 
-    const url = "http://127.0.0.1:3000/book-club-api/src/associated";
+    const url = "http://localhost:3000/associated";
     // fetch(url)
     //     .then(data => {
     //         return data.json();
@@ -15,9 +15,10 @@ function login() {
     for (let [key, prop] of fd) {
         data[key] = prop;
     }
-    VALUE = JSON.stringify(data);
+    VALUE = JSON.stringify(data, null,2);
     // const myHeaders = new Headers();
     // myHeaders.append('Content-Type', 'application/json');
+    console.log(VALUE)
 
     const send = {
     method: 'POST',
@@ -30,6 +31,7 @@ function login() {
     fetch(url, send)
         .then(data => data.json())
         .then(data => { 
+            
             if(data.body === 'Not Found' ){
 
             }else{
@@ -42,7 +44,6 @@ function login() {
 
 }
 function saveLocalStorage(data) {
-
     let token = data.token;
     localStorage.setItem("TokenUser", JSON.stringify(token));
 }
