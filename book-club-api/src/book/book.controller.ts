@@ -12,6 +12,7 @@ import {
   ApiNotFoundResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { Book } from './book.entity';
 import { BookService } from './book.service';
 
 @ApiTags('book')
@@ -34,12 +35,12 @@ export class BookController {
   }
 
   @Post()
-  create(@Body() body: any) {
+  create(@Body() body: Book) {
     return this.bookService.create(body);
   }
 
   @Put(':id')
-  update(@Param('id') id: number, @Body() body: any) {
+  update(@Param('id') id: number, @Body() body: Book) {
     return this.bookService.update(id, body);
   }
 
