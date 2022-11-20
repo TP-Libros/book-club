@@ -4,6 +4,11 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  //for conection from the Front
+  app.enableCors();
+
+  //Swagger
   const options = new DocumentBuilder()
     .setTitle('Book Club')
     .setDescription(`The API for Book Club app`)
@@ -17,6 +22,8 @@ async function bootstrap() {
       showRequestDuration: true,
     },
   });
+  //EndSwagger
+
   await app.listen(3000);
 }
 bootstrap();
