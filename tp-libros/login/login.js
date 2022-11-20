@@ -15,23 +15,25 @@ function login() {
     for (let [key, prop] of fd) {
         data[key] = prop;
     }
-    VALUE = JSON.stringify(data, null, 2);
-    console.log(VALUE);
-    const myHeaders = new Headers();
-    myHeaders.append('Content-Type', 'application/json');
-    fetch()(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: VALUE,
-    })
+    VALUE = JSON.stringify(data);
+    // const myHeaders = new Headers();
+    // myHeaders.append('Content-Type', 'application/json');
+
+    const send = {
+    method: 'POST',
+    body: VALUE,
+    headers: {
+    'Content-Type': 'application/json',
+    }
+    };
+
+    fetch(url, send)
         .then(data => data.json())
         .then(data => { 
-            if(data.body === '' ){
+            if(data.body === 'Not Found' ){
 
             }else{
-                saveLocalStorage()
+                saveLocalStorage(data.body)
             }
          })
         .catch((err) => {
@@ -39,18 +41,10 @@ function login() {
         })
 
 }
-function saveLocalStorage() {
+function saveLocalStorage(data) {
 
-    let token = {
-        
-    }
-
-    partida.name1 = game.player1.value;
-    partida.name2 = game.player2.value;
-    partida.score1 = s1;
-    partida.score2 = s2;
-
-    localStorage.setItem("game" + gameNumber, JSON.stringify(partida));
+    let token = data.token;
+    localStorage.setItem("TokenUser", JSON.stringify(token));
 }
 
 // const response = async () => {
