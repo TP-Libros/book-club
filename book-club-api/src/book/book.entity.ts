@@ -1,3 +1,4 @@
+import {} from '@nestjs/swagger';
 import { Associated } from 'src/associated/associated.entity';
 import { Author } from 'src/author/author.entity';
 import { Editorial } from 'src/editorial/editorial.entity';

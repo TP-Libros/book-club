@@ -7,8 +7,15 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+import {
+  ApiInternalServerErrorResponse,
+  ApiNotFoundResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { Associated } from './associated.entity';
 import { AssociatedService } from './associated.service';
 
+@ApiTags('associated')
 @Controller('associated')
 export class AssociatedController {
   constructor(private readonly associatedService: AssociatedService) {}
@@ -18,18 +25,22 @@ export class AssociatedController {
     return this.associatedService.findAll();
   }
 
+  @ApiNotFoundResponse({ description: 'No associated found for ID' })
+  @ApiInternalServerErrorResponse({
+    description: 'Internal server error',
+  })
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.associatedService.findOneBy(id);
   }
 
   @Post()
-  create(@Body() body: any) {
+  create(@Body() body: Associated) {
     return this.associatedService.create(body);
   }
 
   @Put(':id')
-  update(@Param('id') id: number, @Body() body: any) {
+  update(@Param('id') id: number, @Body() body: Associated) {
     return this.associatedService.update(id, body);
   }
 

@@ -5,7 +5,7 @@ import { GenderModule } from './gender/gender.module';
 import { AuthorModule } from './author/author.module';
 import { AssociatedModule } from './associated/associated.module';
 import { BorrowingModule } from './borrowing/borrowing.module';
-import { BooksModule } from './books/books.module';
+import { BookModule } from './book/book.module';
 
 @Module({
   imports: [
@@ -20,7 +20,7 @@ import { BooksModule } from './books/books.module';
       synchronize: true,
       logging: true,
     }),
-    BooksModule,
+    BookModule,
     EditorialModule,
     GenderModule,
     AuthorModule,
