@@ -12,6 +12,7 @@ import {
   ApiNotFoundResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { Associated } from './associated.entity';
 import { AssociatedService } from './associated.service';
 
 @ApiTags('associated')
@@ -34,12 +35,12 @@ export class AssociatedController {
   }
 
   @Post()
-  create(@Body() body: any) {
+  create(@Body() body: Associated) {
     return this.associatedService.create(body);
   }
 
   @Put(':id')
-  update(@Param('id') id: number, @Body() body: any) {
+  update(@Param('id') id: number, @Body() body: Associated) {
     return this.associatedService.update(id, body);
   }
 
