@@ -6,6 +6,7 @@ import { AuthorModule } from './author/author.module';
 import { AssociatedModule } from './associated/associated.module';
 import { BorrowingModule } from './borrowing/borrowing.module';
 import { BookModule } from './book/book.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { BookModule } from './book/book.module';
     AuthorModule,
     AssociatedModule,
     BorrowingModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
