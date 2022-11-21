@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="../../StylesUniversal/style_menu.css">
     <link rel="stylesheet" href="cargarLibro.css">
     <script src="cargaLibro.js"></script>
+    <!-- <script src="../../StylesUniversal/private-page.js"></script> -->
+
     <title>Cargar Libro | Book Club</title>
 </head>
 
@@ -41,11 +43,11 @@
                         <form id="form">
                             <div class="input">
                                 <label for="">ISBN</label>
-                                <input type="number" name="isbn" class="input-user" />
+                                <input type="number" name="boo_ISBN" class="input-user" />
                             </div>
                             <div class="input">
                                 <label for="">Tittle</label>
-                                <input type="text" id="" name="tittle" class="input-user" />
+                                <input type="text" id="" name="boo_title" class="input-user" />
                             </div>
                             <div class="input">
                                 <label for="">Author</label>
@@ -57,18 +59,18 @@
                             </div>
                             <div class="input">
                                 <label for="">Edition</label>
-                                <input type="text" id="" name="edition" class="input-user" />
+                                <input type="text" id="" name="boo_yearEdition" class="input-user" />
                             </div>
                             <div class="input">
                                 <label for="">Synopsis</label>
-                                <input type="text" id="" name="synopsis" class="input-user" />
+                                <input type="text" id="" name="boo_synopsis" class="input-user" />
                             </div>
                             <div class="input">
                                 <label for="">Editorial</label>
                                 <input type="text" id="" name="editorial" class="input-user" />
                             </div>
                             <div class="button-container">
-                                <input id="btn" type="submit" name="submit" value="Submit" class="submit-button" onclick="cargar()">
+                                <input id="btn" type="submit" name="submit" value="Submit" class="submit-button" onclick="load()">
                             </div>
                         </form>
                     </div>

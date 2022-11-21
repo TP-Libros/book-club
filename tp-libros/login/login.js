@@ -33,7 +33,8 @@ function login() {
         .then(data => { 
             
             if(data.body === 'Not Found' ){
-
+                document.getElementById("errorMsg").appendChild(<p>User or password incorrect</p>)
+                window.location.href='/login/login.html';
             }else{
                 saveLocalStorage(data.body)
             }
@@ -45,6 +46,7 @@ function login() {
 }
 function saveLocalStorage(data) {
     let token = data.token;
+    let user = data.id
     localStorage.setItem("TokenUser", JSON.stringify(token));
 }
 
