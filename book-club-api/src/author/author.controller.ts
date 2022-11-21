@@ -34,13 +34,12 @@ export class AuthorController {
   @ApiInternalServerErrorResponse({
     description: 'Internal server error',
   })
-
   @Get(':id')
   findOneById(@Param('id') id: string) {
     return this.authorService.findOneById(+id);
   }
 
-  @Get(':name')
+  @Get('name/:name')
   findOneBy(@Param('name') name: string) {
     return this.authorService.findOneBy(name);
   }

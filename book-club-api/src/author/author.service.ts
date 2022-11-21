@@ -18,9 +18,9 @@ export class AuthorService {
     return this.authorService.find();
   }
 
-  /*findOneBy(id: number) {
+  findOneById(id: number) {
     return this.authorService.findOneBy({ aut_id: id });
-  }*/
+  }
 
   findOneBy(name: string) {
     return this.authorService.findOneBy({ aut_name: name });
