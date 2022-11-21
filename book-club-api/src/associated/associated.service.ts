@@ -18,8 +18,12 @@ export class AssociatedService {
     return this.associatedService.find();
   }
 
-  findOneBy(id: number) {
+  /*findOneBy(id: number) {
     return this.associatedService.findOneBy({ ass_id: id });
+  }*/
+
+  findOneBy(userName: string) {
+    return this.associatedService.findOneBy({ ass_userName: userName });
   }
 
   async update(id: number, updateAssociated: Associated) {

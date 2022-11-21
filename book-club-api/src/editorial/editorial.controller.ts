@@ -36,9 +36,14 @@ export class EditorialController {
   @ApiInternalServerErrorResponse({
     description: 'Internal server error',
   })
-  @Get(':id')
+  /*@Get(':id')
   findOne(@Param('id') id: string) {
     return this.editorialService.findOneBy(+id);
+  }*/
+
+  @Get(':name')
+  findOneBy(@Param('name') name: string) {
+    return this.editorialService.findOneBy(name);
   }
 
   @Patch(':id')

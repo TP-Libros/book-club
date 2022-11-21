@@ -34,9 +34,14 @@ export class GenderController {
   @ApiInternalServerErrorResponse({
     description: 'Internal server error',
   })
-  @Get(':id')
+  /*@Get(':id')
   findOne(@Param('id') id: string) {
-    return this.genderService.findOneBy(+id);
+    return this.genderService.findOne(+id);
+  }*/
+
+  @Get(':name')
+  findOneBy(@Param('name') name: string) {
+    return this.genderService.findOneBy(name);
   }
 
   @Patch(':id')
