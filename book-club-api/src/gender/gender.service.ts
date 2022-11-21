@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -37,3 +38,40 @@ export class GenderService {
     return true;
   }
 }
+=======
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Gender } from './gender.entity';
+
+@Injectable()
+export class GenderService {
+  constructor(
+    @InjectRepository(Gender)
+    private genderService: Repository<Gender>,
+  ) {}
+  create(body: any) {
+    const newGender = this.genderService.create(body);
+    return this.genderService.save(newGender);
+  }
+
+  findAll(): Promise<Gender[]> {
+    return this.genderService.find();
+  }
+
+  findOneBy(id: number) {
+    return this.genderService.findOneBy({ gen_id: id });
+  }
+
+  async update(id: number, updateGender: Gender) {
+    const gender = await this.genderService.findOneBy({ gen_id: id });
+    this.genderService.merge(gender, updateGender);
+    return this.genderService.save(gender);
+  }
+
+  async remove(id: number) {
+    await this.genderService.delete(id);
+    return true;
+  }
+}
+>>>>>>> 015ba636adfeb0a5e9cb358382b7cbabbf894586
