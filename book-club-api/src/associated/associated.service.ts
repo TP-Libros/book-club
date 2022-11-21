@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { hash } from 'bcrypt';
 import { Repository } from 'typeorm';
 import { Associated } from './associated.entity';
 
@@ -9,7 +10,10 @@ export class AssociatedService {
     @InjectRepository(Associated)
     private associatedService: Repository<Associated>,
   ) {}
-  create(body: any) {
+  async create(body: Associated) {
+    const { ass_password } = body;
+    const plainToHash = await hash(ass_password, 10);
+    body = { ...body, ass_password: plainToHash };
     const newAssociated = this.associatedService.create(body);
     return this.associatedService.save(newAssociated);
   }
