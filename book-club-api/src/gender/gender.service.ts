@@ -18,9 +18,9 @@ export class GenderService {
     return this.genderService.find();
   }
 
-  /*findOne(id: number) {
+  findOneId(id: number) {
     return this.genderService.findBy({ gen_id: id });
-  }*/
+  }
 
   findOneBy(name: string) {
     return this.genderService.findOneBy({ gen_name: name });

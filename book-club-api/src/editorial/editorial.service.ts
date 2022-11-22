@@ -18,14 +18,13 @@ export class EditorialService {
     return this.editorialService.find();
   }
 
-  /*findOneBy(id: number) {
+  findOneById(id: number) {
     return this.editorialService.findOneBy({ edi_id: id });
-  }*/
+  }
 
   findOneBy(name: string) {
     return this.editorialService.findOneBy({ edi_name: name });
   }
-
 
   async update(id: number, updateEditorial: Editorial) {
     const editorial = await this.editorialService.findOneBy({ edi_id: id });

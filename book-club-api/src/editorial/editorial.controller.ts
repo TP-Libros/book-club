@@ -14,8 +14,6 @@ import {
   ApiNotFoundResponse,
   ApiTags,
 } from '@nestjs/swagger';
-/*import { CreateEditorialDto } from './dto/create-editorial.dto';
-import { UpdateEditorialDto } from './dto/update-editorial.dto';*/
 
 @ApiTags('editorial')
 @Controller('editorial')
@@ -36,12 +34,11 @@ export class EditorialController {
   @ApiInternalServerErrorResponse({
     description: 'Internal server error',
   })
-  /*@Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.editorialService.findOneBy(+id);
+  /* @Get(':id')
+  findOne(@Param('id') id: string): Promise<Editorial> {
+    return this.editorialService.findOneById(+id);
   }*/
-
-  @Get(':name')
+  @Get('name/:name')
   findOneBy(@Param('name') name: string) {
     return this.editorialService.findOneBy(name);
   }

@@ -8,6 +8,5 @@ export class Editorial {
 
   @Column()
   edi_name: string;
-  /*@OneToMany(() => nombre de la entidad que se va a relacionar Editorial,(nombre de la entidad que se va a relacionar editorial)=> editorial.book,{cascade:true})
-  editorial: Editorial[]*/
+
 }
