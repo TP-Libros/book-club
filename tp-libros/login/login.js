@@ -1,14 +1,6 @@
 function login() {
 
-    const url = "http://localhost:3000/associated";
-    // fetch(url)
-    //     .then(data => {
-    //         return data.json();
-    //     })
-    //     .then(post => {
-    //         console.log(post.title);
-    //     });
-
+    const url = "";
     let form = document.forms["form"];
     let fd = new FormData(form);
     let data = {};
@@ -16,8 +8,6 @@ function login() {
         data[key] = prop;
     }
     VALUE = JSON.stringify(data, null,2);
-    // const myHeaders = new Headers();
-    // myHeaders.append('Content-Type', 'application/json');
     console.log(VALUE)
 
     const send = {
@@ -46,8 +36,13 @@ function login() {
 }
 function saveLocalStorage(data) {
     let token = data.token;
-    let user = data.id
+    let user = data.id;
+    let name = data.name;
+
     localStorage.setItem("TokenUser", JSON.stringify(token));
+    localStorage.setItem("idUser", JSON.stringify(user));
+    localStorage.setItem("idUser", JSON.stringify(name));
+
 }
 
 // const response = async () => {
