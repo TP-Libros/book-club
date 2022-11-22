@@ -17,8 +17,8 @@ a {
 header {
 	width: 100%;
 	padding: 10px 40px;
-	border-bottom: 1px solid #E5E5E5;
-	background-color: #dde1d4;
+	border-bottom: 1px solid #dae9b7;
+	background-color: #dae9b7;
 	top: 0;
 	transition: all 0.25s ease;
 	display: flex;
@@ -125,6 +125,7 @@ nav button {
 }
 
 nav button:hover {
+	background-color: #eeb38c;
   box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
   transform: translateY(-2px);
 }
@@ -132,6 +133,9 @@ nav button:hover {
 @media (min-width: 768px) {
   nav button {
     padding: 10px 30px;
+	display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 

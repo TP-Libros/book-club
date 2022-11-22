@@ -35,8 +35,13 @@ export class AuthorController {
     description: 'Internal server error',
   })
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.authorService.findOneBy(+id);
+  findOneById(@Param('id') id: string) {
+    return this.authorService.findOneById(+id);
+  }
+
+  @Get('name/:name')
+  findOneBy(@Param('name') name: string) {
+    return this.authorService.findOneBy(name);
   }
 
   @Patch(':id')

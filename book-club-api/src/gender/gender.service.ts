@@ -18,8 +18,12 @@ export class GenderService {
     return this.genderService.find();
   }
 
-  findOneBy(id: number) {
-    return this.genderService.findOneBy({ gen_id: id });
+  /*findOne(id: number) {
+    return this.genderService.findBy({ gen_id: id });
+  }*/
+
+  findOneBy(name: string) {
+    return this.genderService.findOneBy({ gen_name: name });
   }
 
   async update(id: number, updateGender: Gender) {

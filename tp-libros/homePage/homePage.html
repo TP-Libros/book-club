@@ -3,13 +3,14 @@
 
 <head>
     <meta charset='UTF-8'/>
-    <link rel="icon" href="/StylesUniversal/images/favicon.png">
+    <link rel="icon" href="../../StylesUniversal/images/favicon.png">
     <link rel="stylesheet" href="homePage.css"/>
     <link rel="stylesheet" href="../../StylesUniversal/style_menu.css">
     <link rel="stylesheet" href="../../StylesUniversal/style-book-list.css">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src= 'homePage.js'></script>
+   
 
     <title>Book Club</title>
  
@@ -33,19 +34,37 @@
       <br><button id="signIn">Registrate!</button>
   </div>
 
-        <div id="book-list">Lista de libros disponibles
-          <div class="book" class="book">
-            <div class="book-img"></div>
-            <div class="book-text">
-              <div class="book-tittle"></div>
-              <div class="book-author"></div>
-            </div>
-            <div class="book-isbn"></div>
-            <div class="book-gender"></div>
-          </div>
+        <div id="book-list">
+          <h2>Libros disponibles</h2>
+          <table class="b-list">
+            <thead>
+              <tr>
+                <th>Imagen</th>
+                <th>Titulo</th>
+                <th>isbn</th>
+                <th>Autor</th>
+                <th>Gender</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+            </tbody>
+          </table>
           <br><button id="seeMore">Ver Más</button>
         </div>
  <!-- xxxxxx  -->
+  <template id="template-book">
+    <tr>
+      <td class="image-book"></td>
+      <td class="title-book"></td>
+      <td class="isbn-book"></td>
+      <td class="autor-book"></td>
+      <td class="gender-book"></td>
 
+    </tr>
+
+  </template>
+
+  <script src='mostrar_libro.js'></script>
  
 </body>

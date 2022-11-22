@@ -1,4 +1,5 @@
 import {} from '@nestjs/swagger';
+import { Subscription } from 'rxjs';
 import { Associated } from 'src/associated/associated.entity';
 import { Book } from 'src/book/book.entity';
 import {
@@ -14,18 +15,32 @@ export class Borrowing {
   @PrimaryGeneratedColumn()
   bor_id: number;
 
-  @ManyToOne(() => Book, (book) => book.boo_ISBN)
-  @JoinColumn({ name: 'boo_ISBN' })
-  boo_ISBN: number;
+  @Column({ name: 'boo_id' })
+  booId: number;
 
-  @Column({ name: 'bor_from_date', type: 'timestamptz' })
+  @ManyToOne(() => Book, (book) => book.boo_id)
+  @JoinColumn({ name: 'boo_id' })
+  boo_id: number;
+
+  @Column({ /*default: Date(),*/ name: 'bor_from_date', type: 'timestamptz' })
   bor_from_date: Date;
 
-  @Column({ name: 'bor_to_date', type: 'timestamptz' })
+  @Column({
+    /*default: Date() + 5,*/
+    name: 'bor_to_date',
+    type: 'timestamptz',
+  })
   bor_to_date: Date;
 
-  @Column({ name: 'bor_devolution_date', type: 'timestamptz', nullable: true })
+  @Column({
+    name: 'bor_devolution_date',
+    type: 'timestamptz',
+    nullable: true,
+  })
   bor_devolution_date: Date;
+
+  @Column({ name: 'ass_id' })
+  assId: number;
 
   @ManyToOne(() => Associated, (associated) => associated.ass_id)
   @JoinColumn({ name: 'ass_id' })

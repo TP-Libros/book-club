@@ -17,13 +17,18 @@ export class AssociatedService {
     const newAssociated = this.associatedService.create(body);
     return this.associatedService.save(newAssociated);
   }
+  /*pepe*/ 
 
   findAll(): Promise<Associated[]> {
     return this.associatedService.find();
   }
 
-  findOneBy(id: number) {
+  findOneById(id: number) {
     return this.associatedService.findOneBy({ ass_id: id });
+  }
+
+  findOneBy(userName: string) {
+    return this.associatedService.findOneBy({ ass_userName: userName });
   }
 
   async update(id: number, updateAssociated: Associated) {
