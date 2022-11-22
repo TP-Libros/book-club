@@ -29,6 +29,17 @@ export class BookController {
   @ApiInternalServerErrorResponse({
     description: 'Internal server error',
   })
+
+  @Get('catalogo/')
+  findAllFilter(){
+    return this.bookService.findAllFilter();
+  }
+
+  @Get('myBooks/:id')
+  findAllFilterId(@Param('id') id: number){
+    return this.bookService.findAllFilterId(id);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.bookService.findById(id);

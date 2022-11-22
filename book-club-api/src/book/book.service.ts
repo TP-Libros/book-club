@@ -11,6 +11,22 @@ export class BookService {
     return this.bookService.find();
   }
 
+  findAllFilter(): Promise<Book[]> {
+    return this.bookService.find({
+      where: {
+        boo_borrowingSt: false,
+      },
+    });
+  }
+
+  findAllFilterId(id: number): Promise<Book[]> {
+    return this.bookService.find({
+      where: {
+        assId: id,
+      },
+    });
+  }
+
   findById(id: number) {
     return this.bookService.findOneBy({ boo_id: id });
   }
