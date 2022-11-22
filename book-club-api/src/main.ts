@@ -10,6 +10,7 @@ async function bootstrap() {
 
   //Swagger
   const options = new DocumentBuilder()
+    .addBearerAuth()
     .setTitle('Book Club')
     .setDescription(`The API for Book Club app`)
     .setVersion('1.0')
