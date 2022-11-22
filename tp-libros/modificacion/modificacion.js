@@ -1,3 +1,12 @@
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementsByClassName("modify-checkbox").onchange = modify(document.getElementsByClassName("modify-checkbox"));
+}, false);
+
+function modify(e) {
+    var boxInput = e.parent().getElementsByClassName("box");
+    boxInput.disabled = !boxInput.disabled;
+}
+
 var image
 var imgData
 var elem = document.getElementById("drop-spot");
@@ -29,27 +38,27 @@ function load() {
     for (let [key, prop] of fd) {
         data[key] = prop;
     }
-    data["boo_imagePath"] = imgData;
+    data["boo_imagePath"] = imgData; 
     let ass_id = JSON.parse(localStorage.getItem("idUser"));
-    data["ass_token"] = ass_id;
+    data["ass_id"] = ass_id;
     VALUE = JSON.stringify(data, null, 11);
     // const myHeaders = new Headers();
     // myHeaders.append('Content-Type', 'application/json');
 
     console.log(VALUE)
     const send = {
-        method: 'POST',
-        body: VALUE,
-        headers: {
-            'Content-Type': 'application/json',
-        }
+    method: 'POST',
+    body: VALUE,
+    headers: {
+    'Content-Type': 'application/json',
+    }
     };
 
     fetch(url, send)
         .then(data => data.json())
-        .then(data => {
+        .then(data => { 
             console.log(data)
-        })
+         })
         .catch((err) => {
             console.error(err);
         })

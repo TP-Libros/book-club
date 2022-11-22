@@ -18,7 +18,6 @@ export class AssociatedService {
     const newAssociated = this.associatedService.create(body);
     return this.associatedService.save(newAssociated);
   }
-  /*pepe*/
 
   @UseGuards(JwtAuthGuard)
   findAll(): Promise<Associated[]> {
