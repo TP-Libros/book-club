@@ -33,19 +33,24 @@ export class BookController {
   @ApiInternalServerErrorResponse({
     description: 'Internal server error',
   })
+  
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.bookService.findById(id);
   }
+
+  @UseGuards(JwtAuthGuard)
   @Get('catalogo/')
   findAllFilter() {
     return this.bookService.findAllFilter();
-  }
+  }
 
+  @UseGuards(JwtAuthGuard)
   @Get('myBooks/:id')
   findAllFilterId(@Param('id') id: number) {
     return this.bookService.findAllFilterId(id);
-  }
+  }
 
   @UseGuards(JwtAuthGuard)
   @Post()
