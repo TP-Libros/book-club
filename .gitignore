@@ -42,3 +42,5 @@ lerna-debug.log*
 package-lock.json
 package.json
 README.md
+book-club-api/package-lock.json
+book-club-api/package.json
