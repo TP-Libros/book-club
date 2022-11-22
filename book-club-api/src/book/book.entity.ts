@@ -25,15 +25,25 @@ export class Book {
   @Column()
   boo_title: string;
 
-  @ManyToOne(() => Author, (author) => author.aut_id, { onDelete: 'SET NULL' })
+  @Column({ name: 'aut_id' })
+  autId: number;
+
+  @ManyToOne(() => Author, { nullable: false })
+  /*, (author) => author.aut_id, { onDelete: 'SET NULL' })*/
   @JoinColumn({ name: 'aut_id' })
   aut_id: Author;
 
+  @Column({ name: 'edi_id' })
+  ediId: number;
+  
   @ManyToOne(() => Editorial, (editorial) => editorial.edi_id, {
     onDelete: 'SET NULL',
   })
   @JoinColumn({ name: 'edi_id' })
   edi_id: Editorial;
+
+  @Column({ name: 'gen_id' })
+  genId: number;
 
   @ManyToOne(() => Gender, (gender) => gender.gen_id, { onDelete: 'SET NULL' })
   @JoinColumn({ name: 'gen_id' })
@@ -47,6 +57,9 @@ export class Book {
 
   @Column()
   boo_imagePath: string;
+
+  @Column({ name: 'ass_id' })
+  assId: number;
 
   @ManyToOne(() => Associated, (associated) => associated.ass_id, {
     onDelete: 'SET NULL',

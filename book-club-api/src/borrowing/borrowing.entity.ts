@@ -15,6 +15,9 @@ export class Borrowing {
   @PrimaryGeneratedColumn()
   bor_id: number;
 
+  @Column({ name: 'boo_id' })
+  booId: number;
+
   @ManyToOne(() => Book, (book) => book.boo_id)
   @JoinColumn({ name: 'boo_id' })
   boo_id: number;
@@ -35,6 +38,9 @@ export class Borrowing {
     nullable: true,
   })
   bor_devolution_date: Date;
+
+  @Column({ name: 'ass_id' })
+  assId: number;
 
   @ManyToOne(() => Associated, (associated) => associated.ass_id)
   @JoinColumn({ name: 'ass_id' })
