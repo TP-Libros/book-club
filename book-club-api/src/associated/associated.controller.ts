@@ -29,7 +29,6 @@ export class AssociatedController {
   @ApiInternalServerErrorResponse({
     description: 'Internal server error',
   })
-
   @Get(':id')
   findOneById(@Param('id') id: number) {
     return this.associatedService.findOneById(id);
@@ -39,7 +38,6 @@ export class AssociatedController {
   findOne(@Param('userName') userName: string) {
     return this.associatedService.findOneBy(userName);
   }
-
 
   @Post()
   create(@Body() body: Associated) {
