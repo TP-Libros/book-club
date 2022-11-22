@@ -17,7 +17,7 @@ import { BookModule } from './book/book.module';
       password: 'UsTcBWXk-8znxQEZWx32GEZ7jOwJS_2S',
       database: 'wkaegqgr',
       entities: ['dist/**/*.entity{.ts,.js}'],
-      synchronize: true,
+      synchronize: false,
       logging: true,
     }),
     BookModule,

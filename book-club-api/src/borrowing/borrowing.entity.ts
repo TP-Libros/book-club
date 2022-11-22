@@ -22,11 +22,10 @@ export class Borrowing {
   @JoinColumn({ name: 'boo_id' })
   boo_id: number;
 
-  @Column({ /*default: Date(),*/ name: 'bor_from_date', type: 'timestamptz' })
+  @Column({ name: 'bor_from_date', type: 'timestamptz' })
   bor_from_date: Date;
 
   @Column({
-    /*default: Date() + 5,*/
     name: 'bor_to_date',
     type: 'timestamptz',
   })

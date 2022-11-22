@@ -13,7 +13,6 @@ export class AssociatedService {
     const newAssociated = this.associatedService.create(body);
     return this.associatedService.save(newAssociated);
   }
-  /*pepe*/ 
 
   findAll(): Promise<Associated[]> {
     return this.associatedService.find();
