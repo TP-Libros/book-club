@@ -6,15 +6,20 @@ import {
   Put,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import {
+  ApiBearerAuth,
   ApiInternalServerErrorResponse,
   ApiNotFoundResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Associated } from './associated.entity';
 import { AssociatedService } from './associated.service';
 
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @ApiTags('associated')
 @Controller('associated')
 export class AssociatedController {
@@ -29,7 +34,6 @@ export class AssociatedController {
   @ApiInternalServerErrorResponse({
     description: 'Internal server error',
   })
-
   @Get(':id')
   findOneById(@Param('id') id: number) {
     return this.associatedService.findOneById(id);
@@ -39,7 +43,6 @@ export class AssociatedController {
   findOne(@Param('userName') userName: string) {
     return this.associatedService.findOneBy(userName);
   }
-
 
   @Post()
   create(@Body() body: Associated) {

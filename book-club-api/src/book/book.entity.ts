@@ -35,7 +35,7 @@ export class Book {
 
   @Column({ name: 'edi_id' })
   ediId: number;
-  
+
   @ManyToOne(() => Editorial, (editorial) => editorial.edi_id, {
     onDelete: 'SET NULL',
   })

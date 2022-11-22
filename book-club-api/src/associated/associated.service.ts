@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UseGuards } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { hash } from 'bcrypt';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Repository } from 'typeorm';
 import { Associated } from './associated.entity';
 
@@ -17,8 +18,9 @@ export class AssociatedService {
     const newAssociated = this.associatedService.create(body);
     return this.associatedService.save(newAssociated);
   }
-  /*pepe*/ 
+  /*pepe*/
 
+  @UseGuards(JwtAuthGuard)
   findAll(): Promise<Associated[]> {
     return this.associatedService.find();
   }
