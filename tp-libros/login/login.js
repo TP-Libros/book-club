@@ -1,6 +1,6 @@
 function login() {
 
-    const url = "";
+    const url = "http://localhost:3000/auth/login";
     let form = document.forms["form"];
     let fd = new FormData(form);
     let data = {};
@@ -19,14 +19,14 @@ function login() {
     };
 
     fetch(url, send)
-        .then(data => data.json())
+        .then(response => response.json())
         .then(data => { 
-            
-            if(data.body === 'Not Found' ){
-                document.getElementById("errorMsg").appendChild(<p>User or password incorrect</p>)
-                window.location.href='/login/login.html';
+            if(data.body === 'username or password incorrect' ){
+                document.getElementById("errorMsg").appendChild("User or password incorrect")
+                window.location.href="login.html";
             }else{
-                saveLocalStorage(data.body)
+                saveLocalStorage(data)
+                window.location.href="../libro_propio/libros_propios.html";
             }
          })
         .catch((err) => {
@@ -36,12 +36,10 @@ function login() {
 }
 function saveLocalStorage(data) {
     let token = data.token;
-    let user = data.id;
-    let name = data.name;
+    let user = data.associated;
 
     localStorage.setItem("TokenUser", JSON.stringify(token));
-    localStorage.setItem("idUser", JSON.stringify(user));
-    localStorage.setItem("idUser", JSON.stringify(name));
+    localStorage.setItem("User", JSON.stringify(user));
 
 }
 

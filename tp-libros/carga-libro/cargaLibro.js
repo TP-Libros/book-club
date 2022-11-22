@@ -29,8 +29,8 @@ function load() {
     for (let [key, prop] of fd) {
         data[key] = prop;
     }
-    data["boo_imagePath"] = imgData;
-    let ass_id = JSON.parse(localStorage.getItem("idUser"));
+    data["boo_imagePath"] = image.src;
+    let ass_id = JSON.parse(localStorage.getItem("User"));
     data["ass_token"] = ass_id;
     VALUE = JSON.stringify(data, null, 11);
     // const myHeaders = new Headers();
