@@ -47,3 +47,4 @@ book-club-api/package.json
 book-club-api/package-lock.json
 .gitignore
 
+.vscode/settings.json

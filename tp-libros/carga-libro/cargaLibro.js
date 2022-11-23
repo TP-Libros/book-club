@@ -1,4 +1,4 @@
-var image
+let formData
 var imgData
 var elem = document.getElementById("drop-spot");
 
@@ -8,7 +8,9 @@ function handleFileDrop($eve) {
     var fr = new FileReader();
     fr.onload = loaded;
     function loaded(evt) {
-        image.setAttribute("src", evt.target.result);
+        image.setAttribute("src", evt.target.result); 
+        const files = evt.target.files
+        formData = new FormData()
     }
     fr.readAsDataURL($eve.dataTransfer.files[0]);
     imgData = $eve.dataTransfer.files[0]
@@ -29,7 +31,7 @@ function load() {
     for (let [key, prop] of fd) {
         data[key] = prop;
     }
-    data["boo_imagePath"] = image.src;
+    data["boo_imagePath"] =  formData;
     let ass_id = JSON.parse(localStorage.getItem("User"));
     data["ass_token"] = ass_id;
     VALUE = JSON.stringify(data, null, 11);

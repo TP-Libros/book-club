@@ -9,6 +9,7 @@ window.onload = function () {
         body: token,
         headers: {
             'Content-Type': 'application/json',
+            
         }
     };
 
