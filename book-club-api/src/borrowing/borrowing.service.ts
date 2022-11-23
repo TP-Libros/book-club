@@ -15,10 +15,16 @@ export class BorrowingService {
   }
 
   findAllByAssId(id: number): Promise<Borrowing[]> {
-    return this.borrowingService.findBy({
-      ass_id: id,
+    return this.borrowingService.find({
+      where: {
+        assId: id,
+        bor_devolution_date: null,
+      },
     });
   }
+
+  /* findAllByAssIdCount(findAllByAssId()){
+      this.borrowingService.count(bor_id);*/
 
   findById(id: number) {
     return this.borrowingService.findOneBy({ bor_id: id });

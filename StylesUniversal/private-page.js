@@ -8,21 +8,21 @@ window.onload = function () {
         method: 'POST',
         body: token,
         headers: {
-        'Content-Type': 'application/json',
+            'Content-Type': 'application/json',
         }
-        };
-    
-        fetch(url, send)
-            .then(data => data.json())
-            .then(data => { 
-                
-                if(data.body === 'Not Found' ){
-                    window.location.href='/login/login.html';
-                }
-             })
-            .catch((err) => {
-                console.error(err);
-            })
+    };
+
+    fetch(url, send)
+        .then(res => checkStatus(res))
+        .catch((err) => {
+            console.error(err);
+        })
+}
+
+function checkStatus(e){
+    if (e.statusCode === 400) {
+        window.location.href = '../login/login.html';
+    }
 }
 
 function getLocalStorage() {
