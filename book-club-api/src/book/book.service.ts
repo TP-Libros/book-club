@@ -36,12 +36,11 @@ export class BookService {
     });
   }
 
-  
-
   findAllFilterByISBN(isbn: number): Promise<Book[]>{
     return this.bookService.find({
       where: {
         boo_ISBN: (isbn),
+        boo_borrowingSt: false,
       },
       relations: ['aut_id', 'edi_id', 'gen_id'],
     })
@@ -50,6 +49,7 @@ export class BookService {
   async findAllFilterByAuthor(author: string): Promise<Book[]>{
     return await this.bookService.find({
       where: [{
+        boo_borrowingSt: false,
         aut_id : {
           aut_name: Like(`%${author}%`)
         },
@@ -67,6 +67,7 @@ export class BookService {
   async findAllFilterByGender(gender: string): Promise<Book[]>{
     return await this.bookService.find({
       where: {
+        boo_borrowingSt: false,
         gen_id: {
           gen_name: Like(`%${gender}%`),
         },
@@ -80,6 +81,7 @@ export class BookService {
     //const books = this.bookService.createQueryBuilder("book").where("book.boo_title= :title", {title: title}).getMany();
     return this.bookService.find({
       where: {
+        boo_borrowingSt: false,
         boo_title: Like(`%${title}%`),
       },
       relations: ['aut_id', 'edi_id', 'gen_id'],
@@ -90,7 +92,20 @@ export class BookService {
   findAllFilterId(id: number): Promise<Book[]> {
     return this.bookService.find({
       where: {
+        boo_borrowingSt: false,
         assId: id,
+      },
+      relations: ['aut_id', 'edi_id', 'gen_id'],
+      order:{boo_title: 'ASC'}
+    });
+  }
+
+  findAllFilterIdBorrowings(id: number): Promise<Book[]> {
+    return this.bookService.find({
+      where: {
+        assId: id,
+        boo_borrowingSt: true,
+
       },
       relations: ['aut_id', 'edi_id', 'gen_id'],
       order:{boo_title: 'ASC'}
@@ -102,7 +117,7 @@ export class BookService {
       where: {
         boo_id: id
       },
-      relations: ['aut_id', 'edi_id', 'gen_id'],
+      relations: ['aut_id', 'edi_id', 'gen_id', 'ass_id'],
       order:{boo_title: 'ASC'}
     });
   }
