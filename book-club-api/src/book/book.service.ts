@@ -9,7 +9,10 @@ export class BookService {
   constructor(@InjectRepository(Book) private bookService: Repository<Book>) {}
 
   findAll(): Promise<Book[]> {
-    return this.bookService.find({ relations: ['aut_id', 'edi_id', 'gen_id'] });
+    return this.bookService.find({ 
+      relations: ['aut_id', 'edi_id', 'gen_id'],
+      order:{boo_title: 'ASC'}
+     });
   }
 
   findAllFilter(): Promise<Book[]> {
@@ -18,8 +21,22 @@ export class BookService {
         boo_borrowingSt: false,
       },
       relations: ['aut_id', 'edi_id', 'gen_id'],
+      order:{boo_title: 'ASC'}
     });
   }
+
+  findAllNoAssociated(): Promise<Book[]> {
+    return this.bookService.find({
+      where: {
+        boo_borrowingSt: false,
+      },
+      relations: ['aut_id', 'edi_id', 'gen_id'],
+      order:{boo_title: 'ASC'},
+      take: 10
+    });
+  }
+
+  
 
   findAllFilterByISBN(isbn: number): Promise<Book[]>{
     return this.bookService.find({
@@ -43,6 +60,7 @@ export class BookService {
         },
       }],
       relations: ['aut_id', 'edi_id', 'gen_id'],
+      order:{boo_title: 'ASC'}
     })
   }
 
@@ -54,6 +72,7 @@ export class BookService {
         },
       },
       relations: ['aut_id', 'edi_id', 'gen_id'],
+      order:{boo_title: 'ASC'}
     })
   }
 
@@ -64,6 +83,7 @@ export class BookService {
         boo_title: Like(`%${title}%`),
       },
       relations: ['aut_id', 'edi_id', 'gen_id'],
+      order:{boo_title: 'ASC'}
     })
   }
 
@@ -73,6 +93,7 @@ export class BookService {
         assId: id,
       },
       relations: ['aut_id', 'edi_id', 'gen_id'],
+      order:{boo_title: 'ASC'}
     });
   }
 
@@ -82,6 +103,7 @@ export class BookService {
         boo_id: id
       },
       relations: ['aut_id', 'edi_id', 'gen_id'],
+      order:{boo_title: 'ASC'}
     });
   }
 

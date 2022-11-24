@@ -14,6 +14,7 @@ export class BorrowingService {
   findAll(): Promise<Borrowing[]> {
     return this.borrowingService.find({
       relations: ['boo_id', 'boo_id.aut_id', 'boo_id.gen_id', 'boo_id.edi_id'],
+      order:{bor_id: 'ASC'}
     });
   }
 
@@ -24,6 +25,7 @@ export class BorrowingService {
         bor_devolution_date: null,
       },
       relations: ['boo_id', 'boo_id.aut_id', 'boo_id.gen_id', 'boo_id.edi_id'],
+      order:{bor_id: 'ASC'}
     });
   }
 
@@ -36,6 +38,7 @@ export class BorrowingService {
         bor_id: id,
       },
       relations: ['boo_id', 'boo_id.aut_id', 'boo_id.gen_id', 'boo_id.edi_id'],
+    
     });
   }
 

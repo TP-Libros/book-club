@@ -63,9 +63,14 @@ export class BookController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('catalogo/')
+  @Get('catalogue/')
   findAllFilter() {
     return this.bookService.findAllFilter();
+  }
+
+  @Get('catalogueNoAssociated/')
+  findAllNoAssociated() {
+    return this.bookService.findAllNoAssociated();
   }
 
   @UseGuards(JwtAuthGuard)

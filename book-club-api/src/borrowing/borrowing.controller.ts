@@ -44,7 +44,7 @@ export class BorrowingController {
     return this.borrowingService.findById(+id);
   }
 
-  @Get('associated/:id')
+  @Get('ass/:id')
   findAllByAssId(@Param('id') id: string) {
     return this.borrowingService.findAllByAssId(+id);
   }
