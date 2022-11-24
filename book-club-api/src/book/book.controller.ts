@@ -32,23 +32,23 @@ export class BookController {
     return this.bookService.findAll(/*author, gender, editorial*/);
   }
 
-  @Get('filter/:isbn')
-  findAllFilterByISBN(@Param('isbn') isbn: number) {
+  @Get('filter/isbn/:boo_isbn')
+  findAllFilterByISBN(@Param('boo_isbn') isbn: number) {
     return this.bookService.findAllFilterByISBN(isbn);
   }
 
-  @Get('filter/:author')
-  findAllFilterByAuthor(@Param('author') author: string) {
+  @Get('filter/author/:boo_author')
+  findAllFilterByAuthor(@Param('boo_author') author: string) {
     return this.bookService.findAllFilterByAuthor(author);
   }
 
-  @Get('filter/:gender')
-  findAllFilterByGender(@Param('gender') gender: string) {
+  @Get('filter/gender/:boo_gender')
+  findAllFilterByGender(@Param('boo_gender') gender: string) {
     return this.bookService.findAllFilterByGender(gender);
   }
 
-  @Get('filter/:title')
-  findAllFilterByTitle(@Param('title') title: string) {
+  @Get('filter/title/:boo_title')
+  findAllFilterByTitle(@Param('boo_title') title: string) {
     return this.bookService.findAllFilterByTitle(title);
   }
 

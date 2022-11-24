@@ -30,12 +30,16 @@ export class BookService {
     })
   }
 
-  findAllFilterByAuthor(author: string): Promise<Book[]>{
-    const aux = String(author);
-    return this.bookService.find({
+  async findAllFilterByAuthor(author: string): Promise<Book[]>{
+    return await this.bookService.find({
       where: [{
         aut_id : {
-          aut_name: Like(`%${String(aux)}%`)
+          aut_name: Like(`%${author}%`)
+        },
+      },
+      {
+        aut_id : {
+          aut_surname: Like(`%${author}%`)
         },
       }],
       relations: ['aut_id', 'edi_id', 'gen_id'],
@@ -57,7 +61,7 @@ export class BookService {
     //const books = this.bookService.createQueryBuilder("book").where("book.boo_title= :title", {title: title}).getMany();
     return this.bookService.find({
       where: {
-        boo_title: title,
+        boo_title: Like(`%${title}%`),
       },
       relations: ['aut_id', 'edi_id', 'gen_id'],
     })
