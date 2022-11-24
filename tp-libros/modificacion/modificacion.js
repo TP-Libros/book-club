@@ -95,7 +95,6 @@ async function load() {
             option.value = element.aut_id;
             document.getElementById("author").appendChild(option)
         }
-    
 
     }
 
@@ -115,7 +114,6 @@ async function load() {
             option.value = element.gen_id;
             document.getElementById("gender").appendChild(option)
         }
-    
 
     }
 
@@ -133,10 +131,7 @@ async function load() {
             option.value = element.edi_id;
             document.getElementById("editorial").appendChild(option)
         }
-    
-
     }
-
 }
 
 function getLocalStorage() {
