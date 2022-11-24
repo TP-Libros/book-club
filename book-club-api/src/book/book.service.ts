@@ -8,14 +8,18 @@ export class BookService {
   constructor(@InjectRepository(Book) private bookService: Repository<Book>) {}
 
   findAll(): Promise<Book[]> {
-    return this.bookService.find();
+    return this.bookService.find({ relations: ['aut_id', 'edi_id', 'gen_id'] });
   }
+  //   find({
+  //   relations: ['sizes', 'reviews']
+  // });
 
   findAllFilter(): Promise<Book[]> {
     return this.bookService.find({
       where: {
         boo_borrowingSt: false,
       },
+      relations: ['aut_id', 'edi_id', 'gen_id'],
     });
   }
 
@@ -24,11 +28,17 @@ export class BookService {
       where: {
         assId: id,
       },
+      relations: ['aut_id', 'edi_id', 'gen_id'],
     });
   }
 
   findById(id: number) {
-    return this.bookService.findOneBy({ boo_id: id });
+    return this.bookService.find({
+      where: {
+        boo_id: id
+      },
+      relations: ['aut_id', 'edi_id', 'gen_id'],
+    });
   }
 
   create(body: any) {
