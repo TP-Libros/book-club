@@ -25,6 +25,19 @@ export class BookService {
     });
   }
 
+  findAllNoAssociated(): Promise<Book[]> {
+    return this.bookService.find({
+      where: {
+        boo_borrowingSt: false,
+      },
+      relations: ['aut_id', 'edi_id', 'gen_id'],
+      order:{boo_title: 'ASC'},
+      take: 10
+    });
+  }
+
+  
+
   findAllFilterByISBN(isbn: number): Promise<Book[]>{
     return this.bookService.find({
       where: {
