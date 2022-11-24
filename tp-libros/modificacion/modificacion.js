@@ -1,13 +1,14 @@
-document.addEventListener('DOMContentLoaded', function () {
-    document.getElementsByClassName("modify-checkbox").onchange = modify(document.getElementsByClassName("modify-checkbox"));
-}, false);
+// document.addEventListener('DOMContentLoaded', function () {
+//     document.getElementsByClassName("modify-checkbox").onchange = modify(document.getElementsByClassName("modify-checkbox"));
+// }, false);
+// function modify(e) {
+//     var boxInput = e.parent().getElementsByClassName("box");
+//     boxInput.disabled = !boxInput.disabled;
+// }
 
-function modify(e) {
-    var boxInput = e.parent().getElementsByClassName("box");
-    boxInput.disabled = !boxInput.disabled;
-}
+const { response } = require("express");
 
-var image
+let formData
 var imgData
 var elem = document.getElementById("drop-spot");
 
@@ -18,6 +19,9 @@ function handleFileDrop($eve) {
     fr.onload = loaded;
     function loaded(evt) {
         image.setAttribute("src", evt.target.result);
+        formData = new FormData()
+        formData.append(image.files[0])
+
     }
     fr.readAsDataURL($eve.dataTransfer.files[0]);
     imgData = $eve.dataTransfer.files[0]
@@ -28,7 +32,7 @@ function handleDragOver($eve) {
     $eve.preventDefault();
 }
 
-function load() {
+async function load() {
 
     const url = "http://127.0.0.1:3000/book";
 
@@ -38,7 +42,7 @@ function load() {
     for (let [key, prop] of fd) {
         data[key] = prop;
     }
-    data["boo_imagePath"] = imgData; 
+    data["boo_imagePath"] =  formData;
     let ass_id = JSON.parse(localStorage.getItem("idUser"));
     data["ass_id"] = ass_id;
     VALUE = JSON.stringify(data, null, 11);
@@ -51,10 +55,13 @@ function load() {
     body: VALUE,
     headers: {
     'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + getLocalStorage()
+
     }
     };
 
-    fetch(url, send)
+    await fetch(url, send)
+        .then(response => checkStatus(response))
         .then(data => data.json())
         .then(data => { 
             console.log(data)
@@ -65,10 +72,18 @@ function load() {
 
 }
 
-window.onload = function () {
+ window.onload = async function () {
     const urlAuthor = "http://127.0.0.1:3000/author";
-    fetch(urlAuthor)
-        .then(response => response.json())
+    const send = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + getLocalStorage()
+        }
+    };
+
+    await fetch(urlAuthor,send)
+        .then(response => checkStatus(response))
         .then(data => cargarAutores(data))
         .catch(error => console.log(error))
 
@@ -85,10 +100,12 @@ window.onload = function () {
     }
 
     const urlGender = "http://127.0.0.1:3000/gender";
-    fetch(urlGender)
-        .then(response => response.json())
+    await fetch(urlGender,send)
+        .then(response => checkStatus(response))
         .then(data => cargarGender(data))
         .catch(error => console.log(error))
+
+
 
     const cargarGender = (data) => {
         for (let i = 0; i < data.length; i++) {
@@ -103,8 +120,8 @@ window.onload = function () {
     }
 
     const urlEditorial = "http://127.0.0.1:3000/editorial";
-    fetch(urlEditorial)
-        .then(response => response.json())
+    await fetch(urlEditorial,send)
+        .then(response => checkStatus(response))
         .then(data => cargarEditorial(data))
         .catch(error => console.log(error))
 
@@ -120,4 +137,21 @@ window.onload = function () {
 
     }
 
+}
+
+function getLocalStorage() {
+
+    let token;
+    if(localStorage.getItem("TokenUser") === "undefined" || localStorage.getItem("TokenUser") === null){
+        window.location.href = '../login/login.html';
+    }else{
+        token = JSON.parse(localStorage.getItem("TokenUser"));
+    }
+    return token;
+}
+
+function checkStatus(e){
+    if (e.statusCode === 401) {
+        window.location.href = '../login/login.html';
+    }
 }
