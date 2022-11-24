@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -11,7 +12,10 @@ export class BorrowingService {
   ) {}
 
   findAll(): Promise<Borrowing[]> {
-    return this.borrowingService.find();
+    return this.borrowingService.find({
+      relations: ['boo_id', 'boo_id.aut_id', 'boo_id.gen_id', 'boo_id.edi_id'],
+      order:{bor_id: 'ASC'}
+    });
   }
 
   findAllByAssId(id: number): Promise<Borrowing[]> {
@@ -20,16 +24,44 @@ export class BorrowingService {
         assId: id,
         bor_devolution_date: null,
       },
+      relations: ['boo_id', 'boo_id.aut_id', 'boo_id.gen_id', 'boo_id.edi_id'],
+      order:{bor_id: 'ASC'}
     });
   }
 
-  /* findAllByAssIdCount(findAllByAssId()){
-      this.borrowingService.count(bor_id);*/
-
   findById(id: number) {
-    return this.borrowingService.findOneBy({ bor_id: id });
+    return this.borrowingService.find({
+      where: {
+        bor_id: id,
+      },
+      relations: ['boo_id', 'boo_id.aut_id', 'boo_id.gen_id', 'boo_id.edi_id'],
+    
+    });
   }
 
+  findCountAssId(id: number) {
+    return this.borrowingService.findAndCount({
+      where: {
+        assId: id,
+        bor_devolution_date: null,
+      },
+      relations: ['boo_id', 'boo_id.aut_id', 'boo_id.gen_id', 'boo_id.edi_id'],
+      order:{bor_id: 'ASC'}
+    });
+  }
+
+ 
+ async createBorrowing(body: any) {	
+
+  const quantity = await this.findCountAssId(body.bor_id);
+ 
+    if( Number(quantity) < 5){
+      this.create(body);
+    }
+
+  return 'Excede la cantidad máxima de libros tomados en prestamo.';						
+}						
+							
   create(body: any) {
     const newBorrowing = this.borrowingService.create(body);
     return this.borrowingService.save(newBorrowing);

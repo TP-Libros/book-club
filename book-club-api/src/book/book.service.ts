@@ -1,6 +1,7 @@
+/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { Book } from './book.entity';
 
 @Injectable()
@@ -8,7 +9,10 @@ export class BookService {
   constructor(@InjectRepository(Book) private bookService: Repository<Book>) {}
 
   findAll(): Promise<Book[]> {
-    return this.bookService.find();
+    return this.bookService.find({ 
+      relations: ['aut_id', 'edi_id', 'gen_id'],
+      order:{boo_title: 'ASC'}
+     });
   }
 
   findAllFilter(): Promise<Book[]> {
@@ -16,19 +20,133 @@ export class BookService {
       where: {
         boo_borrowingSt: false,
       },
+      relations: ['aut_id', 'edi_id', 'gen_id'],
+      order:{boo_title: 'ASC'}
     });
+  }
+
+  findAllNoAssociated(): Promise<Book[]> {
+    return this.bookService.find({
+      where: {
+        boo_borrowingSt: false,
+      },
+      relations: ['aut_id', 'edi_id', 'gen_id'],
+      order:{boo_title: 'ASC'},
+      take: 10
+    });
+  }
+
+  findAllFilterByISBN(isbn: number): Promise<Book[]>{
+    return this.bookService.find({
+      where: {
+        boo_ISBN: (isbn),
+        boo_borrowingSt: false,
+      },
+      relations: ['aut_id', 'edi_id', 'gen_id'],
+    })
+  }
+
+  async findAllFilterByAuthor(author: string): Promise<Book[]>{
+    return await this.bookService.find({
+      where: [{
+        boo_borrowingSt: false,
+        aut_id : {
+          aut_name: ILike(`%${author}%`)
+        },
+      },
+      {
+        aut_id : {
+          aut_surname: ILike(`%${author}%`)
+        },
+      }],
+      relations: ['aut_id', 'edi_id', 'gen_id'],
+      order:{boo_title: 'ASC'}
+    })
+  }
+
+  async findAllFilterByGender(gender: string): Promise<Book[]>{
+    return await this.bookService.find({
+      where: {
+        boo_borrowingSt: false,
+        gen_id: {
+          gen_name: ILike(`%${gender}%`),
+        },
+      },
+      relations: ['aut_id', 'edi_id', 'gen_id'],
+      order:{boo_title: 'ASC'}
+    })
+  }
+
+  findAllFilterByTitle(title: string): Promise<Book[]>{
+    //const books = this.bookService.createQueryBuilder("book").where("book.boo_title= :title", {title: title}).getMany();
+    return this.bookService.find({
+      where: {
+        boo_borrowingSt: false,
+        boo_title: ILike(`%${title}%`),
+      },
+      relations: ['aut_id', 'edi_id', 'gen_id'],
+      order:{boo_title: 'ASC'}
+    })
   }
 
   findAllFilterId(id: number): Promise<Book[]> {
     return this.bookService.find({
       where: {
+        boo_borrowingSt: false,
         assId: id,
       },
+      relations: ['aut_id', 'edi_id', 'gen_id'],
+      order:{boo_title: 'ASC'}
+    });
+  }
+
+  findAllFilterIdBorrowings(id: number): Promise<Book[]> {
+    return this.bookService.find({
+      where: {
+        assId: id,
+        boo_borrowingSt: true,
+
+      },
+      relations: ['aut_id', 'edi_id', 'gen_id'],
+      order:{boo_title: 'ASC'}
     });
   }
 
   findById(id: number) {
-    return this.bookService.findOneBy({ boo_id: id });
+    return this.bookService.find({
+      where: {
+        boo_id: id
+      },
+      relations: ['aut_id', 'edi_id', 'gen_id', 'ass_id'],
+      order:{boo_title: 'ASC'}
+    });
+  }
+
+  findByIdAvailable(id: number) {
+    return this.bookService.find({
+      where: {
+        boo_id: id,
+        boo_borrowingSt: false,
+      },
+      relations: ['aut_id', 'edi_id', 'gen_id', 'ass_id'],
+      order:{boo_title: 'ASC'}
+    });
+  }
+
+  async updateBook(id: number, body: any) {
+      
+    if(this.findByIdAvailable(id) != null ){
+        this.update(id,body);
+    }
+    return 'No se puede modificar el registro, el libro esta prestado'
+  }
+
+  async deleteBook(id: number) {
+      
+    if(this.findByIdAvailable(id) != null ){
+       this.remove(id);
+    }
+    return 'No se puede borrar el registro, el libro esta prestado'
   }
 
   create(body: any) {

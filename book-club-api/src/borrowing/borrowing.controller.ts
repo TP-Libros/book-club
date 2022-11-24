@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Controller,
   Get,
@@ -26,9 +27,10 @@ export class BorrowingController {
   constructor(private readonly borrowingService: BorrowingService) {}
 
   @Post()
-  create(@Body() createBorrowing: Borrowing) {
-    return this.borrowingService.create(createBorrowing);
+  create(@Body() body: Borrowing) {
+    return this.borrowingService.createBorrowing(body);
   }
+
 
   @Get()
   findAll() {
@@ -44,7 +46,7 @@ export class BorrowingController {
     return this.borrowingService.findById(+id);
   }
 
-  @Get('associated/:id')
+  @Get('ass/:id')
   findAllByAssId(@Param('id') id: string) {
     return this.borrowingService.findAllByAssId(+id);
   }

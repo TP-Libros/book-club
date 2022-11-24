@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { Author } from './author.entity';
 
 @Injectable()
@@ -23,7 +23,13 @@ export class AuthorService {
   }
 
   findOneBy(name: string) {
-    return this.authorService.findOneBy({ aut_name: name });
+    // return this.authorService.findOneBy({ aut_name: name });
+    return this.authorService.find({
+      where: [
+        { aut_name: ILike(`%${name}%`) },
+        { aut_surname: ILike(`%${name}%`) },
+      ],
+    });
   }
 
   async update(id: number, updateAuthor: Author) {
