@@ -25,12 +25,12 @@ import { BookService } from './book.service';
 export class BookController {
   constructor(private readonly bookService: BookService) {}
 
-  @Get()
+  /*@Get()
   findAll(/*@Query('aut_name') author?: string,
   @Query('gen_name') gender?: string,
-  @Query('edi_name') editorial?: string*/) {
-    return this.bookService.findAll(/*author, gender, editorial*/);
-  }
+  @Query('edi_name') editorial?: string) {
+    return this.bookService.findAll(author, gender, editorial);
+  }*/
 
   @Get('filter/isbn/:boo_isbn')
   findAllFilterByISBN(@Param('boo_isbn') isbn: number) {
@@ -77,6 +77,12 @@ export class BookController {
   @Get('myBooks/:id')
   findAllFilterId(@Param('id') id: number) {
     return this.bookService.findAllFilterId(id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('myBooksborrowings/:id')
+  findAllFilterIdBorrowings(@Param('id') id: number) {
+    return this.bookService.findAllFilterIdBorrowings(id);
   }
 
   @UseGuards(JwtAuthGuard)
