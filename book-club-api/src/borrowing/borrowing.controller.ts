@@ -31,6 +31,7 @@ export class BorrowingController {
     return this.borrowingService.createBorrowing(body);
   }
 
+
   @Get()
   findAll() {
     return this.borrowingService.findAll();
