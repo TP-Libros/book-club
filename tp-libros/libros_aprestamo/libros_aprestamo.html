@@ -1,0 +1,65 @@
+ 
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'/>
+    <link rel="icon" href="../../StylesUniversal/images/favicon.png">
+    <link rel="stylesheet" href="../homePage/homePage.css"/>
+    <link rel="stylesheet" href="../../StylesUniversal/style_menu.css">
+    <link rel="stylesheet" href="../../StylesUniversal/style-book-list.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src= 'homePage.js'></script>
+   
+
+    <title>Book Club</title>
+ 
+</head>
+
+<body>    
+	<header id="header">
+		<a href="/homePage.html"><img src="../../StylesUniversal/images/logo.png" alt="Book Club Logo" id="header-img"></a>
+		<h1>Prestamo de libros</h1>
+		<nav id="nav-bar">
+			<ul>
+				<li><a class="nav-link" href="../catalogo/catalogo.html">Catálogo</a></li>
+				<li><a class="nav-link" href="../libro_propio/libros_propios.html">¿Cómo hacer un prestamo?</a></li>
+			</ul>
+      <button onclick="window.location.href='/login/login.html';" type="button">Log in</button>
+		</nav>
+	</header>
+
+        <div id="book-list">
+          <h2>Libros a prestamo</h2>
+          <table class="b-list">
+            <thead>
+              <tr>
+                <th>Imagen</th>
+                <th>Titulo</th>
+                <th>isbn</th>
+                <th>Autor</th>
+                <th>Gender</th>
+                <th>Fecha desde</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+            </tbody>
+          </table>
+        </div>
+ <!-- xxxxxx  -->
+  <template id="template-book">
+    <tr>
+      <td class="image-book"></td>
+      <td class="title-book"></td>
+      <td class="isbn-book"></td>
+      <td class="autor-book"></td>
+      <td class="gender-book"></td>
+      <td class="fecha-book"></td>
+
+    </tr>
+
+  </template>
+ 
+</body>

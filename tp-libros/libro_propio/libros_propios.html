@@ -27,17 +27,42 @@
 		</nav>
 	</header>
 
-        <div id="book-list">
-            <div class="book" class="book">
-                <div class="book-img"></div>
-                <div class="book-text">
-                    <div class="book-tittle"></div>
-                    <div class="book-author"></div>
-                </div>
-                <div class="book-isbn"></div>
-                <div class="book-gender"></div>
-            </div>
-        </div>
+
+    <div id="book-list">
+        <h2>Libros disponibles</h2>
+        <table class="b-list">
+          <thead>
+            <tr>
+              <th>Imagen</th>
+              <th>Titulo</th>
+              <th>isbn</th>
+              <th>Autor</th>
+              <th>Gender</th>
+              <th>Acciones</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            
+          </tbody>
+        </table>
+      </div>
+<!-- xxxxxx  -->
+<template id="template-book">
+  <tr>
+    <td class="image-book"></td>
+    <td class="title-book"></td>
+    <td class="isbn-book"></td>
+    <td class="autor-book"></td>
+    <td class="gender-book"></td>
+    <td class="boton-book">
+      <button>Eliminar</button>
+      <button>Modificar</button>
+    </td>
+
+  </tr>
+
+</template>
     
 </body>
 </html>
