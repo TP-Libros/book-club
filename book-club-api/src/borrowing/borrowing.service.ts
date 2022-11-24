@@ -2,8 +2,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { MoreThanOrEqual } from "typeorm";
-import { isNumberObject } from 'util/types';
 import { Borrowing } from './borrowing.entity';
 
 @Injectable()

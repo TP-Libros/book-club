@@ -27,8 +27,8 @@ export class BorrowingController {
   constructor(private readonly borrowingService: BorrowingService) {}
 
   @Post()
-  create(@Body() createBorrowing: Borrowing) {
-    return this.borrowingService.createBorrowing(createBorrowing);
+  create(@Body() body: Borrowing) {
+    return this.borrowingService.createBorrowing(body);
   }
 
   @Get()
