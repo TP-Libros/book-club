@@ -8,22 +8,24 @@ import { Book } from './book.entity';
 export class BookService {
   constructor(@InjectRepository(Book) private bookService: Repository<Book>) {}
 
-  findAll(): Promise<Book[]> {
-    return this.bookService.find({ 
-      relations: ['aut_id', 'edi_id', 'gen_id'],
-      order:{boo_title: 'ASC'}
-     });
-  }
-
-  findAllFilter(): Promise<Book[]> {
+  findAllFilterCatalogue(): Promise<Book[]> {
     return this.bookService.find({
       where: {
-        boo_borrowingSt: false,
+        boo_borrowingSt: false
       },
       relations: ['aut_id', 'edi_id', 'gen_id'],
       order:{boo_title: 'ASC'}
     });
   }
+
+  // findAll(): Promise<Book[]> {
+  //   return this.bookService.find({ 
+  //     relations: ['aut_id', 'edi_id', 'gen_id'],
+  //     order:{boo_title: 'ASC'}
+  //   });
+  // }
+
+
 
   findAllNoAssociated(): Promise<Book[]> {
     return this.bookService.find({
