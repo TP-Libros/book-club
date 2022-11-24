@@ -26,15 +26,36 @@ export class BookController {
   constructor(private readonly bookService: BookService) {}
 
   @Get()
-  findAll() {
-    return this.bookService.findAll();
+  findAll(/*@Query('aut_name') author?: string,
+  @Query('gen_name') gender?: string,
+  @Query('edi_name') editorial?: string*/) {
+    return this.bookService.findAll(/*author, gender, editorial*/);
+  }
+
+  @Get('filter/isbn/:boo_isbn')
+  findAllFilterByISBN(@Param('boo_isbn') isbn: number) {
+    return this.bookService.findAllFilterByISBN(isbn);
+  }
+
+  @Get('filter/author/:boo_author')
+  findAllFilterByAuthor(@Param('boo_author') author: string) {
+    return this.bookService.findAllFilterByAuthor(author);
+  }
+
+  @Get('filter/gender/:boo_gender')
+  findAllFilterByGender(@Param('boo_gender') gender: string) {
+    return this.bookService.findAllFilterByGender(gender);
+  }
+
+  @Get('filter/title/:boo_title')
+  findAllFilterByTitle(@Param('boo_title') title: string) {
+    return this.bookService.findAllFilterByTitle(title);
   }
 
   @ApiNotFoundResponse({ description: 'No book found for ID' })
   @ApiInternalServerErrorResponse({
     description: 'Internal server error',
   })
-
   @UseGuards(JwtAuthGuard)
   @Get(':id')
   findOne(@Param('id') id: number) {

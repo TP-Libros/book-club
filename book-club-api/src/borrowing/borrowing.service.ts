@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -11,7 +12,9 @@ export class BorrowingService {
   ) {}
 
   findAll(): Promise<Borrowing[]> {
-    return this.borrowingService.find();
+    return this.borrowingService.find({
+      relations: ['boo_id', 'boo_id.aut_id', 'boo_id.gen_id', 'boo_id.edi_id'],
+    });
   }
 
   findAllByAssId(id: number): Promise<Borrowing[]> {
@@ -20,6 +23,7 @@ export class BorrowingService {
         assId: id,
         bor_devolution_date: null,
       },
+      relations: ['boo_id', 'boo_id.aut_id', 'boo_id.gen_id', 'boo_id.edi_id'],
     });
   }
 
@@ -27,7 +31,12 @@ export class BorrowingService {
       this.borrowingService.count(bor_id);*/
 
   findById(id: number) {
-    return this.borrowingService.findOneBy({ bor_id: id });
+    return this.borrowingService.find({
+      where: {
+        bor_id: id,
+      },
+      relations: ['boo_id', 'boo_id.aut_id', 'boo_id.gen_id', 'boo_id.edi_id'],
+    });
   }
 
   create(body: any) {

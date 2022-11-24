@@ -1,14 +1,14 @@
 window.onload = function () {
 
-    let token = getLocalStorage;
+    let token = getLocalStorage();
     const url = "http://localhost:3000/associated";
 
 
     const send = {
-        method: 'POST',
-        body: token,
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
         }
     };
 
@@ -20,12 +20,18 @@ window.onload = function () {
 }
 
 function checkStatus(e){
-    if (e.statusCode === 400) {
+    if (e.statusCode === 401) {
         window.location.href = '../login/login.html';
     }
 }
 
 function getLocalStorage() {
-    let token = JSON.parse(localStorage.getItem("TokenUser"));
+
+    let token;
+    if(localStorage.getItem("TokenUser") === "undefined" || localStorage.getItem("TokenUser") === null){
+        window.location.href = '../login/login.html';
+    }else{
+        token = JSON.parse(localStorage.getItem("TokenUser"));
+    }
     return token;
 }
