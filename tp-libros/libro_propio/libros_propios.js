@@ -1,6 +1,8 @@
 
+const id=JSON.parse(localStorage.getItem("User"))
 
-const urlEditorial = "http://127.0.0.1:3000/borrowing/associated/";
+const urlEditorial = "http://127.0.0.1:3000/book/associated/"+id;
+
 await fetch(urlEditorial,send)
     .then(response => checkStatus(response))
     .then(data => cargarEditorial(data))
@@ -19,6 +21,16 @@ const cargarEditorial = (data) => {
 function getLocalStorage() {
 
 let token;
+if(localStorage.getItem("TokenUser") === "undefined" || localStorage.getItem("TokenUser") === null){
+    window.location.href = '../login/login.html';
+}else{
+    token = JSON.parse(localStorage.getItem("TokenUser"));
+}
+return token;
+}
+
+function getLOcalStorage(){
+    let token;
 if(localStorage.getItem("TokenUser") === "undefined" || localStorage.getItem("TokenUser") === null){
     window.location.href = '../login/login.html';
 }else{
