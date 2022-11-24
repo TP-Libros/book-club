@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="/StylesUniversal/images/favicon.png">
     <link rel="stylesheet" href="login.css">
-    <script src="login.js"></script>
     <title>Log In | Book Club</title>
 </head>
 
@@ -16,11 +15,11 @@
         <div class="text-tittle">
             <h1>Book Club</h1>
         </div>
-        <div class="form-container" >
+        <div class="form-container">
             <h3>Log In</h3>
             <div id="errorMsg"></div>
             <form id="form" name="form">
-            <!-- <form id="form" name="form" action="http://127.0.0.1:3000/book-club-api/src/associated" method="POST"> -->
+                <!-- <form id="form" name="form" action="http://127.0.0.1:3000/book-club-api/src/associated" method="POST"> -->
                 <label for="">
                     <p>Username</p>
                     <input type="text" id="ass_userName" name="ass_userName" class="input-user" />
@@ -30,10 +29,11 @@
                     <input type="password" id="ass_password" name="ass_password" class="input-user" />
                 </label>
                 <!-- <button type="submit" class="login-button" id="button-submit">Log in</button> -->
-                <button type="submit" class="login-button" onclick="login()">Log in</button>
+                <button type="submit" class="login-button" >Log in</button>
             </form>
         </div>
     </div>
+    <script src="login.js"></script>
 
 </body>
 

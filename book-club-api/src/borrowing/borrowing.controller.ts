@@ -26,10 +26,11 @@ import { BorrowingService } from './borrowing.service';
 export class BorrowingController {
   constructor(private readonly borrowingService: BorrowingService) {}
 
-  /*@Post()
-  create(@Body() createBorrowing: Borrowing) {
-    return this.borrowingService.create(createBorrowing);
-  }*/
+  @Post()
+  create(@Body() body: Borrowing) {
+    return this.borrowingService.createBorrowing(body);
+  }
+
 
   @Get()
   findAll() {

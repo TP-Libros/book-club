@@ -1,4 +1,4 @@
-window.onload = function () {
+window.onload = async function () {
 
     let token = getLocalStorage();
     const url = "http://localhost:3000/associated";
@@ -12,7 +12,7 @@ window.onload = function () {
         }
     };
 
-    fetch(url, send)
+    await fetch(url, send)
         .then(res => checkStatus(res))
         .catch((err) => {
             console.error(err);

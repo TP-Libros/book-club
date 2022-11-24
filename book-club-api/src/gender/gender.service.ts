@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Like, Repository } from 'typeorm';
+import { ILike, Like, Repository } from 'typeorm';
 import { Gender } from './gender.entity';
 
 @Injectable()
@@ -24,7 +24,7 @@ export class GenderService {
 
   findOneBy(name: string) {
     return this.genderService.find({
-      where: { gen_name: Like(`%${name}%`) },
+      where: { gen_name: ILike(`%${name}%`) },
     });
   }
   async update(id: number, updateGender: Gender) {
