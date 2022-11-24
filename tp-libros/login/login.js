@@ -1,13 +1,13 @@
-function login() {
+async function login() {
 
     const url = "http://localhost:3000/auth/login";
     let form = document.forms["form"];
     let fd = new FormData(form);
-    let data = {};
+    let datas = {};
     for (let [key, prop] of fd) {
-        data[key] = prop;
+        datas[key] = prop;
     }
-    VALUE = JSON.stringify(data, null,2);
+    VALUE = JSON.stringify(datas, null,2);
     console.log(VALUE)
 
     const send = {
@@ -18,9 +18,10 @@ function login() {
     }
     };
 
-    fetch(url, send)
+    await fetch(url, send)
         .then(response => response.json())
         .then(data => { 
+            
             if(data.body === 'username or password incorrect' ){
                 document.getElementById("errorMsg").appendChild("User or password incorrect")
                 window.location.href="login.html";
