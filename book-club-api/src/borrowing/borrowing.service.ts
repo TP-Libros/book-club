@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { MoreThanOrEqual } from "typeorm";
+import { isNumberObject } from 'util/types';
 import { Borrowing } from './borrowing.entity';
 
 @Injectable()
@@ -40,10 +41,8 @@ export class BorrowingService {
     });
   }
 
-
-
-  findCountAssId(id: number): Promise<Borrowing[]> {
-    return this.borrowingService.find({
+  findCountAssId(id: number) {
+    return this.borrowingService.findAndCount({
       where: {
         assId: id,
         bor_devolution_date: null,
@@ -54,25 +53,21 @@ export class BorrowingService {
   }
 
  
- /*  create(body: any) {						
-    const quantityBorrowings = this.borrowingService.find({						
-      where: {						
-        assId: body.assId,						
-        bor_devolution_date: null,						
-      },						
-    });						
-    if (body.assId: MoreThanOrEqual(5);) {						
-      return 'Excede la cantidad máxima de libros tomados en prestamo.';						
-    }						
-    const newBorrowing = this.borrowingService.create(body);	
-					// hacer update sobre st prestamo en tabla de libro, import bookservice cambiar a boo_borrowingSt: true
-    return this.borrowingService.save(newBorrowing);						
-  }	*/					
-  
-  /*create(body: any) {
+ async createBorrowing(body: any) {	
+
+  const quantity = await this.findCountAssId(body.bor_id);
+ 
+    if( Number(quantity) < 5){
+      this.create(body);
+    }
+
+  return 'Excede la cantidad máxima de libros tomados en prestamo.';						
+}						
+							
+  create(body: any) {
     const newBorrowing = this.borrowingService.create(body);
     return this.borrowingService.save(newBorrowing);
-  }*/
+  }
 
   async update(id: number, body: Borrowing) {
     const borrowing = await this.borrowingService.findOneBy({

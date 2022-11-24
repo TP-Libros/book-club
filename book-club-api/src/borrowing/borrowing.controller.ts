@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Controller,
   Get,
@@ -27,7 +28,7 @@ export class BorrowingController {
 
   @Post()
   create(@Body() createBorrowing: Borrowing) {
-    return this.borrowingService.create(createBorrowing);
+    return this.borrowingService.createBorrowing(createBorrowing);
   }
 
   @Get()
