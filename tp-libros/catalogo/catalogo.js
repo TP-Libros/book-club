@@ -13,7 +13,7 @@ const loadBooks = (data) => {
 
         let author = document.createElement("div")
         author.classList.add("book-author")
-        author = element.aut_id.aut_id
+        author = element.aut_id.aut_name + " " + element.aut_id.aut_surname
 
         let text = document.createElement("div")
         text.classList.add("book-text")
@@ -30,7 +30,7 @@ const loadBooks = (data) => {
 
         let gender = document.createElement("div")
         gender.classList.add("book-gender")
-        gender = element.genId
+        gender = element.gen_id.gen_name
 
         let newBook = document.createElement("div");
         newBook.classList.add("book");

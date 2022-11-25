@@ -1,27 +1,44 @@
-let formData
-var imgData
+var imageSrc = ""
 var elem = document.getElementById("drop-spot");
 
 function handleFileDrop($eve) {
     $eve.preventDefault();
-    image = document.getElementById("image-sink");
+    var image = document.getElementById("image-sink");
     var fr = new FileReader();
     fr.onload = loaded;
     function loaded(evt) {
         image.setAttribute("src", evt.target.result);
-        const files = evt.target.files
-        formData = new FormData()
+        imageSrc = fr;
     }
     fr.readAsDataURL($eve.dataTransfer.files[0]);
-    imgData = $eve.dataTransfer.files[0]
-
 }
 function handleDragOver($eve) {
     console.log("file-over");
     $eve.preventDefault();
 }
 
-async function load() {
+function checkUser(){
+    let token = getLocalStorage();
+    const url = "http://localhost:3000/associated";
+
+
+    const send = {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    };
+
+    fetch(url, send)
+        .then(res => checkStatus(res))
+        .catch((err) => {
+            console.error(err);
+        })
+}
+
+document.addEventListener("submit", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
 
     const url = "http://127.0.0.1:3000/book";
 
@@ -31,7 +48,7 @@ async function load() {
     for (let [key, prop] of fd) {
         data[key] = prop;
     }
-    data["boo_imagePath"] = formData;
+    data["boo_imagePath"] = imageSrc;
     let ass_id = JSON.parse(localStorage.getItem("User"));
     data["ass_token"] = ass_id;
     VALUE = JSON.stringify(data, null, 11);
@@ -48,7 +65,7 @@ async function load() {
         }
     };
 
-    await fetch(url, send)
+    fetch(url, send)
         .then(response => checkStatus(response))
         .then(data => data.json())
         .then(data => {
@@ -58,9 +75,12 @@ async function load() {
             console.error(err);
         })
 
-}
+})
 
 window.onload = async function () {
+
+    checkUser()
+
     const urlAuthor = "http://127.0.0.1:3000/author";
 
     const send = {
@@ -83,12 +103,15 @@ window.onload = async function () {
 
     }
 
-    await fetch(urlAuthor, send)
-        .then(response => checkStatus(response))
-        .then(data => cargarAutores(data))
-        .catch(error => console.log(error))
-
-
+    try {
+        let response;
+        response = await fetch(urlAuthor, send)
+        checkStatus(response)
+        let data = await response.json();
+        cargarAutores(data)
+    } catch (e) {
+        return e.message;
+    }
 
     const urlGender = "http://127.0.0.1:3000/gender";
 
@@ -104,10 +127,15 @@ window.onload = async function () {
 
     }
 
-    await fetch(urlGender, send)
-        .then(response => checkStatus(response))
-        .then(data => cargarGender(data))
-        .catch(error => console.log(error))
+    try {
+        let response;
+        response = await fetch(urlGender, send)
+        checkStatus(response)
+        let data = await response.json();
+        cargarGender(data)
+    } catch (e) {
+        return e.message;
+    }
 
     const urlEditorial = "http://127.0.0.1:3000/editorial";
 
@@ -123,10 +151,15 @@ window.onload = async function () {
 
     }
 
-    await fetch(urlEditorial, send)
-        .then(response => checkStatus(response))
-        .then(data => cargarEditorial(data))
-        .catch(error => console.log(error))
+    try {
+        let response;
+        response = await fetch(urlEditorial, send)
+        checkStatus(response)
+        let data = await response.json();
+        cargarEditorial(data)
+    } catch (e) {
+        return e.message;
+    }
 }
 function getLocalStorage() {
     let token;
