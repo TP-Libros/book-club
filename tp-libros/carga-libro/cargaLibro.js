@@ -8,7 +8,7 @@ function handleFileDrop($eve) {
     fr.onload = loaded;
     function loaded(evt) {
         image.setAttribute("src", evt.target.result);
-        imageSrc = fr;
+        imageSrc = image.currentSrc;
     }
     fr.readAsDataURL($eve.dataTransfer.files[0]);
 }
@@ -48,9 +48,9 @@ document.addEventListener("submit", (event) => {
     for (let [key, prop] of fd) {
         data[key] = prop;
     }
-    data["boo_imagePath"] = imageSrc;
     let ass_id = JSON.parse(localStorage.getItem("User"));
-    data["ass_token"] = ass_id;
+    data["assId"] = ass_id.ass_id;
+    data["boo_imagePath"] = imageSrc;
     VALUE = JSON.stringify(data, null, 11);
     // const myHeaders = new Headers();
     // myHeaders.append('Content-Type', 'application/json');
