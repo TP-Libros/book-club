@@ -8,7 +8,7 @@ function handleFileDrop($eve) {
     var fr = new FileReader();
     fr.onload = loaded;
     function loaded(evt) {
-        image.setAttribute("src", evt.target.result); 
+        image.setAttribute("src", evt.target.result);
         const files = evt.target.files
         formData = new FormData()
     }
@@ -31,7 +31,7 @@ async function load() {
     for (let [key, prop] of fd) {
         data[key] = prop;
     }
-    data["boo_imagePath"] =  formData;
+    data["boo_imagePath"] = formData;
     let ass_id = JSON.parse(localStorage.getItem("User"));
     data["ass_token"] = ass_id;
     VALUE = JSON.stringify(data, null, 11);
@@ -71,28 +71,26 @@ window.onload = async function () {
         }
     };
 
-    await fetch(urlAuthor,send)
-        .then(response => checkStatus(response))
-        .then(data => cargarAutores(data))
-        .catch(error => console.log(error))
 
     const cargarAutores = (data) => {
         for (let i = 0; i < data.length; i++) {
             const element = data[i];
             option = document.createElement("option");
-            option.text = element.aut_name +" " + element.aut_surname;
+            option.text = element.aut_name + " " + element.aut_surname;
             option.value = element.aut_id;
             document.getElementById("author").appendChild(option)
         }
-    
 
     }
 
-    const urlGender = "http://127.0.0.1:3000/gender";
-    await fetch(urlGender,send)
+    await fetch(urlAuthor, send)
         .then(response => checkStatus(response))
-        .then(data => cargarGender(data))
+        .then(data => cargarAutores(data))
         .catch(error => console.log(error))
+
+
+
+    const urlGender = "http://127.0.0.1:3000/gender";
 
     const cargarGender = (data) => {
         for (let i = 0; i < data.length; i++) {
@@ -102,15 +100,16 @@ window.onload = async function () {
             option.value = element.gen_id;
             document.getElementById("gender").appendChild(option)
         }
-    
+
 
     }
 
-    const urlEditorial = "http://127.0.0.1:3000/editorial";
-    await fetch(urlEditorial,send)
+    await fetch(urlGender, send)
         .then(response => checkStatus(response))
-        .then(data => cargarEditorial(data))
+        .then(data => cargarGender(data))
         .catch(error => console.log(error))
+
+    const urlEditorial = "http://127.0.0.1:3000/editorial";
 
     const cargarEditorial = (data) => {
         for (let i = 0; i < data.length; i++) {
@@ -120,22 +119,26 @@ window.onload = async function () {
             option.value = element.edi_id;
             document.getElementById("editorial").appendChild(option)
         }
-    
+
 
     }
 
+    await fetch(urlEditorial, send)
+        .then(response => checkStatus(response))
+        .then(data => cargarEditorial(data))
+        .catch(error => console.log(error))
 }
 function getLocalStorage() {
     let token;
-    if(localStorage.getItem("TokenUser") === "undefined" || localStorage.getItem("TokenUser") === null){
+    if (localStorage.getItem("TokenUser") === "undefined" || localStorage.getItem("TokenUser") === null) {
         window.location.href = '../login/login.html';
-    }else{
+    } else {
         token = JSON.parse(localStorage.getItem("TokenUser"));
     }
     return token;
 }
 
-function checkStatus(e){
+function checkStatus(e) {
     if (e.statusCode === 401) {
         window.location.href = '../login/login.html';
     }
