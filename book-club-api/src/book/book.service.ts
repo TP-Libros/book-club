@@ -1,7 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Borrowing } from 'src/borrowing/borrowing.entity';
-import { BorrowingService } from 'src/borrowing/borrowing.service';
 import { ILike, Repository } from 'typeorm';
 import { Book } from './book.entity';
 
