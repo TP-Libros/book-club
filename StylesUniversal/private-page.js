@@ -1,4 +1,4 @@
-window.onload = async function () {
+window.onload = function () {
 
     let token = getLocalStorage();
     const url = "http://localhost:3000/associated";
@@ -7,20 +7,19 @@ window.onload = async function () {
     const send = {
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token
         }
     };
 
-    await fetch(url, send)
+    fetch(url, send)
         .then(res => checkStatus(res))
         .catch((err) => {
             console.error(err);
         })
 }
 
-function checkStatus(e){
-    if (e.statusCode === 401) {
+function checkStatus(e) {
+    if (e.status === 401) {
         window.location.href = '../login/login.html';
     }
 }
@@ -28,9 +27,9 @@ function checkStatus(e){
 function getLocalStorage() {
 
     let token;
-    if(localStorage.getItem("TokenUser") === "undefined" || localStorage.getItem("TokenUser") === null){
+    if (localStorage.getItem("TokenUser") === "undefined" || localStorage.getItem("TokenUser") === null) {
         window.location.href = '../login/login.html';
-    }else{
+    } else {
         token = JSON.parse(localStorage.getItem("TokenUser"));
     }
     return token;

@@ -1,67 +1,106 @@
-const d=document,
-$table=d.querySelector(".b-list"),
-$template=d.getElementsByClassName("book").content,
-$fragment=d.createDocumentFragment();
+// const d = document;
+// d.addEventListener("DOMContentLoaded", cargeCatalogo())
 
-const ruta="http://localhost:3000/book";
+window.onload = () => {cargeCatalogo()}
 
-const getAll=async () => {
-    try{
-        let res= await fetch(ruta),
-        json=await res.json();
-        console.log(json);
-        if(!res.ok) throw {status: res.status,
-        statusText: res.statusText};
-        json.forEach(el => {
+const loadBooks = (data) => {
+    for (let i = 0; i < data.length; i++) {
+        const element = data[i];
 
-            let tittle = document.createElement("div")
-            tittle.classList("book-tittle")
-            let author = document.createElement("div")
-            author.classList("book-author")
+        let tittle = document.createElement("div")
+        tittle.classList.add("book-tittle")
+        tittle = element.boo_title
 
-            let text = document.createElement("div")
-            text.classList("book-text")
-            text.appendChild(tittle)
-            text.appendChild(author)
+        let author = document.createElement("div")
+        author.classList.add("book-author")
+        author = element.aut_id.aut_name + " " + element.aut_id.aut_surname
 
-            let image = document.createElement("div")
-            image.classList("book-img")
+        let text = document.createElement("div")
+        text.classList.add("book-text")
+        text.append(tittle)
+        text.append(author)
 
-            let isbn = document.createElement("div")
-            isbn.classList("book-isbn")
+        let image = document.createElement("div")
+        image.classList.add("book-img")
+        image = element.boo_imagePath
 
-            let gender = document.createElement("div")
-            gender.classList("book-gender")
+        let isbn = document.createElement("div")
+        isbn.classList.add("book-isbn")
+        isbn = element.boo_ISBN
 
-            let newBook = document.createElement("div");
-            newBook.classList.add("book");
-            newBook.appendChild(image)
-            newBook.appendChild(text)
-            newBook.appendChild(isbn)
-            newBook.appendChild(gender)
-                      
+        let gender = document.createElement("div")
+        gender.classList.add("book-gender")
+        gender = element.gen_id.gen_name
 
-            // $template.querySelector(".image-book").textContent=el.boo_imagePath;
-            // $template.querySelector(".title-book").textContent=el.boo_title;
-            // $template.querySelector(".isbn-book").textContent=el.boo_ISBN;
-            // $template.querySelector(".autor-book").textContent=el.aut_id.aut_name+" "+el.aut_id.aut_surname;
-            // $template.querySelector(".gender-book").textContent=el.gen_id.gen_name;
-        
-            // let $clone=d.importNode($template,true);
-            // $fragment.appendChild($clone);
-        });
+        let newBook = document.createElement("div");
+        newBook.classList.add("book");
+        newBook.setAttribute("id", element.boo_id)
+        newBook.append(image)
+        newBook.append(text)
+        newBook.append(isbn)
+        newBook.append(gender)
 
-        $table.querySelector("tbody").appendChild($fragment);
-        
-    } catch(err){
-        let message=err.statusText || "ERROR";
-        $table.insertAdjacentHTML("afterend",`<p><b>Error ${err.status}</b></p>`);
+        document.getElementById("book-list").append(newBook)
 
     }
-   
 }
 
+function checkUser(){
+    let token = getLocalStorage();
+    const url = "http://localhost:3000/associated";
 
 
+    const send = {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    };
 
-d.addEventListener("DOMContentLoaded",getAll);
+    fetch(url, send)
+        .then(res => checkStatus(res))
+        .catch((err) => {
+            console.error(err);
+        })
+}
+
+async function cargeCatalogo() {
+
+    checkUser()
+
+    const url = "http://localhost:3000/book"
+
+    const send = {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + getLocalStorage()
+        }
+    }
+
+    try {
+    let response;
+    response = await fetch(url, send)
+    checkStatus(response)
+    let data = await response.json();
+    loadBooks(data)
+    }catch(e){
+        return e.message;
+    }
+
+    
+}
+function getLocalStorage() {
+    let token;
+    if (localStorage.getItem("TokenUser") === "undefined" || localStorage.getItem("TokenUser") === null) {
+        window.location.href = '../login/login.html';
+    } else {
+        token = JSON.parse(localStorage.getItem("TokenUser"));
+    }
+    return token;
+}
+
+function checkStatus(e) {
+    if (e.status === 401) {
+        window.location.href = '../login/login.html';
+    }
+}

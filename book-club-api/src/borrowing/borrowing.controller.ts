@@ -8,6 +8,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Put,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -49,6 +50,11 @@ export class BorrowingController {
   @Get('ass/:id')
   findAllByAssId(@Param('id') id: string) {
     return this.borrowingService.findAllByAssId(+id);
+  }
+
+  @Put('returnBorrowing/:id')
+  returnBorrowing(@Param('id') id: number){
+    return this.borrowingService.returnBorrowing(id);
   }
 
   @Patch(':id')
