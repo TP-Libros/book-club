@@ -172,7 +172,7 @@ function getLocalStorage() {
 }
 
 function checkStatus(e) {
-    if (e.statusCode === 401) {
+    if (e.status === 401) {
         window.location.href = '../login/login.html';
     }
 }
