@@ -5,14 +5,20 @@ $fragment=d.createDocumentFragment();
 
 const ruta="http://localhost:3000/book";
 
+window.onload
+
 const getAll=async () => {
+
+
+
+
     try{
         let res= await fetch(ruta),
         json=await res.json();
         console.log(json);
         if(!res.ok) throw {status: res.status,
         statusText: res.statusText};
-        json.forEach(el => {
+        forEach(el => {
 
             let tittle = document.createElement("div")
             tittle.classList("book-tittle")
@@ -39,16 +45,6 @@ const getAll=async () => {
             newBook.appendChild(text)
             newBook.appendChild(isbn)
             newBook.appendChild(gender)
-                      
-
-            // $template.querySelector(".image-book").textContent=el.boo_imagePath;
-            // $template.querySelector(".title-book").textContent=el.boo_title;
-            // $template.querySelector(".isbn-book").textContent=el.boo_ISBN;
-            // $template.querySelector(".autor-book").textContent=el.aut_id.aut_name+" "+el.aut_id.aut_surname;
-            // $template.querySelector(".gender-book").textContent=el.gen_id.gen_name;
-        
-            // let $clone=d.importNode($template,true);
-            // $fragment.appendChild($clone);
         });
 
         $table.querySelector("tbody").appendChild($fragment);
