@@ -3,7 +3,7 @@ $table=d.querySelector(".b-list"),
 $template=d.getElementById("template-book").content,
 $fragment=d.createDocumentFragment();
 
-const ruta="http://localhost:3000/book";
+const ruta="http://localhost:3000/book/catalogueNoAssociated";
 
 const getAll=async () => {
     try{

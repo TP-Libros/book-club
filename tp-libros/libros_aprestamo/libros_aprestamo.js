@@ -5,10 +5,8 @@ $table=d.querySelector(".b-list"),
 $template=d.getElementById("template-book").content,
 $fragment=d.createDocumentFragment();
 
-let idLibro=0;
 
-
-function getLOcalStorage(){
+function getLocalStorage(){
     let token;
 if(localStorage.getItem("TokenUser") === "undefined" || localStorage.getItem("TokenUser") === null){
     window.location.href = '../login/login.html';
@@ -24,6 +22,7 @@ if (e.statusCode === 401) {
 }
 }
 
+
 function getIdUser() {
 
     let id;
@@ -36,7 +35,7 @@ function getIdUser() {
 }
 
 const getAll=async () => {
-    const urlLibros = "http://localhost:3000/book/myBooks/"+getIdUser();
+    const urlLibros = "http://localhost:3000/borrowing/ass/"+getIdUser();
     const send = {
         method: 'GET',
         headers: {
@@ -47,25 +46,19 @@ const getAll=async () => {
     try{
         let res= await fetch(urlLibros,send),
         json=await res.json();
-        console.log(json);
         if(!res.ok) throw {status: res.status,
         statusText: res.statusText};
         json.forEach(el => {
+            $template.querySelector(".image-book").textContent=el.boo_id.boo_imagePath;
+            $template.querySelector(".title-book").textContent=el.boo_id.boo_title;
+            $template.querySelector(".isbn-book").textContent=el.boo_id.boo_ISBN;
+            $template.querySelector(".autor-book").textContent=el.boo_id.aut_id.aut_name+" "+el.boo_id.aut_id.aut_surname;
+            $template.querySelector(".gender-book").textContent=el.boo_id.gen_id.gen_name;
+          $template.querySelector(".fecha-book").textContent=el.bor_from_date;
 
-            $template.querySelector(".image-book").textContent=el.boo_imagePath;
-            $template.querySelector(".title-book").textContent=el.boo_title;
-            $template.querySelector(".isbn-book").textContent=el.boo_ISBN;
-            $template.querySelector(".autor-book").textContent=el.aut_id.aut_name+" "+el.aut_id.aut_surname;
-            $template.querySelector(".gender-book").textContent=el.gen_id.gen_name;
-            $template.querySelector(".prestado-book").textContent=el.boo_borrowingSt;
-            $template.querySelector(".posecion-book").textContent=el.boo_borrowingSt;
-
-        //  $template.querySelector(".fecha-book").textContent=el.bor_from_date;
-          $template.querySelector(".ver").setAttribute("onclick", "redirectSelected(this.parentNode)");
-        
+            
             let $clone=d.importNode($template,true);
             $fragment.appendChild($clone);
-    
         });
 
         $table.querySelector("tbody").appendChild($fragment);
@@ -73,14 +66,9 @@ const getAll=async () => {
     } catch(err){
         let message=err.statusText || "ERROR";
         $table.insertAdjacentHTML("afterend",`<p><b>Error ${err.status}</b></p>`);
+
     }
+   
 }
-
-function redirectSelected(e){
-
-    localStorage.setItem("book", JSON.stringify(e.id))
-    window.location.href="/tp-libros/libro_seleccionado/libro_seleccionado.html"
-}
-
 
 d.addEventListener("DOMContentLoaded",getAll);
