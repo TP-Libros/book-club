@@ -3,12 +3,14 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Borrowing } from './borrowing.entity';
+import { BookService } from 'src/book/book.service';
 
 @Injectable()
 export class BorrowingService {
   constructor(
     @InjectRepository(Borrowing)
     private borrowingService: Repository<Borrowing>,
+    private readonly bookService: BookService
   ) {}
 
   findAll(): Promise<Borrowing[]> {
@@ -50,13 +52,16 @@ export class BorrowingService {
 
   async createBorrowing(body: Borrowing) {	
     const [ result, quantity ] = await this.findCountAssId(body.assId);
-
-    if( Number(quantity) < 5){
-      const newBorrowing = this.borrowingService.create(body);
-      return this.borrowingService.save(newBorrowing);
+    if( Number(quantity) >= 5){
+      throw new BadRequestException('Excede la cantidad máxima de libros tomados en prestamo.');
     }
-    throw new BadRequestException('Excede la cantidad máxima de libros tomados en prestamo.');
-              
+    try{
+      const book = this.bookService.findByIdAvailable(body.booId);
+      const newBorrowing = this.borrowingService.create(body);
+      this.bookService.updateBook(body.booId, book);
+      return this.borrowingService.save(newBorrowing);
+    }catch(BadRequestException){}
+    throw new BadRequestException('No se puede modificar el registro, el libro esta prestado.');
   }						
 							
   create(body: any) {
