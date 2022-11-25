@@ -148,11 +148,21 @@ export class BookService {
   async updateBook(id: number, body: any) {
       
     // if(this.findByIdAvailable(id) != null ){
-    if(body.boo_borrowingSt == false){
+    // if(body.boo_borrowingSt == false){
       body = {...body, boo_borrowingSt: true};
       return this.update(id,body);
-    }
-    return null;
+    // }
+    // return null;
+  }
+
+  async updateReturnedBook(id: number, body: any) {
+      
+    // if(this.findByIdAvailable(id) != null ){
+    // if(body.boo_borrowingSt == true){
+      body = {...body, boo_borrowingSt: false};
+      return this.update(id,body);
+    // }
+    // return null;
   }
 
   async deleteBook(id: number) {

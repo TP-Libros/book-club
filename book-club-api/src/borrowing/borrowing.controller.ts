@@ -8,6 +8,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Put,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -16,6 +17,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { threadId } from 'worker_threads';
 import { Borrowing } from './borrowing.entity';
 import { BorrowingService } from './borrowing.service';
 
@@ -49,6 +51,11 @@ export class BorrowingController {
   @Get('ass/:id')
   findAllByAssId(@Param('id') id: string) {
     return this.borrowingService.findAllByAssId(+id);
+  }
+
+  @Put('returnBorrowing/:id')
+  returnBorrowing(@Param('id') id: number){
+    return this.borrowingService.returnBorrowing(id);
   }
 
   @Patch(':id')
