@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Borrowing } from './borrowing.entity';
@@ -45,22 +45,19 @@ export class BorrowingService {
         assId: id,
         bor_devolution_date: null,
       },
-      relations: ['boo_id', 'boo_id.aut_id', 'boo_id.gen_id', 'boo_id.edi_id'],
-      order:{bor_id: 'ASC'}
     });
   }
 
- 
- async createBorrowing(body: any) {	
+  async createBorrowing(body: Borrowing) {	
+    const [ result, quantity ] = await this.findCountAssId(body.assId);
 
-  const quantity = await this.findCountAssId(body.bor_id);
- 
     if( Number(quantity) < 5){
-      this.create(body);
+      const newBorrowing = this.borrowingService.create(body);
+      return this.borrowingService.save(newBorrowing);
     }
-
-  return 'Excede la cantidad máxima de libros tomados en prestamo.';						
-}						
+    throw new BadRequestException('Excede la cantidad máxima de libros tomados en prestamo.');
+              
+  }						
 							
   create(body: any) {
     const newBorrowing = this.borrowingService.create(body);
