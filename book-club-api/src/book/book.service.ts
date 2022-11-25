@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Borrowing } from 'src/borrowing/borrowing.entity';
-import { ILike, Repository } from 'typeorm';
+import { ILike, IsNull, Repository } from 'typeorm';
 import { Book } from './book.entity';
 
 @Injectable()
@@ -95,15 +95,24 @@ export class BookService {
     });
   }
 
-  findAllFilterId(id: number): Promise<Book[]> {
-    return this.bookService.find({
+  async findAllFilterId(id: number) {
+    const book: Book[] = await this.bookService.find({
       where: {
         // boo_borrowingSt: false,
         assId: id,
       },
-      relations: ['aut_id', 'edi_id', 'gen_id'],
+      relations: ['aut_id', 'edi_id', 'gen_id', 'ass_id'],
       order: { boo_title: 'ASC' },
     });
+    const borrowings: Borrowing[] = await this.borrowingAuxService.find({
+      where: {
+        bor_devolution_date: IsNull(),
+      },
+      relations: ['ass_id'],
+    });
+
+    const data = [{ book: book, borrowing: borrowings }];
+    return data;
   }
 
   findAllFilterIdBorrowings(id: number): Promise<Book[]> {
@@ -129,7 +138,7 @@ export class BookService {
     const borrowing = await this.borrowingAuxService.find({
       where: {
         booId: book[0].boo_id,
-        bor_devolution_date: null,
+        bor_devolution_date: IsNull(),
       },
       relations: ['ass_id'],
       order: { bor_id: 'ASC' },

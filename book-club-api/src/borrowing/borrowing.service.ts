@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { IsNull, Repository } from 'typeorm';
 import { Borrowing } from './borrowing.entity';
 import { BookService } from 'src/book/book.service';
 
@@ -24,7 +24,7 @@ export class BorrowingService {
     return this.borrowingService.find({
       where: {
         assId: id,
-        bor_devolution_date: null,
+        bor_devolution_date: IsNull(),
       },
       relations: ['boo_id', 'boo_id.aut_id', 'boo_id.gen_id', 'boo_id.edi_id'],
       order:{bor_id: 'ASC'}
@@ -45,7 +45,7 @@ export class BorrowingService {
     return this.borrowingService.findAndCount({
       where: {
         assId: id,
-        bor_devolution_date: null,
+        bor_devolution_date: IsNull(),
       },
     });
   }
@@ -56,10 +56,10 @@ export class BorrowingService {
       throw new BadRequestException('Excede la cantidad máxima de libros tomados en prestamo.');
     }
     try{
-      const book = this.bookService.findByIdAvailable(body.booId);
-      const newBorrowing = this.borrowingService.create(body);
-      this.bookService.updateBook(body.booId, book);
-      return this.borrowingService.save(newBorrowing);
+      const book = await this.bookService.findByIdAvailable(body.booId);
+      const newBorrowing = await this.borrowingService.create(body);
+      await this.bookService.updateBook(body.booId, book);
+      return await this.borrowingService.save(newBorrowing);
     }catch(BadRequestException){}
     throw new BadRequestException('No se puede modificar el registro, el libro esta prestado.');
   }				
