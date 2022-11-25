@@ -32,9 +32,17 @@ export class BookController {
     return this.bookService.findAll(author, gender, editorial);
   }*/
 
+
+
   @Get('catalogueNoAssociated/')
   findAllNoAssociated() {
     return this.bookService.findAllNoAssociated();
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('borrowed/')
+  findAllBorrowedBooks() {
+    return this.bookService.findAllBorrowedBooks();
   }
 
   @Get('filter/isbn/:boo_isbn')
