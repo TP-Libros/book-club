@@ -124,6 +124,16 @@ export class BookService {
     });
   }
 
+  findAllBorrowedBooks(){
+    return this.bookService.find({
+      where: {
+        boo_borrowingSt: true
+      },
+      relations: ['aut_id', 'edi_id', 'gen_id', 'ass_id'],
+      order:{boo_title: 'ASC'}
+    })
+  }
+
   findByIdAvailable(id: number) {
     return this.bookService.find({
       where: {
@@ -137,11 +147,22 @@ export class BookService {
 
   async updateBook(id: number, body: any) {
       
-    if(this.findByIdAvailable(id) != null ){
+    // if(this.findByIdAvailable(id) != null ){
+    // if(body.boo_borrowingSt == false){
       body = {...body, boo_borrowingSt: true};
       return this.update(id,body);
-    }
-    throw new BadRequestException('No se puede modificar el registro, el libro esta prestado.');
+    // }
+    // return null;
+  }
+
+  async updateReturnedBook(id: number, body: any) {
+      
+    // if(this.findByIdAvailable(id) != null ){
+    // if(body.boo_borrowingSt == true){
+      body = {...body, boo_borrowingSt: false};
+      return this.update(id,body);
+    // }
+    // return null;
   }
 
   async deleteBook(id: number) {

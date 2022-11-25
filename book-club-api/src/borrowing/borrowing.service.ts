@@ -62,7 +62,19 @@ export class BorrowingService {
       return this.borrowingService.save(newBorrowing);
     }catch(BadRequestException){}
     throw new BadRequestException('No se puede modificar el registro, el libro esta prestado.');
-  }						
+  }				
+  
+  async returnBorrowing(id: number){
+    const borrowing = await this.borrowingService.findOneBy({
+      bor_id: id,
+    });
+    const date: Date = new Date();
+    borrowing.bor_devolution_date = date;
+    // body = {...body, bor_devolution_date: date}
+    const book = this.bookService.findById(borrowing.booId);
+    this.bookService.updateReturnedBook(borrowing.booId, book);
+    return this.update(borrowing.bor_id, borrowing);
+  }
 							
   create(body: any) {
     const newBorrowing = this.borrowingService.create(body);
