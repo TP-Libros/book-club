@@ -17,7 +17,6 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { threadId } from 'worker_threads';
 import { Borrowing } from './borrowing.entity';
 import { BorrowingService } from './borrowing.service';
 
