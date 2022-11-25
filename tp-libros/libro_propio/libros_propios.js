@@ -59,13 +59,10 @@ const getAll=async () => {
             $template.querySelector(".gender-book").textContent=el.gen_id.gen_name;
             $template.querySelector(".prestado-book").textContent=el.boo_borrowingSt;
             $template.querySelector(".posecion-book").textContent=el.boo_borrowingSt;
+
         //  $template.querySelector(".fecha-book").textContent=el.bor_from_date;
-        //  $template.querySelector(".boton-book").textContent="hola";
-            idLibro=el.boo_id;
-            guardarIdLibro(idLibro);
-
-
-            
+          $template.querySelector(".ver").setAttribute("onclick", "redirectSelected(this.parentNode)");
+        
             let $clone=d.importNode($template,true);
             $fragment.appendChild($clone);
     
@@ -79,8 +76,11 @@ const getAll=async () => {
     }
 }
 
-function guardarIdLibro(id){
-    localStorage.setItem("idBook", JSON.stringify(id));
+function redirectSelected(e){
+
+    localStorage.setItem("book", JSON.stringify(e.id))
+    window.location.href="/tp-libros/libro_seleccionado/libro_seleccionado.html"
 }
+
 
 d.addEventListener("DOMContentLoaded",getAll);

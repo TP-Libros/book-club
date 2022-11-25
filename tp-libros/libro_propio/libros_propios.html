@@ -4,18 +4,17 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" type="image/png" href="/StylesUniversal/images/favicon.png">
-        <link rel="stylesheet" href="/StylesUniversal/style_menu.css">
-        <link rel="stylesheet" href="/StylesUniversal/style-book-list.css">
+        <link rel="icon" type="image/png" href="../../StylesUniversal/images/favicon.png">
+        <link rel="stylesheet" href="../../StylesUniversal/style_menu.css">
+        <link rel="stylesheet" href="../../StylesUniversal/style-book-list.css">
         <link rel="stylesheet" href="./libros_propios.css">
-        <script src="landing.js"></script>
         <script src="../../StylesUniversal/private-page.js"></script>
         <title>Mis Libros | Book Club</title>
     </head>
 <body>
 
     <header id="header">
-		<a href="../homePage/homePage.html"><img src="/StylesUniversal/images/logo.png" alt="Book Club Logo" id="header-img"></a>
+		<a href="../homePage/homePage.html"><img src="../../StylesUniversal/images/logo.png" alt="Book Club Logo" id="header-img"></a>
 		<h1>Libros en posesión</h1>
 		<nav id="nav-bar">
 			<ul>
@@ -26,6 +25,9 @@
 			<button onclick="window.location.href='/libros_propios.html';" type="button">Mis Libros</button>
 		</nav>
 	</header>
+  <div class="containerMsg">
+    <label><input type="checkbox" id="cbox1" value="first_checkbox">Filtrar por libros prestados</label><br>
+</div>
 
 
     <div id="book-list">
@@ -38,6 +40,9 @@
               <th>isbn</th>
               <th>Autor</th>
               <th>Gender</th>
+              <th>Prestado</th>
+              <th>En posecion</th>
+              <th>Fecha</th>
               <th>Acciones</th>
               
             </tr>
@@ -55,14 +60,20 @@
     <td class="isbn-book"></td>
     <td class="autor-book"></td>
     <td class="gender-book"></td>
+    <td class="prestado-book"></td>
+    <td class="posecion-book"></td>
+    <td class="fecha-book"></td>
     <td class="boton-book">
       <button>Eliminar</button>
-      <button>Modificar</button>
+      <a href="../modificacion/modificacion.html"><button>Modificar</button></a> 
+      <a href="../libro_seleccionado/libro_seleccionado.html"><button class="ver">Ver</button></a> 
+
     </td>
 
   </tr>
 
 </template>
+<script src='libros_propios.js'></script>
     
 </body>
 </html>
