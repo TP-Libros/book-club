@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ILike, Repository } from 'typeorm';
 import { Book } from './book.entity';
@@ -138,17 +138,18 @@ export class BookService {
   async updateBook(id: number, body: any) {
       
     if(this.findByIdAvailable(id) != null ){
-        this.update(id,body);
+      body = {...body, boo_borrowingSt: true};
+      return this.update(id,body);
     }
-    return 'No se puede modificar el registro, el libro esta prestado'
+    throw new BadRequestException('No se puede modificar el registro, el libro esta prestado.');
   }
 
   async deleteBook(id: number) {
       
     if(this.findByIdAvailable(id) != null ){
-       this.remove(id);
+      return this.remove(id);
     }
-    return 'No se puede borrar el registro, el libro esta prestado'
+    throw new BadRequestException('No se puede modificar el registro, el libro esta prestado.');
   }
 
   create(body: any) {
