@@ -1,3 +1,95 @@
+@import url('https://fonts.googleapis.com/css?family=Comfortaa|Open+Sans:300,400,600,700');
+
 #position-2{
 	margin-top: 40px;
+	height: 33rem;
 }
+
+#book-filter > #form > .filter > select, #book-filter > #form > .filter > input{
+	width: 8rem;
+	height: 1.25rem;
+	background-color: #f3ebe2;
+	border-bottom: 2px solid #828282;
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+}
+
+#book-filter #form > .filter{	
+    margin: 5px 0px;
+	padding-left: 5px;
+}
+#book-filter > #form > .filter > select:focus, #book-filter > #form > .filter > input:hover,  #book-filter > #form > .filter > input:focus{
+	height: 1.19rem;
+	color: black;
+	border-bottom: 2px solid #d19e78;
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+	outline: -webkit-focus-ring-color auto 0px;
+}
+
+#book-list{
+	overflow: auto;
+}
+
+
+.image-b{
+	width: 105.15px;
+	height: 118.883px;
+}
+
+.book .book-text{
+	width: 45%;
+
+}
+
+.book > .book-isbn{
+	width: 10%;
+}
+
+.book-tittle{
+	font-size: 20px;
+	font-family: 'Comfortaa', cursive;
+	padding-left: 30px;
+    padding-top: 20px;
+}
+
+.book > .book-text > .book-author{
+	padding-left: 40px;
+}
+
+.book > .book-gender{
+	text-align: center;
+}
+
+.book > .button {
+    background-color: #dfab83;
+    border: 1px solid #e9b085;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
+    box-sizing: border-box;
+    color: #ffffff;
+    cursor: pointer;
+    font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 20px;
+    outline: none;
+    outline: 0;
+    padding: 10px 25px;
+    text-align: center;
+    transform: translateY(0);
+    transition: transform 150ms, box-shadow 150ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    position: relative;
+    z-index: 1;
+    width: 15%;
+	height: 50px;
+	margin: auto;
+  }
+  
+  .book > .button:hover {
+    box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
+    transform: translateY(-2px);
+  }

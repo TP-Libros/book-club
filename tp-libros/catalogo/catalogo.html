@@ -6,8 +6,8 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="icon" type="image/png" href="../../StylesUniversal/images/favicon.png">
-    <link rel="stylesheet" href="../../StylesUniversal/style_menu.css">
-    <link rel="stylesheet" href="../../StylesUniversal/style-book-list.css">
+	<link rel="stylesheet" href="../../StylesUniversal/style_menu.css">
+	<link rel="stylesheet" href="../../StylesUniversal/style-book-list.css">
 	<link rel="stylesheet" href="./catalogo.css">
 	<script src="../catalogo/catalogo.js"></script>
 	<title>Catalogo | Book Club</title>
@@ -17,14 +17,16 @@
 
 
 	<header id="header">
-		<a href="../homePage/homePage.html"><img src="../../StylesUniversal/images/logo.png" alt="Book Club Logo" id="header-img"></a>
+		<a href="../homePage/homePage.html"><img src="../../StylesUniversal/images/logo.png" alt="Book Club Logo"
+				id="header-img"></a>
 		<h1>Catalogo</h1>
 		<nav id="nav-bar">
 			<ul>
 				<li><a class="nav-link" href="../carga-libro/cargarLibro.html">Cargar Libros</a></li>
 				<li><a class="nav-link" href="../libro_propio/libros_propios.html">Mis libros</a></li>
 			</ul>
-			<button onclick="window.location.href='../libro_propio/libros_propios.html';" type="button">Mis Libros</button>
+			<button onclick="window.location.href='../libro_propio/libros_propios.html';" type="button">Mis
+				Libros</button>
 		</nav>
 	</header>
 
@@ -32,35 +34,35 @@
 
 		<div id="position-2">
 			<div id="book-filter">
-				<div class="filter">
-					<label for="order-select">Order By:</label>
-					<select name="order-by" id="order-select">
-						<option value="">--Please choose an option--</option>
-						<option value="A-Z">A-Z</option>
-						<option value="Z-A">Z-A</option>
-						<option value="isbn-asc">ISBN Asc</option>
-						<option value="isbn-desc">IS DBNesc</option>
-					</select>
-				</div>
-				<div class="filter">
-					<label for="gender">Filter Gender:</label>
-					<input type="name" id="gender-search" name="gender-search">
-				</div>
-				<div class="filter">
-					<label for="tittle-search">By Tittle:</label>
-					<input type="text" id="tittle-search" name="tittle-search">
-				</div>
-				<div class="filter">
-					<label for="author-search">By Author:</label>
-					<input type="text" id="author-search" name="author-search">
-				</div>
-				<div class="button-container">
-					<input id="btn" type="submit" name="submit" value="Submit" class="submit-button" onclick="load()">
-				</div>
+				<form id="form">
+					<div class="filter">
+						<label for="order-select">Order By:</label>
+						<select name="order-by" id="order-select">
+							<option value="">--Please choose an option--</option>
+							<option value="isbn-asc">ISBN Asc</option>
+							<option value="isbn-desc">ISBN Desc</option>
+						</select>
+					</div>
+					<div class="filter">
+						<label for="gender">Filter Gender:</label>
+						<input type="name" id="gender-search" name="gender-search">
+					</div>
+					<div class="filter">
+						<label for="tittle-search">By Tittle:</label>
+						<input type="text" id="tittle-search" name="tittle-search">
+					</div>
+					<div class="filter">
+						<label for="author-search">By Author:</label>
+						<input type="text" id="author-search" name="author-search">
+					</div>
+				</form>
+				<!-- <div class="button-container">
+					<input id="btn" type="submit" name="submit" value="Submit" class="submit-button">
+				</div> -->
 			</div>
 
 			<div id="book-list">
-				
+
 			</div>
 		</div>
 	</main>
