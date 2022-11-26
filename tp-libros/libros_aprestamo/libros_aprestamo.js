@@ -48,7 +48,7 @@ const loadBooks = (data) => {
 
         let newBook = document.createElement("div");
         newBook.classList.add("book");
-        newBook.setAttribute("id", data.boo_id)
+        newBook.setAttribute("id", el.booId)
 
         let buttonVer = document.createElement("button")
             buttonVer.classList.add("button")
