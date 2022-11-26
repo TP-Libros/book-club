@@ -65,7 +65,7 @@ export class BorrowingService {
   }				
   
   async returnBorrowing(id: number){
-    const borrowing = await this.borrowingService.findOneBy({
+    let borrowing = await this.borrowingService.findOneBy({
       bor_id: id,
     });
     const date: Date = new Date();
