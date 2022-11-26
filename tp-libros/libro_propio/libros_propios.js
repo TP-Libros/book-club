@@ -184,9 +184,9 @@ function redirectSelectedModification(e) {
     window.location.href = "/tp-libros/modificacion/modificacion.html"
 }
 
-async function redirectSelectedDelete(e) {
+async function redirectSelectedDelete(e) {   
 
-    const urlBorrowing = "http://localhost:3000/borrowing/" + e.getAttribute("borrowing");
+    const urlLibros = "http://localhost:3000/book/" + e.id;
     const send = {
         method: 'DELETE',
         headers: {
@@ -194,15 +194,13 @@ async function redirectSelectedDelete(e) {
         }
     }
     try {
-        let res = await fetch(urlBorrowing, send);
+        let res = await fetch(urlLibros, send);
         checkStatus(res)
         let data = await res.json();
     } catch (err) {
         let message = err.statusText
         console.log(message)
-    }    
-
-    
+    }
 }
 
 function checkUser() {
