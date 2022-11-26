@@ -53,7 +53,8 @@ document.addEventListener("submit", (event) => {
     data["boo_imagePath"] = imageSrc;
     let ass_id = JSON.parse(localStorage.getItem("User"));
     data["ass_token"] = ass_id;
-    VALUE = JSON.stringify(data, null, 11);
+    data["boo_id"] = book.boo_id;
+    VALUE = JSON.stringify(data, null, 12);
     // const myHeaders = new Headers();
     // myHeaders.append('Content-Type', 'application/json');
 
