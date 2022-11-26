@@ -150,6 +150,11 @@ document.addEventListener('change', (event) => {
     if((data["isbn-search"] === "") && (data["author-search"] === "") && (data["tittle-search"] === "") && (data["gender-search"] === "")){
         cargeCatalogo()
     }
+
+    document.getElementById("isbn-search").value = ""
+    document.getElementById("gender-search").value = ""
+    document.getElementById("tittle-search").value = ""
+    document.getElementById("author-search").value = ""
 })
 
 async function sendRequest(url) {

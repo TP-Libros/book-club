@@ -187,6 +187,7 @@ function validacion(data){
         alert("Los campos no pueden quedar vacios");
         return false;
     }
+    return true;
 }
 
 function validaVacio(valor) {
