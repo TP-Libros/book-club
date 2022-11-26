@@ -53,8 +53,9 @@ const getAll=async () => {
             $template.querySelector(".isbn-book").textContent=el.boo_id.boo_ISBN;
             $template.querySelector(".autor-book").textContent=el.boo_id.aut_id.aut_name+" "+el.boo_id.aut_id.aut_surname;
             $template.querySelector(".gender-book").textContent=el.boo_id.gen_id.gen_name;
-          $template.querySelector(".fecha-book").textContent=el.bor_from_date;
+            $template.querySelector(".fecha-book").textContent=el.bor_from_date;
 
+            jQuery(this).prev("td").attr("id")=el.boo_id;
             
             let $clone=d.importNode($template,true);
             $fragment.appendChild($clone);

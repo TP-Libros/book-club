@@ -16,6 +16,9 @@ window.onload = function () {
         .catch((err) => {
             console.error(err);
         })
+
+    user = JSON.parse(localStorage.getItem("User"));
+    document.getElementById("name").textContent = user.ass_userName
 }
 
 function checkStatus(e) {
@@ -34,3 +37,4 @@ function getLocalStorage() {
     }
     return token;
 }
+

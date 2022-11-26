@@ -20,17 +20,19 @@
 	<header id="header">
 		<a href="/homePage.html"><img src="../../StylesUniversal/images/logo.png" alt="Book Club Logo" id="header-img"></a>
 		<h1>Prestamo de libros</h1>
+    <p id="name"></p>
+
 		<nav id="nav-bar">
 			<ul>
 				<li><a class="nav-link" href="../catalogo/catalogo.html">Catálogo</a></li>
-				<li><a class="nav-link" href="../libro_propio/libros_propios.html">¿Cómo hacer un prestamo?</a></li>
+				<li><a class="nav-link" href="../carga-libro/cargarLibro.html">Cargar Libro</a></li>
 			</ul>
-      <button onclick="window.location.href='/login/login.html';" type="button">Log in</button>
+      <button onclick="window.location.href='../libro_propio/libros_propios.html';" type="button">Mis Libros</button>
 		</nav>
 	</header>
 
         <div id="book-list">
-          <h2>Libros a prestamo</h2>
+          <h2>Libros tomados a prestamo</h2>
           <table class="b-list">
             <thead>
               <tr>
@@ -40,6 +42,7 @@
                 <th>Autor</th>
                 <th>Gender</th>
                 <th>Fecha desde</th>
+                <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -56,6 +59,9 @@
       <td class="autor-book"></td>
       <td class="gender-book"></td>
       <td class="fecha-book"></td>
+      <td class="boton-book">
+        <a href="../libro_seleccionado/libro_seleccionado.html"><button class="ver">Ver</button></a> 
+      </td>
 
     </tr>
 
