@@ -55,7 +55,7 @@ export class Book {
   @Column({ nullable: true })
   boo_synopsis: string;
 
-  @Column()
+  @Column({ type: 'text' })
   boo_imagePath: string;
 
   @Column({ name: 'ass_id' })
