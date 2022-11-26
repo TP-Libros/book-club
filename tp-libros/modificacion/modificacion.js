@@ -40,7 +40,9 @@ document.addEventListener("submit", (event) => {
     event.preventDefault();
     event.stopPropagation();
 
-    const url = "http://127.0.0.1:3000/book/BookController_create";
+    let book = localStorage.getItem("book");
+
+    const url = "http://127.0.0.1:3000/book/"+book.boo_id;
 
     let form = document.forms["form"];
     let fd = new FormData(form);
@@ -75,6 +77,7 @@ document.addEventListener("submit", (event) => {
             console.error(err);
         })
 
+    window.location.href = '../libro_propio/libros_propios_2.html';
 })
 
 window.onload = async function () {
@@ -169,11 +172,11 @@ function getBookForModification(){
     let book = localStorage.getItem("book")
     document.getElementsByTagName("boo_ISBN").value = book.boo_isbn;
     document.getElementsByTagName("boo_title").value = book.boo_title;
-    document.ready = document.getElementById("author").value = book.aut_id.aut_id;
-    document.ready = document.getElementById("gender").value = book.gen_id.gen_id;
+    document.ready = document.getElementById("author").value = book.aut_id.aut_name;
+    document.ready = document.getElementById("gender").value = book.gen_id.gen_name;
     document.getElementsByTagName("boo_yearEdition").value = book.boo_yearEdition;
     document.getElementsByTagName("boo_synopsis").value = book.boo_synopsis;
-    document.ready = document.getElementById("editorial").value = book.edi_id.edi_id;
+    document.ready = document.getElementById("editorial").value = book.edi_id.edi_name;
 
 }
 
