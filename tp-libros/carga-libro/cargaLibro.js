@@ -17,7 +17,7 @@ function handleDragOver($eve) {
     $eve.preventDefault();
 }
 
-function checkUser(){
+function checkUser() {
     let token = getLocalStorage();
     const url = "http://localhost:3000/associated";
 
@@ -55,28 +55,30 @@ document.addEventListener("submit", (event) => {
     // const myHeaders = new Headers();
     // myHeaders.append('Content-Type', 'application/json');
 
-    console.log(VALUE)
-    const send = {
-        method: 'POST',
-        body: VALUE,
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + getLocalStorage()
-        }
-    };
+    if (validacion(data)) {
 
-    fetch(url, send)
-        .then(response => checkStatus(response))
-        .then(data => data.json())
-        .then(redirect())
-        .catch((err) => {
-            console.error(err);
-        })
+        console.log(VALUE)
+        const send = {
+            method: 'POST',
+            body: VALUE,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + getLocalStorage()
+            }
+        };
 
+        fetch(url, send)
+            .then(response => checkStatus(response))
+            .then(data => data.json())
+            .then(redirect())
+            .catch((err) => {
+                console.error(err);
+            })
+    }
 
 })
 
-function redirect(){
+function redirect() {
     window.location.href = 'tp-libros/libro_propio/libros_propios.html'
 }
 
@@ -177,5 +179,23 @@ function getLocalStorage() {
 function checkStatus(e) {
     if (e.status === 401) {
         window.location.href = '../login/login.html';
+    }
+}
+
+function validacion(data){
+    if ( validaVacio(data["boo_ISBN"]) || validaVacio(data["boo_title"]) || validaVacio(data["autId"]) || validaVacio(data["boo_yearEdition"]) || validaVacio(data["genId"]) || validaVacio(data["boo_synopsis"]) || validaVacio(data["ediId"]) || validaVacio(data["boo_imagePath"])) {  //COMPRUEBA CAMPOS VACIOS
+        alert("Los campos no pueden quedar vacios");
+        return false;
+    }
+}
+
+function validaVacio(valor) {
+    valor = valor.replace("&nbsp;", "");
+    valor = valor == undefined ? "" : valor;
+    if (!valor || 0 === valor.trim().length) {
+        return true;
+    }
+    else {
+        return false;
     }
 }

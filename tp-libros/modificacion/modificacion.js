@@ -54,31 +54,32 @@ document.addEventListener("submit", async (event) => {
     data["assId"] = ass_id.ass_id;
     data["boo_borrowingSt"] = false
     data["boo_imagePath"] = imageSrc;
-    VALUE = JSON.stringify(data, null,10);
+    VALUE = JSON.stringify(data, null, 10);
     // const myHeaders = new Headers();
     // myHeaders.append('Content-Type', 'application/json');
 
-    console.log(VALUE)
-    const send = {
-        method: 'PUT',
-        body: VALUE,
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + getLocalStorage()
-        }
-    };
+    if (validacion(data)) {
+        console.log(VALUE)
+        const send = {
+            method: 'PUT',
+            body: VALUE,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + getLocalStorage()
+            }
+        };
 
-    try{
-        let respo;
-        respo = await fetch(url, send)
-        checkStatus(respo)
-        let data = await respo.json()
-        redirect()
-    }catch(e){
-        return e.message
+        try {
+            let respo;
+            respo = await fetch(url, send)
+            checkStatus(respo)
+            let data = await respo.json()
+            redirect()
+        } catch (e) {
+            return e.message
+        }
     }
 
-    
 
 })
 
@@ -225,6 +226,24 @@ function getLocalStorage() {
 function checkStatus(e) {
     if (e.status === 401) {
         window.location.href = '../login/login.html';
+    }
+}
+
+function validacion(data) {
+    if (validaVacio(data["boo_ISBN"]) || validaVacio(data["boo_title"]) || validaVacio(data["autId"]) || validaVacio(data["boo_yearEdition"]) || validaVacio(data["genId"]) || validaVacio(data["boo_synopsis"]) || validaVacio(data["ediId"]) || validaVacio(data["boo_imagePath"])) {  //COMPRUEBA CAMPOS VACIOS
+        alert("Los campos no pueden quedar vacios");
+        return false;
+    }
+}
+
+function validaVacio(valor) {
+    valor = valor.replace("&nbsp;", "");
+    valor = valor == undefined ? "" : valor;
+    if (!valor || 0 === valor.trim().length) {
+        return true;
+    }
+    else {
+        return false;
     }
 }
 

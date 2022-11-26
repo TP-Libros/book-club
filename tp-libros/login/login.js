@@ -1,4 +1,4 @@
-document.addEventListener("submit", (event) => {
+document.addEventListener("submit", async (event) => {
     event.preventDefault();
     event.stopPropagation();
     const url = "http://localhost:3000/auth/login";
@@ -19,21 +19,20 @@ document.addEventListener("submit", (event) => {
         }
     };
 
-    fetch(url, send)
-        .then(response => response.json())
-        .then(data => {
+    try{
+        let response
+        response = await fetch(url,send)
+        let data = await response.json()
+        if (data.message === 'username or password incorrect') {
+            document.getElementById("errorMsg").innerHTML ="User or password incorrect"
+        } else {
+            saveLocalStorage(data)
+            window.location.href = "../libros_aprestamo/libros_aprestamo.html";
+        }
+    } catch (e) {
+        return e.message;
+    }
 
-            if (data.body === 'username or password incorrect') {
-                document.getElementById("errorMsg").appendChild("User or password incorrect")
-                window.location.href = "login.html";
-            } else {
-                saveLocalStorage(data)
-                window.location.href = "../libro_propio/libros_propios.html";
-            }
-        })
-        .catch((err) => {
-            console.error(err);
-        })
 
 }
 )
