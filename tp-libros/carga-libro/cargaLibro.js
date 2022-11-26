@@ -69,11 +69,12 @@ document.addEventListener("submit", (event) => {
         .then(response => checkStatus(response))
         .then(data => data.json())
         .then(data => {
-            console.log(data)
+            window.location.href = 'tp-libros/libro_propio/libros_propios.html'
         })
         .catch((err) => {
             console.error(err);
         })
+
 
 })
 
