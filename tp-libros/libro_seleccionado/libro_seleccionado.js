@@ -144,7 +144,7 @@ async function solicitarBook() {
         window.location.href = '/tp-libros/libros_aprestamo/libros_aprestamo.html';
             
     } catch(err){
-        alert("no")
+        alert("Alcanzaste la cantidad maxima de libros solicitados")
         let message=err.statusText || "ERROR";
     }
 }
