@@ -73,12 +73,7 @@ const getAll=async () => {
             buttonSolicitar.disabled=true;
         }else{
             buttonDevolver.disabled=true;
-        }
-
-
-
-        saveLocalStorage(books.ass_id);
-        
+        }        
         
     } catch(err){
         let message=err.statusText || "ERROR";
@@ -105,11 +100,10 @@ try{
         if(!res.ok) throw {status: res.status,
         statusText: res.statusText};
         alert('Libro devuelto');
-        window.location.href = '../tp-libros/libros_aprestamo/libros_aprestamo.html';
+        window.location.href = '/tp-libros/libros_aprestamo/libros_aprestamo.html';
             
     } catch(err){
         let message=err.statusText || "ERROR";
-        //$table.insertAdjacentHTML("afterend",`<p><b>Error ${err.status}</b></p>`);
     
     }
 }
@@ -120,17 +114,17 @@ returnButton.addEventListener('click', returnBook);
 const solicitarButton = d.querySelector('.solicitar');
 async function solicitarBook() {
     const date = new Date();
-    let data;
+    let data = {};
     let semanaEnMilisegundos = 1000 * 60 * 60 * 24 * 14; //dos semanas
     let suma = date.getTime() + semanaEnMilisegundos;
     let fechaDentroDeDosSemana = new Date(suma);
     const urlLibros = "http://localhost:3000/borrowing";
 
-    data["booId"] = JSON.parse(localStorage.getItem("book"));
+    data["booId"] = getIdBook();
     data["bor_from_date"] = date;
     data["bor_to_date"] = fechaDentroDeDosSemana;
     data["bor_devolution_date"] = null;
-    data["assId"] = getidAss();
+    data["assId"] = getidAss().ass_id;
     VALUE = JSON.stringify(data, null, 11);
     
     const send = {
@@ -147,7 +141,7 @@ async function solicitarBook() {
         if(!res.ok) throw {status: res.status,
         statusText: res.statusText};
         alert('Solicitado')
-        window.location.href = '../tp-libros/libros_aprestamo/libros_aprestamo.html';
+        window.location.href = '/tp-libros/libros_aprestamo/libros_aprestamo.html';
             
     } catch(err){
         alert("no")
@@ -157,19 +151,12 @@ async function solicitarBook() {
 
 solicitarButton.addEventListener('click', solicitarBook);
 
-function saveLocalStorage(idAsso) {
-
-
-    localStorage.setItem("idAsso", JSON.stringify(idAsso));
-
-}
-
 function getidAss(){
     let id;
-if(localStorage.getItem("idAsso") === "undefined" || localStorage.getItem("idAsso") === null){
+if(localStorage.getItem("User") === "undefined" || localStorage.getItem("idAsso") === null){
     window.location.href = '../login/login.html';
 }else{
-    id = JSON.parse(localStorage.getItem("idAsso"));
+    id = JSON.parse(localStorage.getItem("User"));
 }
 return id;
 }
