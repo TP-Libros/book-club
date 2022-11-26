@@ -64,6 +64,8 @@ const getAll=async () => {
 
         let owner=document.querySelector(".owner");
         owner.append(books.ass_id.ass_userName);
+
+        saveLocalStorage(books.ass_id.ass_id);
         
         
     } catch(err){
@@ -74,8 +76,8 @@ const getAll=async () => {
 }
 
 const returnButton = d.querySelector('.devolver');
-async function returnBook(borrowId) {
-    const urlLibros = "http://localhost:3000/borrowing/returnBorrowing/"+borrowId;
+async function returnBook() {
+    const urlLibros = "http://localhost:3000/borrowing/returnBorrowing/"+4;
     const send = {
         method: 'PUT',
         headers: {
@@ -88,7 +90,7 @@ try{
         json=await res.json();
         if(!res.ok) throw {status: res.status,
         statusText: res.statusText};
-        window.alert('Libro devuelto');
+        alert('Libro devuelto');
         window.location.href = '../libro_propio.libros_propios.html';
             
     } catch(err){
@@ -97,10 +99,66 @@ try{
     
     }
 }
-returnButton.addEventListener('onclick', returnB);
-returnButton.addEventListener('onclick', returnBook);
+
+returnButton.addEventListener('click', returnBook);
 
 
+const solicitarButton = d.querySelector('.solicitar');
+async function solicitarBook() {
+    let date = new Date().now;
+    alert(date);
+    let data;
+    let semanaEnMilisegundos = 1000 * 60 * 60 * 24 * 14; //dos semanas
+    let suma = date.getTime() + semanaEnMilisegundos;
+    let fechaDentroDeDosSemana = new Date(suma);
+    const urlLibros = "http://localhost:3000/borrowing";
+    data["booId"] = 1;
+    data["bor_from_date"] = date;
+    data["bor_to_date"] = fechaDentroDeDosSemana;
+    data["bor_devolution_date"] = null;
+    data["assId"] = 2;
+    VALUE = JSON.stringify(data, null, 11);
+    
+    const send = {
+        method: 'POST',
+        body: VALUE,
+        headers: {
+            'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + getLocalStorage()
+        },
+    }
+    try{
+        let res= await fetch(urlLibros,send);
+        json=await res.json();
+        if(!res.ok) throw {status: res.status,
+        statusText: res.statusText};
+        alert('Solicitado')
+        window.location.href = '../libro_propio.libros_propios.html';
+            
+    } catch(err){
+        alert("no")
+        let message=err.statusText || "ERROR";
+    }
+}
+
+solicitarButton.addEventListener('click', solicitarBook);
+
+function saveLocalStorage(idAsso) {
+    let idAssoc = data.token;
+
+    localStorage.setItem("idAsso", JSON.stringify(idAssoc));
+
+}
+
+function getidAss(){
+    let id;
+if(localStorage.getItem("idAsso") === "undefined" || localStorage.getItem("idAsso") === null){
+    window.location.href = '../login/login.html';
+}else{
+    id = JSON.parse(localStorage.getItem("idAsso"));
+}
+return id;
+}
 
 d.addEventListener("DOMContentLoaded",getAll);
 

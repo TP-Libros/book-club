@@ -68,13 +68,17 @@ document.addEventListener("submit", (event) => {
     fetch(url, send)
         .then(response => checkStatus(response))
         .then(data => data.json())
-        .then(window.location.href = 'tp-libros/libro_propio/libros_propios.html')
+        .then(redirect())
         .catch((err) => {
             console.error(err);
         })
 
 
 })
+
+function redirect(){
+    window.location.href = 'tp-libros/libro_propio/libros_propios.html'
+}
 
 window.onload = async function () {
 
