@@ -149,6 +149,8 @@ loadBooks = (data) => {
             borrowed.append(borrowed_to)
             borrowed.append(date_to)
 
+            newBook.setAttribute("borrow", borrow.bor_id)
+
             newBook.append(borrowed)
         }
 
@@ -184,7 +186,7 @@ function redirectSelectedModification(e) {
 
 async function redirectSelectedDelete(e) {
 
-    const urlLibros = "http://localhost:3000/book/" + e.id;
+    const urlLibros = "http://localhost:3000/book/" + e.getAttribute("borrow");
     const send = {
         method: 'DELETE',
         headers: {
