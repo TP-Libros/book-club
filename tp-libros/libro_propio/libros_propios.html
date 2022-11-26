@@ -26,7 +26,7 @@
 		</nav>
 	</header>
   <div class="containerMsg">
-    <label><input type="checkbox" id="cbox1" value="first_checkbox">Filtrar por libros prestados</label><br>
+    <label><input type="checkbox" id="cbox1" value="first_checkbox" >Filtrar por libros prestados</label><br>
 </div>
 
 
@@ -54,8 +54,8 @@
       </div>
 <!-- xxxxxx  -->
 <template id="template-book">
-  <tr>
-    <td class="image-book"></td>
+  <tr class="book">
+    <td class="image-book" > <img class="image" src="" alt=""></td>
     <td class="title-book"></td>
     <td class="isbn-book"></td>
     <td class="autor-book"></td>
@@ -64,7 +64,7 @@
     <td class="posecion-book"></td>
     <td class="fecha-book"></td>
     <td class="boton-book">
-      <button>Eliminar</button>
+      <button class="delete-book">Eliminar</button>
       <a href="../modificacion/modificacion.html"><button>Modificar</button></a> 
       <a href="../libro_seleccionado/libro_seleccionado.html"><button class="ver">Ver</button></a> 
 

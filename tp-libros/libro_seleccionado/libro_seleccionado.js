@@ -1,4 +1,4 @@
-
+const d=document;
 function getLocalStorage(){
     let token;
 if(localStorage.getItem("TokenUser") === "undefined" || localStorage.getItem("TokenUser") === null){
@@ -15,21 +15,21 @@ if (e.statusCode === 401) {
 }
 }
 
-
 function getIdBook() {
 
     let id;
-    if(localStorage.getItem("idBook") === "undefined" || localStorage.getItem("idBook") === null){
+    if(localStorage.getItem("book") === "undefined" || localStorage.getItem("book") === null){
         window.location.href = '../login/login.html';
     }else{
-        id = JSON.parse(localStorage.getItem("User"));
+        id = JSON.parse(localStorage.getItem("book"));
     }
+
     return id;
 }
 
 const getAll=async () => {
-    alert(getIdBook());
-    const urlLibros = "http://localhost:3000/borrowing/ass/"+getIdBook();
+  
+    const urlLibros = "http://localhost:3000/book/"+getIdBook();
     const send = {
         method: 'GET',
         headers: {
@@ -42,24 +42,42 @@ const getAll=async () => {
         json=await res.json();
         if(!res.ok) throw {status: res.status,
         statusText: res.statusText};
-        json.forEach(el => {
-            $template.querySelector(".isbn").textContent=el.boo_id.boo_imagePath;
-            $template.querySelector(".autor").textContent=el.boo_id.boo_title;
-            $template.querySelector(".titulo").textContent=el.boo_id.boo_ISBN;
-            $template.querySelector(".genero").textContent=el.boo_id.aut_id.aut_name+" "+el.boo_id.aut_id.aut_surname;
-            $template.querySelector(".owner").textContent=el.boo_id.gen_id.gen_name;
-            $template.querySelector(".fecha-book").textContent=el.bor_from_date;
-            
+        
+        let isbn=document.querySelector(".isbn");
+        isbn.append(json.boo_ISBN);
+
+        let autor=document.querySelector(".autor");
+        autor.append(json.boo_ISBN);
+
+
+        let titulo=document.querySelector(".titulo");
+        titulo.append(json.boo_ISBN);
+
+
+        let genero=document.querySelector(".genero");
+        genero.append(json.boo_ISBN);
+
+
+        let owner=document.querySelector(".owner");
+        owner.append(json.boo_ISBN);
+        
+            /*$template.querySelector(".isbn").textContent=el.boo_ISBN;
+            $template.querySelector(".autor").textContent=el.autId.aut_name+" "+el.autId.aut_surname;
+            $template.querySelector(".titulo").textContent=el.boo_title;
+            $template.querySelector(".genero").textContent=el.genId.gen_name;
+            $template.querySelector(".owner").textContent=el.ass_id.ass_username;
+            $template.querySelector(".fecha-book").textContent=;*/
+
             
             let $clone=d.importNode($template,true);
             $fragment.appendChild($clone);
-        });
+    
 
-        $table.querySelector("tbody").appendChild($fragment);
+        $table.querySelector("body").appendChild($fragment);
         
     } catch(err){
         let message=err.statusText || "ERROR";
-        $table.insertAdjacentHTML("afterend",`<p><b>Error ${err.status}</b></p>`);
+        //$table.insertAdjacentHTML("afterend",`<p><b>Error ${err.status}</b></p>`);
 
     }
    

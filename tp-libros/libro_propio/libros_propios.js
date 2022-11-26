@@ -52,7 +52,8 @@ const getAll=async () => {
         statusText: res.statusText};
         json.forEach(el => {
 
-            $template.querySelector(".image-book").textContent=el.boo_imagePath;
+            //$template.querySelector(".image-book").textContent=el.boo_imagePath;
+            $template.querySelector(".image").src=el.boo_imagePath;
             $template.querySelector(".title-book").textContent=el.boo_title;
             $template.querySelector(".isbn-book").textContent=el.boo_ISBN;
             $template.querySelector(".autor-book").textContent=el.aut_id.aut_name+" "+el.aut_id.aut_surname;
@@ -61,9 +62,12 @@ const getAll=async () => {
             $template.querySelector(".posecion-book").textContent=el.boo_borrowingSt;
 
         //  $template.querySelector(".fecha-book").textContent=el.bor_from_date;
-          $template.querySelector(".ver").setAttribute("onclick", "redirectSelected(this.parentNode)");
+         // $template.querySelector(".ver").setAttribute("onclick", "redirectSelected(this.parentNode)");
+          
         
             let $clone=d.importNode($template,true);
+            $template.querySelector(".book").setAttribute("id",el.boo_id);
+            $template.querySelector(".ver").setAttribute("onclick", "redirectSelected(this.parentNode)");
             $fragment.appendChild($clone);
     
         });
@@ -82,5 +86,66 @@ function redirectSelected(e){
     window.location.href="/tp-libros/libro_seleccionado/libro_seleccionado.html"
 }
 
+function saveDeleteBook(e){
+    localStorage.setItem("bookDelete", JSON.stringify(e.id))
+}
 
 d.addEventListener("DOMContentLoaded",getAll);
+document.addEventListener('change', async(event) => {
+    event.preventDefault()
+    event.stopPropagation()
+    //var a = $template;
+
+  //  while (a.hasChildNodes())
+    //    a.removeChild(a.firstChild);
+    //$template.remove();
+   // $("td").empty();
+    $(".template-book:first-child").remove();
+  
+
+
+    const urlLibros = "http://localhost:3000/book/myBooks/"+getIdUser();
+    const send = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + getLocalStorage()
+        }
+    };
+    try{
+        let res= await fetch(urlLibros,send),
+        json=await res.json();
+        console.log(json);
+        if(!res.ok) throw {status: res.status,
+        statusText: res.statusText};
+        json.forEach(el => {
+
+            if(el.boo_borrowingSt){
+                $template.querySelector(".image").src=el.boo_imagePath;
+                $template.querySelector(".title-book").textContent=el.boo_title;
+                $template.querySelector(".isbn-book").textContent=el.boo_ISBN;
+                $template.querySelector(".autor-book").textContent=el.aut_id.aut_name+" "+el.aut_id.aut_surname;
+                $template.querySelector(".gender-book").textContent=el.gen_id.gen_name;
+                $template.querySelector(".prestado-book").textContent=el.boo_borrowingSt;
+                $template.querySelector(".posecion-book").textContent=el.boo_borrowingSt;
+
+        //  $template.querySelector(".fecha-book").textContent=el.bor_from_date;
+          $template.querySelector(".ver").setAttribute("onclick", "redirectSelected(this.parentNode)");
+         //$template.querySelector(".delete-book").setAttribute("onclick", "saveDeleteBook(this.parentNode)");
+        
+            let $clone=d.importNode($template,true);
+            $fragment.appendChild($clone);
+            }
+    
+        });
+
+        $table.querySelector("tbody").appendChild($fragment);
+        
+    } catch(err){
+        let message=err.statusText || "ERROR";
+        $table.insertAdjacentHTML("afterend",`<p><b>Error ${err.status}</b></p>`);
+    }
+}
+
+)
+
