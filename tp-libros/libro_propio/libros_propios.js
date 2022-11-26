@@ -13,7 +13,7 @@ const loadBooksBorrowed = (data) => {
 
     for (let i = 0; i < books.length; i++) {
         const element = books[i];
-        if (element.boo_borrowingSt){
+        if (element.boo_borrowingSt == true){
             book[j] = element
             j++
         }
@@ -234,7 +234,10 @@ async function cargeBook() {
         response = await fetch(url, send)
         checkStatus(response)
         let data = await response.json();
-        loadBooks(data)
+        if(checkbox.checked == true){
+            return loadBooksBorrowed(data);
+        }
+        loadBooks(data);
     } catch (e) {
         return e.message;
     }
@@ -259,3 +262,6 @@ function checkStatus(e) {
 }
 
 ///borrowing/returnBorrowing/{id}
+
+const checkbox = document.getElementById("cbox1");
+checkbox.addEventListener('click', cargeBook);
