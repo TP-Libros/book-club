@@ -65,11 +65,12 @@ export class BorrowingService {
   }				
   
   async returnBorrowing(id: number){
-    const borrowing = await this.borrowingService.findOneBy({
+    let borrowing = await this.borrowingService.findOneBy({
       bor_id: id,
     });
     const date: Date = new Date();
-    borrowing.bor_devolution_date = date;
+    borrowing = {...borrowing, bor_devolution_date: date}
+    // borrowing.bor_devolution_date = date;
     // body = {...body, bor_devolution_date: date}
     const book = this.bookService.findById(borrowing.booId);
     this.bookService.updateReturnedBook(borrowing.booId, book);
