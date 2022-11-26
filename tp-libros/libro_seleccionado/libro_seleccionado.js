@@ -65,12 +65,25 @@ const getAll=async () => {
         let owner=document.querySelector(".owner");
         owner.append(books.ass_id.ass_userName);
 
+        let buttonSolicitar=document.querySelector(".solicitar");
+        let buttonDevolver=document.querySelector(".devolver");
+    
+
+        if(books.boo_borrowingSt){
+            buttonSolicitar.disabled=true;
+        }else{
+            buttonDevolver.disabled=true;
+        }
+
+
         saveLocalStorage(books.ass_id.ass_id);
         
         
     } catch(err){
         let message=err.statusText || "ERROR";
-        //$table.insertAdjacentHTML("afterend",`<p><b>Error ${err.status}</b></p>`);
+        let error=document.querySelector(".owner");
+        owner.append(message);
+       
     }
    
 }
