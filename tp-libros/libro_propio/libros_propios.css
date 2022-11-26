@@ -1,110 +1,144 @@
+@import url('https://fonts.googleapis.com/css?family=Comfortaa|Open+Sans:300,400,600,700');
+
+input[type="checkbox"] {
+    appearance: none;
+    background-color: #fff;
+    margin: 0;
+    font: inherit;
+    color: currentColor;
+    width: 1.15em;
+    height: 1.15em;
+    border: 0.10em solid currentColor;
+    transform: translateY(-0.075em);
+}
 
 
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: var(--form-background);
+    margin: 0;
 
-/* ############ book list ################ */
+    font: inherit;
+    color: currentColor;
+    width: 1.15em;
+    height: 1.15em;
+    border: 0.15em solid currentColor;
+    border-radius: 0.15em;
+    transform: translateY(-0.075em);
+
+    display: inline-flex;
+    place-content: center;
+}
+
+input[type="checkbox"]::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transform: scale(0);
+    transform-origin: bottom left;
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em var(--form-control-color);
+    background-color: CanvasText;
+}
+input[type="checkbox"]:checked::before {
+    transform: scale(1);
+  }
+
+#position-2{
+	margin-top: 40px;
+	height: 33rem;
+	display: grid;
+	width: 65rem;
+}
+
+#book-filter > #form > .filter > select, #book-filter > #form > .filter > input{
+	width: 8rem;
+	height: 1.25rem;
+	background-color: #f3ebe2;
+	border-bottom: 2px solid #828282;
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+}
+
+#book-filter #form > .filter{	
+    margin: 5px 0px;
+	padding-left: 5px;
+}
+#book-filter > #form > .filter > select:focus, #book-filter > #form > .filter > input:hover,  #book-filter > #form > .filter > input:focus{
+	height: 1.19rem;
+	color: black;
+	border-bottom: 2px solid #d19e78;
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+	outline: -webkit-focus-ring-color auto 0px;
+}
 
 #book-list{
-	width: 45rem;
-	height: 40rem;
-	background-color: #f3ebe2;
-    margin-left: 550px;
-    margin-top: 40px;
-    border:7px solid #eeb38c;
+	overflow: auto;
+	width: 60rem;
 }
 
-.book{
-	width: 100%;
-    height: 25%;
-    border-bottom: 1px solid lightgrey;
-	display: flex;
-    flex-direction: row;
-}
 
-.book:hover{
-	background-color: #f0f0ea;
-}
-
-.book .book-img{
-	width: 15%;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+.image-b{
+	width: 105.15px;
+	height: 118.883px;
 }
 
 .book .book-text{
-	width: 55%;
-	display: flex;
-	flex-direction: column;
-
-}
-
-.book > .book-text > .book-tittle{
-	width: 100%;
-	height: 70%;
-}
-
-.book > .book-text > .book-author{
-	width: 100%;
-	height: 20%;
-	color: #828282;
+	width: 45%;
 
 }
 
 .book > .book-isbn{
-	width: 15%;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	color: #828282;
+	width: 10%;
 }
+
+.book-tittle{
+	font-size: 20px;
+	font-family: 'Comfortaa', cursive;
+	padding-left: 30px;
+    padding-top: 20px;
+}
+
+.book > .book-text > .book-author{
+	padding-left: 40px;
+}
+
 .book > .book-gender{
-	width: 15%;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	color: #828282;
+	text-align: center;
 }
 
-.containerMsg {   
-	margin-top: 40px;
-	background-color: #F1D9CB;
-	text-align:center;
-	height:85px; 
-	margin-bottom: 28px;
-	padding: 1rem;
-	
-  }
-
-  button {
-	font-family: sans-serif; 
-	font-weight: bold;
-	width: 110px;
-	height: 35px;
-	border-radius: 5px;
-  
-  }
-
-  table{
-	width: 100%;
-	text-align: left;
-  
-  }
-  
-  th,td{
-	padding: 20px;
-  
+.book > .button {
+    background-color: #dfab83;
+    border: 1px solid #e9b085;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
+    box-sizing: border-box;
+    color: #ffffff;
+    cursor: pointer;
+    font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 20px;
+    outline: none;
+    outline: 0;
+    padding: 10px 25px;
+    text-align: center;
+    transform: translateY(0);
+    transition: transform 150ms, box-shadow 150ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    position: relative;
+    z-index: 1;
+    width: 15%;
+	height: 50px;
+	margin: auto;
   }
   
-  thead{
-	background-color:#ec8b75;
-	border-bottom:solid 5px #0F362D;
-	color:white;
+  .book > .button:hover {
+    box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
+    transform: translateY(-2px);
   }
-  
-  tr:nth-child(even){
-	background-color: #ddd;
-  }
-  
