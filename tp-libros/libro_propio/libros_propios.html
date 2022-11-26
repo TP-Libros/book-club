@@ -1,79 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" type="image/png" href="../../StylesUniversal/images/favicon.png">
-        <link rel="stylesheet" href="../../StylesUniversal/style_menu.css">
-        <link rel="stylesheet" href="../../StylesUniversal/style-book-list.css">
-        <link rel="stylesheet" href="./libros_propios.css">
-        <script src="../../StylesUniversal/private-page.js"></script>
-        <title>Mis Libros | Book Club</title>
-    </head>
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="image/png" href="../../StylesUniversal/images/favicon.png">
+	<link rel="stylesheet" href="../../StylesUniversal/style_menu.css">
+	<link rel="stylesheet" href="../../StylesUniversal/style-book-list.css">
+	<link rel="stylesheet" href="../catalogo/catalogo.css">
+	<link rel="stylesheet" href="../libro_propio/libros_propios.css">
+	<script src="../libro_propio/libros_propios.js"></script>
+	<title>Libros Propios | Book Club</title>
+</head>
+
 <body>
 
-    <header id="header">
-		<a href="../homePage/homePage.html"><img src="../../StylesUniversal/images/logo.png" alt="Book Club Logo" id="header-img"></a>
-		<h1>Libros en posesión</h1>
+
+	<header id="header">
+		<a href="../homePage/homePage.html"><img src="../../StylesUniversal/images/logo.png" alt="Book Club Logo"
+				id="header-img"></a>
+		<h1>Libros Propios</h1>
 		<nav id="nav-bar">
 			<ul>
-				
-				<li><a class="nav-link" href="../carga-libro/cargarLibro.html">Cargar Libro</a></li>
-                <li><a class="nav-link" href="../catalogo/catalogo.html">Catalogo</a></li>
+				<li><a class="nav-link" href="../carga-libro/cargarLibro.html">Cargar Libros</a></li>
+				<li><a class="nav-link" href="../libro_propio/libros_propios.html">Mis libros</a></li>
 			</ul>
-			<button onclick="window.location.href='/libros_propios.html';" type="button">Mis Libros</button>
+			<button onclick="window.location.href='../libro_propio/libros_propios.html';" type="button">Mis
+				Libros</button>
 		</nav>
 	</header>
-  <div class="containerMsg">
-    <label><input type="checkbox" id="cbox1" value="first_checkbox" >Filtrar por libros prestados</label><br>
-</div>
 
+	<main>
 
-    <div id="book-list">
-        <h2>Libros disponibles</h2>
-        <table class="b-list">
-          <thead>
-            <tr>
-              <th>Imagen</th>
-              <th>Titulo</th>
-              <th>isbn</th>
-              <th>Autor</th>
-              <th>Gender</th>
-              <th>Prestado</th>
-              <th>En posecion</th>
-              <th>Fecha</th>
-              <th>Acciones</th>
-              
-            </tr>
-          </thead>
-          <tbody>
-            
-          </tbody>
-        </table>
-      </div>
-<!-- xxxxxx  -->
-<template id="template-book">
-  <tr class="book">
-    <td class="image-book" > <img class="image" src="" alt=""></td>
-    <td class="title-book"></td>
-    <td class="isbn-book"></td>
-    <td class="autor-book"></td>
-    <td class="gender-book"></td>
-    <td class="prestado-book"></td>
-    <td class="posecion-book"></td>
-    <td class="fecha-book"></td>
-    <td class="boton-book">
-      <button class="delete-book">Eliminar</button>
-      <a href="../modificacion/modificacion.html"><button>Modificar</button></a> 
-      <a href="../libro_seleccionado/libro_seleccionado.html"><button class="ver">Ver</button></a> 
+		<div id="position-2">
+            <label style="padding-top: 10px;"><input type="checkbox" id="cbox1" value="first_checkbox" >Filtrar por libros prestados</label><br>
+			<div id="book-list">
 
-    </td>
+			</div>
+		</div>
+	</main>
 
-  </tr>
-
-</template>
-<script src='libros_propios.js'></script>
-    
 </body>
+
 </html>

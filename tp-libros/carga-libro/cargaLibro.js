@@ -68,9 +68,7 @@ document.addEventListener("submit", (event) => {
     fetch(url, send)
         .then(response => checkStatus(response))
         .then(data => data.json())
-        .then(data => {
-            window.location.href = 'tp-libros/libro_propio/libros_propios.html'
-        })
+        .then(window.location.href = 'tp-libros/libro_propio/libros_propios.html')
         .catch((err) => {
             console.error(err);
         })

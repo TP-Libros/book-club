@@ -1,14 +1,312 @@
+// const d = document;
+// d.addEventListener("DOMContentLoaded", cargeCatalogo())
+
+window.onload = () => { cargeBook() }
+
+const loadBooksBorrowed = (data) => {
+
+    let books = data[0].book;
+    let borrowed = data[0].borrowing
+
+    var book = {}
+    var j = 0;
+
+    for (let i = 0; i < books.length; i++) {
+        const element = books[i];
+        if (element.boo_borrowingSt){
+            book[j] = element
+            j++
+        }
+        
+    }
+
+    let send = {}
+    send[0] = {book, borrowed};
+
+    loadBooks(send)
+
+}
+
+document.addEventListener("change", async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    var a = document.getElementById("book-list");
+
+    while (a.hasChildNodes())
+        a.removeChild(a.firstChild);
+
+    user = JSON.parse(localStorage.getItem("User"));
+
+    const url = "http://localhost:3000/book/myBooks/" + user.ass_id
+
+    const send = {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + getLocalStorage()
+        }
+    }
+
+    try {
+        let response;
+        response = await fetch(url, send)
+        checkStatus(response)
+        let data = await response.json();
+        loadBooksBorrowed(data)
+    } catch (e) {
+        return e.message;
+    }
 
 
-const d = document,
-    $table = d.querySelector(".b-list"),
-    $template = d.getElementById("template-book").content,
-    $fragment = d.createDocumentFragment();
+})
 
-let idLibro = 0;
+const loadBooks = (data) => {
+
+    let books = data[0].book
+    let borrowing = data[0].borrowing
+
+    for (let i = 0; i < books.length; i++) {
+        const element = books[i];
+        let borrow = borrowing.find(el => el.boo_id === element.boo_id);
+
+        let tittle = document.createElement("div")
+        tittle.classList.add("book-tittle")
+
+        tittleText = document.createElement("p")
+        tittleText = element.boo_title
+        tittle.append(tittleText)
+
+        let author = document.createElement("div")
+        author.classList.add("book-author")
+        authorText = document.createElement("p")
+        authorText = element.aut_id.aut_name + " " + element.aut_id.aut_surname
+        author.append(authorText)
+
+        let text = document.createElement("div")
+        text.classList.add("book-text")
+        text.append(tittle)
+        text.append(author)
+
+        let image = document.createElement("div")
+        image.classList.add("book-img")
+        let imagesrc = document.createElement("img")
+        imagesrc.classList.add("image-b");
+        imagesrc.src = element.boo_imagePath
+        image.append(imagesrc)
+
+        let isbn = document.createElement("div")
+        isbn.classList.add("book-isbn")
+        let isbnText = document.createElement("p")
+        isbnText = element.boo_ISBN;
+        isbn.append(isbnText)
+
+        let gender = document.createElement("div")
+        gender.classList.add("book-gender")
+        let genderText = document.createElement("p")
+        genderText = element.gen_id.gen_name
+        gender.append(genderText)
+
+        let borrowState = document.createElement("div")
+        borrowState.classList.add("borrowState")
+        let borrowStateText = document.createElement("p")
+        if (element.boo_borrowingSt) {
+            borrowStateText = "Prestado"
+        } else {
+            borrowStateText = "Para prestar"
+        }
+        borrowState.append(borrowStateText)
+
+        let newBook = document.createElement("div");
+        newBook.classList.add("book");
+        newBook.setAttribute("id", element.boo_id)
+        newBook.append(image)
+        newBook.append(text)
+        newBook.append(isbn)
+        newBook.append(gender)
+        newBook.append(borrowState)
+
+        if (borrow !== undefined) {
+            let borrowed_to = document.createElement("div")
+            borrowed_to.classList.add("borrowed_to")
+            let borrowed_to_text = createElement("p")
+            borrowed_to_text = borrow.ass_id.ass_userName
+            borrowed_to.append(borrowed_to_text)
+
+            let date_to = document.createElement("div")
+            date_to.classList.add("date_to")
+            let date_to_text = createElement("p")
+            date_to_text = borrow.bor_to_date
+            date_to.append(date_to_text)
+
+            let borrowed = document.createElement("div")
+            borrowed.classList.add("borrowed")
+            borrowed.append(borrowed_to)
+            borrowed.append(date_to)
+
+            newBook.append(borrowed)
+        }
+
+        if (!element.boo_borrowingSt) {
+            let buttonModification = document.createElement("button")
+            buttonModification.classList.add("button")
+            buttonModification.textContent = "Modificar"
+
+            let buttonDelete = document.createElement("button")
+            buttonDelete.classList.add("button")
+            buttonDelete.textContent = "Eliminar"
+
+            buttonModification.setAttribute("onclick", "redirectSelectedModification(this.parentNode)")
+            buttonDelete.setAttribute("onclick", "redirectSelectedDelete(this.parentNode)")
+
+            newBook.append(buttonModification)
+            newBook.append(buttonDelete)
+        }
 
 
-function getLOcalStorage() {
+
+
+        document.getElementById("book-list").append(newBook)
+
+    }
+}
+
+function redirectSelectedModification(e) {
+
+    localStorage.setItem("book", JSON.stringify(e.id))
+    window.location.href = "/tp-libros/modificacion/modificacion.html"
+}
+
+async function redirectSelectedDelete(e) {
+
+    const urlLibros = "http://localhost:3000/book/" + e.id;
+    const send = {
+        method: 'DELETE',
+        headers: {
+            'Authorization': 'Bearer ' + getLocalStorage()
+        }
+    }
+    try {
+        let res = await fetch(urlLibros, send);
+        checkStatus(res)
+        let data = await res.json();
+    } catch (err) {
+        let message = err.statusText
+        console.log(message)
+    }
+}
+
+function checkUser() {
+    let token = getLocalStorage();
+    const url = "http://localhost:3000/associated";
+
+
+    const send = {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    };
+
+    fetch(url, send)
+        .then(res => checkStatus(res))
+        .catch((err) => {
+            console.error(err);
+        })
+}
+
+async function cargeBook() {
+
+    checkUser()
+
+    user = JSON.parse(localStorage.getItem("User"));
+
+    const url = "http://localhost:3000/book/myBooks/" + user.ass_id
+
+    const send = {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + getLocalStorage()
+        }
+    }
+
+    try {
+        let response;
+        response = await fetch(url, send)
+        checkStatus(response)
+        let data = await response.json();
+        loadBooks(data)
+    } catch (e) {
+        return e.message;
+    }
+
+
+}
+
+document.addEventListener('change', (event) => {
+    event.preventDefault()
+    event.stopPropagation()
+
+    const urlISBNFilter = "http://localhost:3000/book/filter/isbn/"
+    const urlAuthorFilter = "http://localhost:3000/book/filter/author/"
+    const urlGenderFilter = "http://localhost:3000/book/filter/gender/"
+    const urltittleFilter = "http://localhost:3000/book/filter/title/"
+
+    let form = document.forms["form"]
+    let fd = new FormData(form);
+    let data = {};
+    for (let [key, prop] of fd) {
+        data[key] = prop;
+    }
+
+    if (data["gender-search"] !== "") {
+        sendRequest(urlGenderFilter + data["gender-search"])
+    }
+
+    if (data["tittle-search"] !== "") {
+        sendRequest(urltittleFilter + data["tittle-search"])
+    }
+
+    if (data["author-search"] !== "") {
+        sendRequest(urlAuthorFilter + data["author-search"])
+    }
+
+    if (data["order-select"] !== "") {
+        sendRequest(urlISBNFilter + data["order-search"])
+    }
+
+    if ((data["order-select"] === "") && (data["author-search"] === "") && (data["tittle-search"] === "") && (data["gender-search"] === "")) {
+        cargeCatalogo()
+    }
+})
+
+async function sendRequest(url) {
+
+    var a = document.getElementById("book-list");
+
+    while (a.hasChildNodes())
+        a.removeChild(a.firstChild);
+
+    const send = {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + getLocalStorage()
+        }
+    }
+
+    try {
+        let response;
+        response = await fetch(url, send)
+        checkStatus(response)
+        let data = await response.json();
+        loadBooks(data)
+    } catch (e) {
+        return e.message;
+    }
+
+}
+
+
+function getLocalStorage() {
     let token;
     if (localStorage.getItem("TokenUser") === "undefined" || localStorage.getItem("TokenUser") === null) {
         window.location.href = '../login/login.html';
@@ -24,146 +322,4 @@ function checkStatus(e) {
     }
 }
 
-function getIdUser() {
-
-    let id;
-    if (localStorage.getItem("TokenUser") === "undefined" || localStorage.getItem("TokenUser") === null) {
-        window.location.href = '../login/login.html';
-    } else {
-        id = JSON.parse(localStorage.getItem("User"));
-    }
-    return id.ass_id;
-}
-
-const getAll = async () => {
-    const urlLibros = "http://localhost:3000/book/myBooks/" + getIdUser();
-    const send = {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + getLocalStorage()
-        }
-    };
-    try {
-        let res = await fetch(urlLibros, send)
-        json = await res.json();
-        let books = json[0].book
-        let borrowing = json[0].borrowing
-
-        console.log(json);
-        if (!res.ok) throw {
-            status: res.status,
-            statusText: res.statusText
-        };
-
-
-        books.forEach(el => {
-
-            let borrow = borrowing.find(element => element.boo_id > el.boo_id);
-
-
-            //$template.querySelector(".image-book").textContent=el.boo_imagePath;
-            $template.querySelector(".image").src = el.boo_imagePath;
-            $template.querySelector(".title-book").textContent = el.boo_title;
-            $template.querySelector(".isbn-book").textContent = el.boo_ISBN;
-            $template.querySelector(".autor-book").textContent = el.aut_id.aut_name + " " + el.aut_id.aut_surname;
-            $template.querySelector(".gender-book").textContent = el.gen_id.gen_name;
-            if (borrow !== undefined) {
-                $template.querySelector(".prestado-book").textContent = borrow.ass_id.ass_userName;
-                $template.querySelector(".fecha-book").textContent = borrow.bor_to_date
-            }
-            $template.querySelector(".posecion-book").textContent = el.boo_borrowingSt;
-
-            //  $template.querySelector(".fecha-book").textContent=el.bor_from_date;
-            // $template.querySelector(".ver").setAttribute("onclick", "redirectSelected(this.parentNode)");
-
-
-            let $clone = d.importNode($template, true);
-            $template.querySelector(".book").setAttribute("id", el.boo_id);
-            $template.querySelector(".ver").setAttribute("onclick", "redirectSelected(this.parentNode)");
-            $fragment.appendChild($clone);
-
-
-        });
-
-        $table.querySelector("tbody").appendChild($fragment);
-
-    } catch (err) {
-        let message = err.statusText || "ERROR";
-        $table.insertAdjacentHTML("afterend", `<p><b>Error ${err.status}</b></p>`);
-    }
-}
-
-function redirectSelected(e) {
-
-    localStorage.setItem("book", JSON.stringify(e.id))
-    window.location.href = "/tp-libros/libro_seleccionado/libro_seleccionado.html"
-}
-
-function saveDeleteBook(e) {
-    localStorage.setItem("bookDelete", JSON.stringify(e.id))
-}
-
-d.addEventListener("DOMContentLoaded", getAll);
-document.addEventListener('change', async (event) => {
-    event.preventDefault()
-    event.stopPropagation()
-    //var a = $template;
-
-    //  while (a.hasChildNodes())
-    //    a.removeChild(a.firstChild);
-    //$template.remove();
-    $(".template-book")
-        .empty()
-        .ap
-    //$(".template-book:first-child").remove();
-
-
-
-    const urlLibros = "http://localhost:3000/book/myBooks/" + getIdUser();
-    const send = {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + getLocalStorage()
-        }
-    };
-    try {
-        let res = await fetch(urlLibros, send),
-            json = await res.json();
-        console.log(json);
-        if (!res.ok) throw {
-            status: res.status,
-            statusText: res.statusText
-        };
-        json.forEach(el => {
-
-            if (el.boo_borrowingSt) {
-                $template.querySelector(".image").src = el.boo_imagePath;
-                $template.querySelector(".title-book").textContent = el.boo_title;
-                $template.querySelector(".isbn-book").textContent = el.boo_ISBN;
-                $template.querySelector(".autor-book").textContent = el.aut_id.aut_name + " " + el.aut_id.aut_surname;
-                $template.querySelector(".gender-book").textContent = el.gen_id.gen_name;
-                $template.querySelector(".prestado-book").textContent = el.boo_borrowingSt;
-                $template.querySelector(".posecion-book").textContent = el.boo_borrowingSt;
-
-                //  $template.querySelector(".fecha-book").textContent=el.bor_from_date;
-                $template.querySelector(".ver").setAttribute("onclick", "redirectSelected(this.parentNode)");
-                //$template.querySelector(".delete-book").setAttribute("onclick", "saveDeleteBook(this.parentNode)");
-
-                let $clone = d.importNode($template, true);
-                $fragment.appendChild($clone);
-            }
-
-        });
-
-        $table.querySelector("tbody").appendChild($fragment);
-
-    } catch (err) {
-        let message = err.statusText || "ERROR";
-        $table.insertAdjacentHTML("afterend", `<p><b>Error ${err.status}</b></p>`);
-    }
-}
-
-)
-
+///borrowing/returnBorrowing/{id}
