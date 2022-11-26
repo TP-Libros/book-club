@@ -116,7 +116,7 @@ const loadBooks = (data) => {
 function redirectSelectedModification(e){
 
     localStorage.setItem("book", JSON.stringify(e.id))
-    window.location.href="/tp-libros/modificacion/modificacion.html"
+    window.location.href="../modificacion/modificacion.html"
 }
 
 async function redirectSelectedDelete(e) {

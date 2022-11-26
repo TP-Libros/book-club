@@ -40,7 +40,9 @@ document.addEventListener("submit", (event) => {
     event.preventDefault();
     event.stopPropagation();
 
-    const url = "http://127.0.0.1:3000/book/BookController_create";
+    let book = localStorage.getItem("book");
+
+    const url = "http://127.0.0.1:3000/book/"+book.boo_id;
 
     let form = document.forms["form"];
     let fd = new FormData(form);
@@ -75,6 +77,7 @@ document.addEventListener("submit", (event) => {
             console.error(err);
         })
 
+    window.location.href = '../libro_propio/libros_propios_2.html';
 })
 
 window.onload = async function () {
@@ -98,6 +101,7 @@ window.onload = async function () {
             option = document.createElement("option");
             option.text = element.aut_name + " " + element.aut_surname;
             option.value = element.aut_id;
+            option.setAttribute("id", element.aut_id.aut_id)
             document.getElementById("author").appendChild(option)
         }
 
@@ -121,6 +125,7 @@ window.onload = async function () {
             option = document.createElement("option");
             option.text = element.gen_name;
             option.value = element.gen_id;
+            option.setAttribute("id", element.gen_id.gen_id)
             document.getElementById("gender").appendChild(option)
         }
 
@@ -145,6 +150,7 @@ window.onload = async function () {
             option = document.createElement("option");
             option.text = element.edi_name;
             option.value = element.edi_id;
+            option.setAttribute("id", element.edi_id.edi_id)
             document.getElementById("editorial").appendChild(option)
         }
 
@@ -164,16 +170,39 @@ window.onload = async function () {
     getBookForModification()
 }
 
-function getBookForModification(){
+async function getBookForModification(){
 
-    let book = localStorage.getItem("book")
-    document.getElementsByTagName("boo_ISBN").value = book.boo_isbn;
-    document.getElementsByTagName("boo_title").value = book.boo_title;
-    document.ready = document.getElementById("author").value = book.aut_id.aut_id;
-    document.ready = document.getElementById("gender").value = book.gen_id.gen_id;
-    document.getElementsByTagName("boo_yearEdition").value = book.boo_yearEdition;
-    document.getElementsByTagName("boo_synopsis").value = book.boo_synopsis;
-    document.ready = document.getElementById("editorial").value = book.edi_id.edi_id;
+    let bookId = JSON.parse(localStorage.getItem("book"))
+
+    const url = "http://127.0.0.1:3000/book/" + bookId;
+
+    const send = {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + getLocalStorage()
+        }
+    };
+
+    let book ={}
+
+    try {
+        let response;
+        response = await fetch(url, send)
+        checkStatus(response)
+        let data = await response.json();
+        book = data[0].book
+    } catch (e) {
+        return e.message;
+    }
+    
+    document.getElementById("boo_isbn").value = book.boo_ISBN;
+    document.getElementById("boo_title").value = book.boo_title;
+    $("#author option[value='book.aut_id.aut_id']").attr("selected", true);
+    document.getElementById("author").getElementById(book.aut_id.aut_id).setAttribute("selected", selected)
+    document.getElementById("gender").getElementById(book.gen_id.gen_id).setAttribute("selected", selected)
+    document.getElementById("boo_yearEdition").value = book.boo_yearEdition;
+    document.getElementById("boo_synopsis").value = book.boo_synopsis;
+    document.getElementById("editorial").getElementById(book.edi_id.edi_id).setAttribute("selected", selected)
 
 }
 
@@ -192,3 +221,19 @@ function checkStatus(e) {
         window.location.href = '../login/login.html';
     }
 }
+
+// for(var i=1;i<select.length;i++)
+
+// {
+
+//     if(select.options[i].text==buscar)
+
+//     {
+
+//         // seleccionamos el valor que coincide
+
+//         select.selectedIndex=i;
+
+//     }
+
+// }

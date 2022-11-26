@@ -143,11 +143,11 @@ document.addEventListener('change', (event) => {
         sendRequest(urlAuthorFilter + data["author-search"])
     }
 
-    if (data["order-select"] !== "") {
-        sendRequest(urlISBNFilter + data["order-search"])
+    if (data["isbn-search"] !== "") {
+        sendRequest(urlISBNFilter + data["isbn-search"])
     }
 
-    if((data["order-select"] === "") && (data["author-search"] === "") && (data["tittle-search"] === "") && (data["gender-search"] === "")){
+    if((data["isbn-search"] === "") && (data["author-search"] === "") && (data["tittle-search"] === "") && (data["gender-search"] === "")){
         cargeCatalogo()
     }
 })

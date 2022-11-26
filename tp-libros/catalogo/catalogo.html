@@ -20,10 +20,11 @@
 		<a href="../homePage/homePage.html"><img src="../../StylesUniversal/images/logo.png" alt="Book Club Logo"
 				id="header-img"></a>
 		<h1>Catalogo</h1>
+		<p id="name"></p>
 		<nav id="nav-bar">
 			<ul>
 				<li><a class="nav-link" href="../carga-libro/cargarLibro.html">Cargar Libros</a></li>
-				<li><a class="nav-link" href="../libro_propio/libros_propios.html">Mis libros</a></li>
+				<li><a class="nav-link" href="../libros_aprestamo/libros_aprestamo.html">Libros a Prestamo</a></li>
 			</ul>
 			<button onclick="window.location.href='../libro_propio/libros_propios.html';" type="button">Mis
 				Libros</button>
@@ -36,15 +37,11 @@
 			<div id="book-filter">
 				<form id="form">
 					<div class="filter">
-						<label for="order-select">Order By:</label>
-						<select name="order-by" id="order-select">
-							<option value="">--Please choose an option--</option>
-							<option value="isbn-asc">ISBN Asc</option>
-							<option value="isbn-desc">ISBN Desc</option>
-						</select>
+						<label for="isbn-search">By ISBN:</label>
+						<input type="name" id="isbn-search" name="isbn-search">
 					</div>
 					<div class="filter">
-						<label for="gender">Filter Gender:</label>
+						<label for="gender">By Gender:</label>
 						<input type="name" id="gender-search" name="gender-search">
 					</div>
 					<div class="filter">
