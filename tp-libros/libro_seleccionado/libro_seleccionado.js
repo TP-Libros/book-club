@@ -77,7 +77,7 @@ const getAll=async () => {
 
 const returnButton = d.querySelector('.devolver');
 async function returnBook() {
-    const urlLibros = "http://localhost:3000/borrowing/returnBorrowing/"+getIdBook();
+    const urlLibros = "http://localhost:3000/borrowing/returnBorrowing/"+4;
     const send = {
         method: 'PUT',
         headers: {
@@ -90,7 +90,7 @@ try{
         json=await res.json();
         if(!res.ok) throw {status: res.status,
         statusText: res.statusText};
-        window.alert('Libro devuelto');
+        alert('Libro devuelto');
         window.location.href = '../libro_propio.libros_propios.html';
             
     } catch(err){
@@ -105,10 +105,9 @@ returnButton.addEventListener('click', returnBook);
 
 const solicitarButton = d.querySelector('.solicitar');
 async function solicitarBook() {
-    //const date = new Date().now;
-
-    alert("hola")
-   /* let data;
+    let date = new Date().now;
+    alert(date);
+    let data;
     let semanaEnMilisegundos = 1000 * 60 * 60 * 24 * 14; //dos semanas
     let suma = date.getTime() + semanaEnMilisegundos;
     let fechaDentroDeDosSemana = new Date(suma);
@@ -125,7 +124,7 @@ async function solicitarBook() {
         body: VALUE,
         headers: {
             'Content-Type': 'application/json',
-    'Authorization': 'Bearer ' + getLocalStorage()
+        'Authorization': 'Bearer ' + getLocalStorage()
         },
     }
     try{
@@ -133,16 +132,16 @@ async function solicitarBook() {
         json=await res.json();
         if(!res.ok) throw {status: res.status,
         statusText: res.statusText};
-        window.alert('Libro devuelto')
+        alert('Solicitado')
         window.location.href = '../libro_propio.libros_propios.html';
             
     } catch(err){
         alert("no")
         let message=err.statusText || "ERROR";
-    }*/
+    }
 }
 
-returnButton.addEventListener('click', solicitarBook);
+solicitarButton.addEventListener('click', solicitarBook);
 
 function saveLocalStorage(idAsso) {
     let idAssoc = data.token;
