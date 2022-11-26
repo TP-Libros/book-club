@@ -36,7 +36,7 @@ function checkUser() {
         })
 }
 
-document.addEventListener("submit", (event) => {
+document.addEventListener("submit", async (event) => {
     event.preventDefault();
     event.stopPropagation();
 
@@ -50,7 +50,7 @@ document.addEventListener("submit", (event) => {
     }
     let ass_id = JSON.parse(localStorage.getItem("User"));
     data["assId"] = ass_id.ass_id;
-    data["boo_imagePath"] = imageSrc;
+    data["boo_imagePath"] = imageSrc.result;
     VALUE = JSON.stringify(data, null, 11);
     // const myHeaders = new Headers();
     // myHeaders.append('Content-Type', 'application/json');
@@ -67,19 +67,21 @@ document.addEventListener("submit", (event) => {
             }
         };
 
-        fetch(url, send)
-            .then(response => checkStatus(response))
-            .then(data => data.json())
-            .then(redirect())
-            .catch((err) => {
-                console.error(err);
-            })
+        try {
+            let respo;
+            respo = await fetch(url, send)
+            checkStatus(respo)
+            let data = await respo.json()
+            redirect()
+        } catch (e) {
+            return e.message
+        }
     }
 
 })
 
 function redirect() {
-    window.location.href = 'tp-libros/libro_propio/libros_propios.html'
+    window.location.href = '/tp-libros/libro_propio/libros_propios.html'
 }
 
 window.onload = async function () {
@@ -183,7 +185,7 @@ function checkStatus(e) {
 }
 
 function validacion(data){
-    if ( validaVacio(data["boo_ISBN"]) || validaVacio(data["boo_title"]) || validaVacio(data["autId"]) || validaVacio(data["boo_yearEdition"]) || validaVacio(data["genId"]) || validaVacio(data["boo_synopsis"]) || validaVacio(data["ediId"]) || validaVacio(data["boo_imagePath"])) {  //COMPRUEBA CAMPOS VACIOS
+    if ( validaVacio(data["boo_ISBN"]) || validaVacio(data["boo_title"]) || validaVacio(data["autId"]) || validaVacio(data["boo_yearEdition"]) || validaVacio(data["genId"]) || validaVacio(data["ediId"]) || data["boo_imagePath"] === "") {  //COMPRUEBA CAMPOS VACIOS
         alert("Los campos no pueden quedar vacios");
         return false;
     }
@@ -191,6 +193,7 @@ function validacion(data){
 }
 
 function validaVacio(valor) {
+    
     valor = valor.replace("&nbsp;", "");
     valor = valor == undefined ? "" : valor;
     if (!valor || 0 === valor.trim().length) {

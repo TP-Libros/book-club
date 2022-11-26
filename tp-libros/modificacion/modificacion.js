@@ -145,7 +145,7 @@ document.addEventListener("submit", async (event) => {
     let ass_id = JSON.parse(localStorage.getItem("User"));
     data["assId"] = ass_id.ass_id;
     data["boo_borrowingSt"] = false
-    data["boo_imagePath"] = imageSrc;
+    data["boo_imagePath"] = imageSrc.result;
     VALUE = JSON.stringify(data, null, 10);
     // const myHeaders = new Headers();
     // myHeaders.append('Content-Type', 'application/json');
@@ -233,7 +233,7 @@ function checkStatus(e) {
 function validacion(data) {
 
 
-    if (validaVacio(data["boo_ISBN"]) || validaVacio(data["boo_title"]) || validaVacio(data["autId"]) || validaVacio(data["boo_yearEdition"]) || validaVacio(data["genId"]) || validaVacio(data["ediId"]) || validaVacio(data["boo_imagePath"])) {  //COMPRUEBA CAMPOS VACIOS
+    if (validaVacio(data["boo_ISBN"]) || validaVacio(data["boo_title"]) || validaVacio(data["autId"]) || validaVacio(data["boo_yearEdition"]) || validaVacio(data["genId"]) || validaVacio(data["ediId"]) || data["boo_imagePath"] === "") {  //COMPRUEBA CAMPOS VACIOS
         alert("Los campos no pueden quedar vacios");
         return false;
     }
@@ -241,7 +241,6 @@ function validacion(data) {
 }
 
 function validaVacio(valor) {
-    valor = valor.replace("&nbsp;", "");
     valor = valor == undefined ? "" : valor;
     if (!valor || 0 === valor.trim().length) {
         return true;
