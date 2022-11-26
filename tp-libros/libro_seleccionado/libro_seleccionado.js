@@ -40,47 +40,67 @@ const getAll=async () => {
     try{
         let res= await fetch(urlLibros,send),
         json=await res.json();
+        let books = json[0].book;
         if(!res.ok) throw {status: res.status,
         statusText: res.statusText};
-        
+
+        let img=document.querySelector(".image").src=books.boo_imagePath;
+    
+
         let isbn=document.querySelector(".isbn");
-        isbn.append(json.boo_ISBN);
+        isbn.append(books.boo_ISBN);
 
         let autor=document.querySelector(".autor");
-        autor.append(json.boo_ISBN);
+        autor.append(books.aut_id.aut_name+" "+books.aut_id.aut_surname);
 
 
         let titulo=document.querySelector(".titulo");
-        titulo.append(json.boo_ISBN);
+        titulo.append(books.boo_title);
 
 
         let genero=document.querySelector(".genero");
-        genero.append(json.boo_ISBN);
+        genero.append(books.gen_id.gen_name);
 
 
         let owner=document.querySelector(".owner");
-        owner.append(json.boo_ISBN);
+        owner.append(books.ass_id.ass_userName);
         
-            /*$template.querySelector(".isbn").textContent=el.boo_ISBN;
-            $template.querySelector(".autor").textContent=el.autId.aut_name+" "+el.autId.aut_surname;
-            $template.querySelector(".titulo").textContent=el.boo_title;
-            $template.querySelector(".genero").textContent=el.genId.gen_name;
-            $template.querySelector(".owner").textContent=el.ass_id.ass_username;
-            $template.querySelector(".fecha-book").textContent=;*/
-
-            
-            let $clone=d.importNode($template,true);
-            $fragment.appendChild($clone);
-    
-
-        $table.querySelector("body").appendChild($fragment);
         
     } catch(err){
         let message=err.statusText || "ERROR";
         //$table.insertAdjacentHTML("afterend",`<p><b>Error ${err.status}</b></p>`);
-
     }
    
 }
 
+const returnButton = d.querySelector('.devolver');
+async function returnBook(borrowId) {
+    const urlLibros = "http://localhost:3000/borrowing/returnBorrowing/"+borrowId;
+    const send = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + getLocalStorage()
+        }
+    }
+try{
+        let res= await fetch(urlLibros,send);
+        json=await res.json();
+        if(!res.ok) throw {status: res.status,
+        statusText: res.statusText};
+        window.alert('Libro devuelto');
+        window.location.href = '../libro_propio.libros_propios.html';
+            
+    } catch(err){
+        let message=err.statusText || "ERROR";
+        //$table.insertAdjacentHTML("afterend",`<p><b>Error ${err.status}</b></p>`);
+    
+    }
+}
+returnButton.addEventListener('onclick', returnB);
+returnButton.addEventListener('onclick', returnBook);
+
+
+
 d.addEventListener("DOMContentLoaded",getAll);
+

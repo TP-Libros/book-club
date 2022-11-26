@@ -46,10 +46,9 @@ const getAll=async () => {
     try{
         let res= await fetch(urlLibros,send),
         json=await res.json();
-        if(!res.ok) throw {status: res.status,
-        statusText: res.statusText};
+        checkStatus(res);
         json.forEach(el => {
-            $template.querySelector(".image-book").textContent=el.boo_id.boo_imagePath;
+            $template.querySelector(".image").src=el.boo_imagePath;
             $template.querySelector(".title-book").textContent=el.boo_id.boo_title;
             $template.querySelector(".isbn-book").textContent=el.boo_id.boo_ISBN;
             $template.querySelector(".autor-book").textContent=el.boo_id.aut_id.aut_name+" "+el.boo_id.aut_id.aut_surname;
