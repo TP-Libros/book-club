@@ -153,11 +153,7 @@ solicitarButton.addEventListener('click', solicitarBook);
 
 function getidAss(){
     let id;
-if(localStorage.getItem("User") === "undefined" || localStorage.getItem("idAsso") === null){
-    window.location.href = '../login/login.html';
-}else{
     id = JSON.parse(localStorage.getItem("User"));
-}
 return id;
 }
 

@@ -218,6 +218,9 @@ function checkUser() {
         .catch((err) => {
             console.error(err);
         })
+
+        user = JSON.parse(localStorage.getItem("User"));
+    document.getElementById("name").textContent = user.ass_userName
 }
 
 async function cargeBook() {

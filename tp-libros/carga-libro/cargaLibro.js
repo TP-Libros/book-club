@@ -34,6 +34,9 @@ function checkUser() {
         .catch((err) => {
             console.error(err);
         })
+
+        user = JSON.parse(localStorage.getItem("User"));
+    document.getElementById("name").textContent = user.ass_userName
 }
 
 document.addEventListener("submit", async (event) => {
