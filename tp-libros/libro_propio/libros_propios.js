@@ -186,7 +186,7 @@ function redirectSelectedModification(e) {
 
 async function redirectSelectedDelete(e) {
 
-    const urlLibros = "http://localhost:3000/book/" + e.getAttribute("borrow");
+    const urlBorrowing = "http://localhost:3000/borrowing/" + e.getAttribute("borrowing");
     const send = {
         method: 'DELETE',
         headers: {
@@ -194,13 +194,15 @@ async function redirectSelectedDelete(e) {
         }
     }
     try {
-        let res = await fetch(urlLibros, send);
+        let res = await fetch(urlBorrowing, send);
         checkStatus(res)
         let data = await res.json();
     } catch (err) {
         let message = err.statusText
         console.log(message)
-    }
+    }    
+
+    
 }
 
 function checkUser() {
