@@ -8,7 +8,7 @@ function handleFileDrop($eve) {
     fr.onload = loaded;
     function loaded(evt) {
         image.setAttribute("src", evt.target.result);
-        imageSrc = image.currentSrc;
+        imageSrc = image.src;
     }
     fr.readAsDataURL($eve.dataTransfer.files[0]);
 }
