@@ -10,39 +10,40 @@
 	<link rel="stylesheet" href="../../StylesUniversal/style-book-list.css">
 	<link rel="stylesheet" href="../catalogo/catalogo.css">
 	<link rel="stylesheet" href="../libro_propio/libros_propios.css">
-	<script src="../libro_propio/libros_propios.js"></script>
-	<title>Libros Propios | Book Club</title>
+	<title>Mis Libros | Book Club</title>
 </head>
 
 <body>
-
-
+	
+	
 	<header id="header">
 		<a href="../homePage/homePage.html"><img src="../../StylesUniversal/images/logo.png" alt="Book Club Logo"
-				id="header-img"></a>
-		<h1>Libros a Prestamo</h1>
-		<p id="name"></p>
-		<nav id="nav-bar">
-			<ul>
-				<li><a class="nav-link" href="../carga-libro/cargarLibro.html">Cargar Libros</a></li>
-				<li><a class="nav-link" href="../libros_aprestamo/libros_aprestamo.html">Libros a Prestamo</a></li>
-				<li><a class="nav-link" href="../catalogo/catalogo.html">Catalogo</a></li>
-			</ul>
+			id="header-img"></a>
+			<h1>Mis Libros</h1>
+			<p id="name"></p>
+			<nav id="nav-bar">
+				<ul>
+					<li><a class="nav-link" href="../carga-libro/cargarLibro.html">Cargar Libros</a></li>
+					<li><a class="nav-link" href="../libros_aprestamo/libros_aprestamo.html">Libros a Prestamo</a></li>
+					<li><a class="nav-link" href="../catalogo/catalogo.html">Catalogo</a></li>
+				</ul>
 			<button onclick="window.location.href='../libro_propio/libros_propios.html';" type="button">Mis
 				Libros</button>
-		</nav>
-	</header>
-
-	<main>
-
+			</nav>
+		</header>
+		
+		<main>
+			
 		<div id="position-2">
-            <label style="padding-top: 10px;"><input type="checkbox" id="cbox1" value="first_checkbox" >Filtrar por libros prestados</label><br>
-			<div id="book-list">
-
+			<label style="padding-top: 10px;"><input type="checkbox" id="cbox1" value="" />Filtrar por libros
+				prestados</label><br>
+				<div id="book-list">
+				
+				</div>
 			</div>
-		</div>
 	</main>
-
+	
+	<script src="../libro_propio/libros_propios.js"></script>
 </body>
 
 </html>

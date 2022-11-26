@@ -1,19 +1,19 @@
-// const d = document;
-// d.addEventListener("DOMContentLoaded", cargeCatalogo())
+const check = document.getElementById("cbox1") 
+window.onload = () => { 
+    cargeBook()
+}
 
-window.onload = () => { cargeBook() }
-
-const loadBooksBorrowed = (data) => {
+loadBooksBorrowed = (data) => {
 
     let books = data[0].book;
-    let borrowed = data[0].borrowing
+    let borrowing = data[0].borrowing
 
-    var book = {}
+    var book = []
     var j = 0;
 
     for (let i = 0; i < books.length; i++) {
         const element = books[i];
-        if (element.boo_borrowingSt){
+        if (element.boo_borrowingSt === true){
             book[j] = element
             j++
         }
@@ -21,13 +21,13 @@ const loadBooksBorrowed = (data) => {
     }
 
     let send = {}
-    send[0] = {book, borrowed};
+    send[0] = {book, borrowing};
 
     loadBooks(send)
 
 }
 
-document.addEventListener("change", async (event) => {
+check.addEventListener("change", async (event) => {
     event.preventDefault();
     event.stopPropagation();
 
@@ -52,7 +52,12 @@ document.addEventListener("change", async (event) => {
         response = await fetch(url, send)
         checkStatus(response)
         let data = await response.json();
-        loadBooksBorrowed(data)
+
+        if (check.checked) {
+            loadBooksBorrowed(data)
+        }else{
+            loadBooks(data)
+        }
     } catch (e) {
         return e.message;
     }
@@ -60,14 +65,14 @@ document.addEventListener("change", async (event) => {
 
 })
 
-const loadBooks = (data) => {
+loadBooks = (data) => {
 
     let books = data[0].book
     let borrowing = data[0].borrowing
 
     for (let i = 0; i < books.length; i++) {
         const element = books[i];
-        let borrow = borrowing.find(el => el.boo_id === element.boo_id);
+        let borrow = borrowing.find(el => el.booId === element.boo_id);
 
         let tittle = document.createElement("div")
         tittle.classList.add("book-tittle")
@@ -128,15 +133,16 @@ const loadBooks = (data) => {
         if (borrow !== undefined) {
             let borrowed_to = document.createElement("div")
             borrowed_to.classList.add("borrowed_to")
-            let borrowed_to_text = createElement("p")
+            let borrowed_to_text = document.createElement("p")
             borrowed_to_text = borrow.ass_id.ass_userName
             borrowed_to.append(borrowed_to_text)
 
             let date_to = document.createElement("div")
             date_to.classList.add("date_to")
-            let date_to_text = createElement("p")
+            let date_to_text = document.createElement("p")
             date_to_text = borrow.bor_to_date
-            date_to.append(date_to_text)
+            var date = date_to_text.slice(0, -14)
+            date_to.append(date)
 
             let borrowed = document.createElement("div")
             borrowed.classList.add("borrowed")
@@ -234,77 +240,13 @@ async function cargeBook() {
         response = await fetch(url, send)
         checkStatus(response)
         let data = await response.json();
-        loadBooks(data)
+        loadBooks(data);
     } catch (e) {
         return e.message;
     }
 
 
 }
-
-document.addEventListener('change', (event) => {
-    event.preventDefault()
-    event.stopPropagation()
-
-    const urlISBNFilter = "http://localhost:3000/book/filter/isbn/"
-    const urlAuthorFilter = "http://localhost:3000/book/filter/author/"
-    const urlGenderFilter = "http://localhost:3000/book/filter/gender/"
-    const urltittleFilter = "http://localhost:3000/book/filter/title/"
-
-    let form = document.forms["form"]
-    let fd = new FormData(form);
-    let data = {};
-    for (let [key, prop] of fd) {
-        data[key] = prop;
-    }
-
-    if (data["gender-search"] !== "") {
-        sendRequest(urlGenderFilter + data["gender-search"])
-    }
-
-    if (data["tittle-search"] !== "") {
-        sendRequest(urltittleFilter + data["tittle-search"])
-    }
-
-    if (data["author-search"] !== "") {
-        sendRequest(urlAuthorFilter + data["author-search"])
-    }
-
-    if (data["order-select"] !== "") {
-        sendRequest(urlISBNFilter + data["order-search"])
-    }
-
-    if ((data["order-select"] === "") && (data["author-search"] === "") && (data["tittle-search"] === "") && (data["gender-search"] === "")) {
-        cargeCatalogo()
-    }
-})
-
-async function sendRequest(url) {
-
-    var a = document.getElementById("book-list");
-
-    while (a.hasChildNodes())
-        a.removeChild(a.firstChild);
-
-    const send = {
-        method: 'GET',
-        headers: {
-            'Authorization': 'Bearer ' + getLocalStorage()
-        }
-    }
-
-    try {
-        let response;
-        response = await fetch(url, send)
-        checkStatus(response)
-        let data = await response.json();
-        loadBooks(data)
-    } catch (e) {
-        return e.message;
-    }
-
-}
-
 
 function getLocalStorage() {
     let token;
@@ -323,3 +265,6 @@ function checkStatus(e) {
 }
 
 ///borrowing/returnBorrowing/{id}
+
+// const checkbox = document.getElementById("cbox1");
+// checkbox.addEventListener('click', cargeBook);

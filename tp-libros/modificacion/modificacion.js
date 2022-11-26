@@ -53,7 +53,8 @@ document.addEventListener("submit", (event) => {
     data["boo_imagePath"] = imageSrc;
     let ass_id = JSON.parse(localStorage.getItem("User"));
     data["ass_token"] = ass_id;
-    VALUE = JSON.stringify(data, null, 11);
+    data["boo_id"] = book.boo_id;
+    VALUE = JSON.stringify(data, null, 12);
     // const myHeaders = new Headers();
     // myHeaders.append('Content-Type', 'application/json');
 
@@ -70,15 +71,16 @@ document.addEventListener("submit", (event) => {
     fetch(url, send)
         .then(response => checkStatus(response))
         .then(data => data.json())
-        .then(data => {
-            console.log(data)
-        })
+        .then(redirect())
         .catch((err) => {
             console.error(err);
         })
 
-    window.location.href = '../libro_propio/libros_propios_2.html';
-})
+    })
+    
+    function redirect(){
+    window.location.href = '../libro_propio/libros_propios.html';
+} 
 
 window.onload = async function () {
 
@@ -101,7 +103,7 @@ window.onload = async function () {
             option = document.createElement("option");
             option.text = element.aut_name + " " + element.aut_surname;
             option.value = element.aut_id;
-            option.setAttribute("id", element.aut_id.aut_id)
+            option.setAttribute("id",element.aut_id);
             document.getElementById("author").appendChild(option)
         }
 
@@ -125,7 +127,7 @@ window.onload = async function () {
             option = document.createElement("option");
             option.text = element.gen_name;
             option.value = element.gen_id;
-            option.setAttribute("id", element.gen_id.gen_id)
+            option.setAttribute("id",element.gen_id);
             document.getElementById("gender").appendChild(option)
         }
 
@@ -150,7 +152,7 @@ window.onload = async function () {
             option = document.createElement("option");
             option.text = element.edi_name;
             option.value = element.edi_id;
-            option.setAttribute("id", element.edi_id.edi_id)
+            option.setAttribute("id", element.edi_id)
             document.getElementById("editorial").appendChild(option)
         }
 
@@ -197,13 +199,12 @@ async function getBookForModification(){
     
     document.getElementById("boo_isbn").value = book.boo_ISBN;
     document.getElementById("boo_title").value = book.boo_title;
-    $("#author option[value='book.aut_id.aut_id']").attr("selected", true);
-    document.getElementById("author").getElementById(book.aut_id.aut_id).setAttribute("selected", selected)
-    document.getElementById("gender").getElementById(book.gen_id.gen_id).setAttribute("selected", selected)
+    document.getElementById("author").value = book.aut_id.aut_id
+    document.getElementById("gender").value = book.gen_id.gen_id
     document.getElementById("boo_yearEdition").value = book.boo_yearEdition;
     document.getElementById("boo_synopsis").value = book.boo_synopsis;
-    document.getElementById("editorial").getElementById(book.edi_id.edi_id).setAttribute("selected", selected)
-
+    document.getElementById("editorial").value = book.edi_id.edi_id
+    document.getElementById("image-sink").src = book.boo_imagePath;
 }
 
 function getLocalStorage() {
