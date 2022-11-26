@@ -53,6 +53,7 @@ button#signIn {
   font-style: oblique;
   font-family:Geneva;
   font-size: large;
+  overflow: auto;
 }
 
 button#seeMore {
@@ -82,6 +83,12 @@ thead{
 
 tr:nth-child(even){
   background-color: #ddd;
+}
+
+.image{
+  width: 75px ;
+  height: 90px ;
+
 }
 
 
