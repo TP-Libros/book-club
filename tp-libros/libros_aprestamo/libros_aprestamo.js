@@ -3,7 +3,7 @@
 window.onload = () => { cargeBook() }
 
 const loadBooks = (data) => {
-    let books = data[0];
+
 
     data.forEach(el => {
 
@@ -49,11 +49,13 @@ const loadBooks = (data) => {
         let newBook = document.createElement("div");
         newBook.classList.add("book");
         newBook.setAttribute("id", el.booId)
+        newBook.setAttribute("borrowing", el.bor_id)
 
         let buttonVer = document.createElement("button")
             buttonVer.classList.add("button")
             buttonVer.textContent = "Ver"
             buttonVer.setAttribute("onclick", "redirectSelectedModification(this.parentNode)")
+
 
 
         newBook.append(image)
@@ -76,6 +78,7 @@ const loadBooks = (data) => {
 function redirectSelectedModification(e){
 
     localStorage.setItem("book", JSON.stringify(e.id))
+    localStorage.setItem("borrowing", JSON.stringify(e.getAttribute("borrowing")))
     window.location.href="../libro_seleccionado/libro_seleccionado.html"
 }
 

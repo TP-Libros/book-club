@@ -76,13 +76,13 @@ const getAll=async () => {
         }
 
 
-        saveLocalStorage(books.ass_id.ass_id);
+
+        saveLocalStorage(books.ass_id);
         
         
     } catch(err){
         let message=err.statusText || "ERROR";
-        let error=document.querySelector(".owner");
-        owner.append(message);
+       
        
     }
    
@@ -90,7 +90,8 @@ const getAll=async () => {
 
 const returnButton = d.querySelector('.devolver');
 async function returnBook() {
-    const urlLibros = "http://localhost:3000/borrowing/returnBorrowing/"+4;
+
+    const urlLibros = "http://localhost:3000/borrowing/returnBorrowing/"+JSON.parse(localStorage.getItem("borrowing"));
     const send = {
         method: 'PUT',
         headers: {
@@ -104,7 +105,7 @@ try{
         if(!res.ok) throw {status: res.status,
         statusText: res.statusText};
         alert('Libro devuelto');
-        window.location.href = '../libro_propio.libros_propios.html';
+        window.location.href = '../tp-libros/libros_aprestamo/libros_aprestamo.html';
             
     } catch(err){
         let message=err.statusText || "ERROR";
@@ -118,18 +119,18 @@ returnButton.addEventListener('click', returnBook);
 
 const solicitarButton = d.querySelector('.solicitar');
 async function solicitarBook() {
-    let date = new Date().now;
-    alert(date);
+    const date = new Date();
     let data;
     let semanaEnMilisegundos = 1000 * 60 * 60 * 24 * 14; //dos semanas
     let suma = date.getTime() + semanaEnMilisegundos;
     let fechaDentroDeDosSemana = new Date(suma);
     const urlLibros = "http://localhost:3000/borrowing";
-    data["booId"] = 1;
+
+    data["booId"] = JSON.parse(localStorage.getItem("book"));
     data["bor_from_date"] = date;
     data["bor_to_date"] = fechaDentroDeDosSemana;
     data["bor_devolution_date"] = null;
-    data["assId"] = 2;
+    data["assId"] = getidAss();
     VALUE = JSON.stringify(data, null, 11);
     
     const send = {
@@ -146,7 +147,7 @@ async function solicitarBook() {
         if(!res.ok) throw {status: res.status,
         statusText: res.statusText};
         alert('Solicitado')
-        window.location.href = '../libro_propio.libros_propios.html';
+        window.location.href = '../tp-libros/libros_aprestamo/libros_aprestamo.html';
             
     } catch(err){
         alert("no")
@@ -157,9 +158,9 @@ async function solicitarBook() {
 solicitarButton.addEventListener('click', solicitarBook);
 
 function saveLocalStorage(idAsso) {
-    let idAssoc = data.token;
 
-    localStorage.setItem("idAsso", JSON.stringify(idAssoc));
+
+    localStorage.setItem("idAsso", JSON.stringify(idAsso));
 
 }
 
