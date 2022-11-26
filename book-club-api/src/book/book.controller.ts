@@ -32,6 +32,19 @@ export class BookController {
     return this.bookService.findAll(author, gender, editorial);
   }*/
 
+
+
+  @Get('catalogueNoAssociated/')
+  findAllNoAssociated() {
+    return this.bookService.findAllNoAssociated();
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('borrowed/')
+  findAllBorrowedBooks() {
+    return this.bookService.findAllBorrowedBooks();
+  }
+
   @Get('filter/isbn/:boo_isbn')
   findAllFilterByISBN(@Param('boo_isbn') isbn: number) {
     return this.bookService.findAllFilterByISBN(isbn);
@@ -63,15 +76,12 @@ export class BookController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('catalogue/')
+  @Get('')
   findAllFilter() {
-    return this.bookService.findAllFilter();
+    return this.bookService.findAllFilterCatalogue();
   }
 
-  @Get('catalogueNoAssociated/')
-  findAllNoAssociated() {
-    return this.bookService.findAllNoAssociated();
-  }
+
 
   @UseGuards(JwtAuthGuard)
   @Get('myBooks/:id')

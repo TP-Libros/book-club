@@ -1,29 +1,33 @@
-/* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ILike, Repository } from 'typeorm';
+import { Borrowing } from 'src/borrowing/borrowing.entity';
+import { ILike, IsNull, Repository } from 'typeorm';
 import { Book } from './book.entity';
 
 @Injectable()
 export class BookService {
-  constructor(@InjectRepository(Book) private bookService: Repository<Book>) {}
+  constructor(
+    @InjectRepository(Book) private bookService: Repository<Book>,
+    @InjectRepository(Borrowing)
+    private borrowingAuxService: Repository<Borrowing>,
+  ) {}
 
-  findAll(): Promise<Book[]> {
-    return this.bookService.find({ 
-      relations: ['aut_id', 'edi_id', 'gen_id'],
-      order:{boo_title: 'ASC'}
-     });
-  }
-
-  findAllFilter(): Promise<Book[]> {
+  findAllFilterCatalogue(): Promise<Book[]> {
     return this.bookService.find({
       where: {
         boo_borrowingSt: false,
       },
       relations: ['aut_id', 'edi_id', 'gen_id'],
-      order:{boo_title: 'ASC'}
+      order: { boo_title: 'ASC' },
     });
   }
+
+  // findAll(): Promise<Book[]> {
+  //   return this.bookService.find({
+  //     relations: ['aut_id', 'edi_id', 'gen_id'],
+  //     order:{boo_title: 'ASC'}
+  //   });
+  // }
 
   findAllNoAssociated(): Promise<Book[]> {
     return this.bookService.find({
@@ -31,40 +35,42 @@ export class BookService {
         boo_borrowingSt: false,
       },
       relations: ['aut_id', 'edi_id', 'gen_id'],
-      order:{boo_title: 'ASC'},
-      take: 10
+      order: { boo_title: 'ASC' },
+      take: 10,
     });
   }
 
-  findAllFilterByISBN(isbn: number): Promise<Book[]>{
+  findAllFilterByISBN(isbn: number): Promise<Book[]> {
     return this.bookService.find({
       where: {
-        boo_ISBN: (isbn),
+        boo_ISBN: isbn,
         boo_borrowingSt: false,
       },
       relations: ['aut_id', 'edi_id', 'gen_id'],
-    })
+    });
   }
 
-  async findAllFilterByAuthor(author: string): Promise<Book[]>{
+  async findAllFilterByAuthor(author: string): Promise<Book[]> {
     return await this.bookService.find({
-      where: [{
-        boo_borrowingSt: false,
-        aut_id : {
-          aut_name: ILike(`%${author}%`)
+      where: [
+        {
+          boo_borrowingSt: false,
+          aut_id: {
+            aut_name: ILike(`%${author}%`),
+          },
         },
-      },
-      {
-        aut_id : {
-          aut_surname: ILike(`%${author}%`)
+        {
+          aut_id: {
+            aut_surname: ILike(`%${author}%`),
+          },
         },
-      }],
+      ],
       relations: ['aut_id', 'edi_id', 'gen_id'],
-      order:{boo_title: 'ASC'}
-    })
+      order: { boo_title: 'ASC' },
+    });
   }
 
-  async findAllFilterByGender(gender: string): Promise<Book[]>{
+  async findAllFilterByGender(gender: string): Promise<Book[]> {
     return await this.bookService.find({
       where: {
         boo_borrowingSt: false,
@@ -73,11 +79,11 @@ export class BookService {
         },
       },
       relations: ['aut_id', 'edi_id', 'gen_id'],
-      order:{boo_title: 'ASC'}
-    })
+      order: { boo_title: 'ASC' },
+    });
   }
 
-  findAllFilterByTitle(title: string): Promise<Book[]>{
+  findAllFilterByTitle(title: string): Promise<Book[]> {
     //const books = this.bookService.createQueryBuilder("book").where("book.boo_title= :title", {title: title}).getMany();
     return this.bookService.find({
       where: {
@@ -85,19 +91,28 @@ export class BookService {
         boo_title: ILike(`%${title}%`),
       },
       relations: ['aut_id', 'edi_id', 'gen_id'],
-      order:{boo_title: 'ASC'}
-    })
+      order: { boo_title: 'ASC' },
+    });
   }
 
-  findAllFilterId(id: number): Promise<Book[]> {
-    return this.bookService.find({
+  async findAllFilterId(id: number) {
+    const book: Book[] = await this.bookService.find({
       where: {
-        boo_borrowingSt: false,
+        // boo_borrowingSt: false,
         assId: id,
       },
-      relations: ['aut_id', 'edi_id', 'gen_id'],
-      order:{boo_title: 'ASC'}
+      relations: ['aut_id', 'edi_id', 'gen_id', 'ass_id'],
+      order: { boo_title: 'ASC' },
     });
+    const borrowings: Borrowing[] = await this.borrowingAuxService.find({
+      where: {
+        bor_devolution_date: IsNull(),
+      },
+      relations: ['ass_id'],
+    });
+
+    const data = [{ book: book, borrowing: borrowings }];
+    return data;
   }
 
   findAllFilterIdBorrowings(id: number): Promise<Book[]> {
@@ -105,20 +120,40 @@ export class BookService {
       where: {
         assId: id,
         boo_borrowingSt: true,
-
       },
       relations: ['aut_id', 'edi_id', 'gen_id'],
-      order:{boo_title: 'ASC'}
+      order: { boo_title: 'ASC' },
     });
   }
 
-  findById(id: number) {
-    return this.bookService.find({
+  async findById(id: number) {
+    const book = await this.bookService.find({
       where: {
-        boo_id: id
+        boo_id: id,
       },
       relations: ['aut_id', 'edi_id', 'gen_id', 'ass_id'],
-      order:{boo_title: 'ASC'}
+      order: { boo_title: 'ASC' },
+    });
+
+    const borrowing = await this.borrowingAuxService.find({
+      where: {
+        booId: book[0].boo_id,
+        bor_devolution_date: IsNull(),
+      },
+      relations: ['ass_id'],
+      order: { bor_id: 'ASC' },
+    });
+    const data = [{ book: book[0], borrowing: borrowing }];
+    return data;
+  }
+
+  findAllBorrowedBooks() {
+    return this.bookService.find({
+      where: {
+        boo_borrowingSt: true,
+      },
+      relations: ['aut_id', 'edi_id', 'gen_id', 'ass_id'],
+      order: { boo_title: 'ASC' },
     });
   }
 
@@ -129,24 +164,35 @@ export class BookService {
         boo_borrowingSt: false,
       },
       relations: ['aut_id', 'edi_id', 'gen_id', 'ass_id'],
-      order:{boo_title: 'ASC'}
+      order: { boo_title: 'ASC' },
     });
   }
 
   async updateBook(id: number, body: any) {
-      
-    if(this.findByIdAvailable(id) != null ){
-        this.update(id,body);
-    }
-    return 'No se puede modificar el registro, el libro esta prestado'
+    // if(this.findByIdAvailable(id) != null ){
+    // if(body.boo_borrowingSt == false){
+    body = { ...body, boo_borrowingSt: true };
+    return this.update(id, body);
+    // }
+    // return null;
+  }
+
+  async updateReturnedBook(id: number, body: any) {
+    // if(this.findByIdAvailable(id) != null ){
+    // if(body.boo_borrowingSt == true){
+    body = { ...body, boo_borrowingSt: false };
+    return this.update(id, body);
+    // }
+    // return null;
   }
 
   async deleteBook(id: number) {
-      
-    if(this.findByIdAvailable(id) != null ){
-       this.remove(id);
+    if (this.findByIdAvailable(id) != null) {
+      return this.remove(id);
     }
-    return 'No se puede borrar el registro, el libro esta prestado'
+    throw new BadRequestException(
+      'No se puede modificar el registro, el libro esta prestado.',
+    );
   }
 
   create(body: any) {

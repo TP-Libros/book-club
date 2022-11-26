@@ -67,3 +67,44 @@
 	align-items: center;
 	color: #828282;
 }
+
+.containerMsg {   
+	margin-top: 40px;
+	background-color: #F1D9CB;
+	text-align:center;
+	height:85px; 
+	margin-bottom: 28px;
+	padding: 1rem;
+	
+  }
+
+  button {
+	font-family: sans-serif; 
+	font-weight: bold;
+	width: 110px;
+	height: 35px;
+	border-radius: 5px;
+  
+  }
+
+  table{
+	width: 100%;
+	text-align: left;
+  
+  }
+  
+  th,td{
+	padding: 20px;
+  
+  }
+  
+  thead{
+	background-color:#ec8b75;
+	border-bottom:solid 5px #0F362D;
+	color:white;
+  }
+  
+  tr:nth-child(even){
+	background-color: #ddd;
+  }
+  
