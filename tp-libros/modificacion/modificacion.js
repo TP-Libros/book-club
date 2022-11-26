@@ -17,7 +17,7 @@ function handleDragOver($eve) {
     $eve.preventDefault();
 }
 
-function checkUser(){
+function checkUser() {
     let token = getLocalStorage();
     const url = "http://localhost:3000/associated";
 
@@ -36,13 +36,13 @@ function checkUser(){
         })
 }
 
-document.addEventListener("submit", (event) => {
+document.addEventListener("submit", async (event) => {
     event.preventDefault();
     event.stopPropagation();
 
-    let book = localStorage.getItem("book");
+    let book = JSON.parse(localStorage.getItem("book"));
 
-    const url = "http://127.0.0.1:3000/book/"+book.boo_id;
+    const url = "http://127.0.0.1:3000/book/" + book;
 
     let form = document.forms["form"];
     let fd = new FormData(form);
@@ -50,11 +50,11 @@ document.addEventListener("submit", (event) => {
     for (let [key, prop] of fd) {
         data[key] = prop;
     }
-    data["boo_imagePath"] = imageSrc;
     let ass_id = JSON.parse(localStorage.getItem("User"));
-    data["ass_token"] = ass_id;
-    data["boo_id"] = book.boo_id;
-    VALUE = JSON.stringify(data, null, 12);
+    data["assId"] = ass_id.ass_id;
+    data["boo_borrowingSt"] = false
+    data["boo_imagePath"] = imageSrc;
+    VALUE = JSON.stringify(data, null,10);
     // const myHeaders = new Headers();
     // myHeaders.append('Content-Type', 'application/json');
 
@@ -68,19 +68,23 @@ document.addEventListener("submit", (event) => {
         }
     };
 
-    fetch(url, send)
-        .then(response => checkStatus(response))
-        .then(data => data.json())
-        .then(redirect())
-        .catch((err) => {
-            console.error(err);
-        })
+    try{
+        let respo;
+        respo = await fetch(url, send)
+        checkStatus(respo)
+        let data = await respo.json()
+        redirect()
+    }catch(e){
+        return e.message
+    }
 
-    })
     
-    function redirect(){
+
+})
+
+function redirect() {
     window.location.href = '../libro_propio/libros_propios.html';
-} 
+}
 
 window.onload = async function () {
 
@@ -103,8 +107,8 @@ window.onload = async function () {
             option = document.createElement("option");
             option.text = element.aut_name + " " + element.aut_surname;
             option.value = element.aut_id;
-            option.setAttribute("id",element.aut_id);
-            document.getElementById("author").appendChild(option)
+            option.setAttribute("id", element.aut_id);
+            document.getElementById("autId").appendChild(option)
         }
 
     }
@@ -127,8 +131,8 @@ window.onload = async function () {
             option = document.createElement("option");
             option.text = element.gen_name;
             option.value = element.gen_id;
-            option.setAttribute("id",element.gen_id);
-            document.getElementById("gender").appendChild(option)
+            option.setAttribute("id", element.gen_id);
+            document.getElementById("genId").appendChild(option)
         }
 
 
@@ -153,7 +157,7 @@ window.onload = async function () {
             option.text = element.edi_name;
             option.value = element.edi_id;
             option.setAttribute("id", element.edi_id)
-            document.getElementById("editorial").appendChild(option)
+            document.getElementById("ediId").appendChild(option)
         }
 
 
@@ -172,7 +176,7 @@ window.onload = async function () {
     getBookForModification()
 }
 
-async function getBookForModification(){
+async function getBookForModification() {
 
     let bookId = JSON.parse(localStorage.getItem("book"))
 
@@ -185,7 +189,7 @@ async function getBookForModification(){
         }
     };
 
-    let book ={}
+    let book = {}
 
     try {
         let response;
@@ -196,15 +200,16 @@ async function getBookForModification(){
     } catch (e) {
         return e.message;
     }
-    
+
     document.getElementById("boo_isbn").value = book.boo_ISBN;
     document.getElementById("boo_title").value = book.boo_title;
-    document.getElementById("author").value = book.aut_id.aut_id
-    document.getElementById("gender").value = book.gen_id.gen_id
+    document.getElementById("autId").value = book.aut_id.aut_id
+    document.getElementById("genId").value = book.gen_id.gen_id
     document.getElementById("boo_yearEdition").value = book.boo_yearEdition;
     document.getElementById("boo_synopsis").value = book.boo_synopsis;
-    document.getElementById("editorial").value = book.edi_id.edi_id
+    document.getElementById("ediId").value = book.edi_id.edi_id
     document.getElementById("image-sink").src = book.boo_imagePath;
+    imageSrc = book.boo_imagePath;
 }
 
 function getLocalStorage() {
