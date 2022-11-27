@@ -197,6 +197,8 @@ async function redirectSelectedDelete(e) {
         let res = await fetch(urlLibros, send);
         checkStatus(res)
         let data = await res.json();
+        window.location.href = "/tp-libros/libro_propio/libros_propios.html"
+
     } catch (err) {
         let message = err.statusText
         console.log(message)
