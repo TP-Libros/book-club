@@ -113,6 +113,12 @@ returnButton.addEventListener('click', returnBook);
 
 const solicitarButton = d.querySelector('.solicitar');
 async function solicitarBook() {
+
+    document.getElementsByClassName("solicitar").disabled = true
+
+    document.getElementsByClassName("devolver").disabled = true
+
+
     const date = new Date();
     let data = {};
     let semanaEnMilisegundos = 1000 * 60 * 60 * 24 * 14; //dos semanas
